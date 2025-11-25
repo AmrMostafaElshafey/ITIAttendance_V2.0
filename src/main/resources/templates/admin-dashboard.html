@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>لوحة تحكم الإدارة</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<div class="page-layout">
+    <aside th:replace="fragments/sidebar :: navigation"></aside>
+    <main class="page-content">
+<header>
+    <h2>لوحة تحكم الإدارة</h2>
+    <p>الوصول السريع للخدمات</p>
+</header>
+<div class="container section-grid">
+    <div class="card">
+        <h3>الموظفون</h3>
+        <p>تحديث وإدارة ملفات الموظفين وتفعيل الحسابات.</p>
+        <a class="btn" href="/admin/employees">إدارة</a>
+    </div>
+    <div class="card">
+        <h3>الأقسام</h3>
+        <p>تعريف الأقسام وربطها بالموظفين.</p>
+        <a class="btn" href="/admin/departments">إدارة</a>
+    </div>
+    <div class="card">
+        <h3>الفروع</h3>
+        <p>إضافة وتحديث مواقع الفروع.</p>
+        <a class="btn" href="/admin/branches">إدارة</a>
+    </div>
+    <div class="card">
+        <h3>الحضور والانصراف</h3>
+        <p>تسجيل الحضور وضبط السجلات اليومية.</p>
+        <a class="btn" href="/admin/attendance">إدارة</a>
+    </div>
+    <div class="card">
+        <h3>الإجازات</h3>
+        <p>متابعة طلبات الإجازات والموافقات.</p>
+        <a class="btn" href="/admin/leaves">إدارة</a>
+    </div>
+</div>
+    </main>
+</div>
+</body>
+</html>
