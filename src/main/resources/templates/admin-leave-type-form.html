@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>نوع إجازة</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<div class="container">
+    <h1>إدارة نوع الإجازة</h1>
+    <form th:action="@{/admin/leave-types}" th:object="${leaveType}" method="post" class="form-card">
+        <input type="hidden" th:field="*{id}">
+        <label>الاسم
+            <input type="text" th:field="*{name}" required>
+        </label>
+        <label>الوصف
+            <textarea th:field="*{description}" rows="3"></textarea>
+        </label>
+        <label>الحد الأقصى للأيام في الطلب
+            <input type="number" th:field="*{maxDaysPerRequest}" min="1" required>
+        </label>
+        <label>يحتاج موافقة المدير؟
+            <input type="checkbox" th:field="*{requiresManagerApproval}">
+        </label>
+        <label>يحتاج موافقة الموارد البشرية؟
+            <input type="checkbox" th:field="*{requiresHrApproval}">
+        </label>
+        <button type="submit" class="btn">حفظ</button>
+        <a href="/admin/leave-types" class="link">عودة</a>
+    </form>
+</div>
+</body>
+</html>

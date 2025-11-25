@@ -1,0 +1,83 @@
+body {
+    font-family: 'Cairo', 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #0f2a47, #1f4e79);
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+}
+
+header {
+    background-color: #ba0c2f;
+    padding: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 20px;
+}
+
+button, .btn {
+    background-color: #ba0c2f;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+table th, table td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+input, select {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+form {
+    display: grid;
+    gap: 10px;
+}
+
+.section-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+}
+
+.alert {
+    background: #ffc107;
+    color: #000;
+    padding: 10px;
+    border-radius: 8px;
+}

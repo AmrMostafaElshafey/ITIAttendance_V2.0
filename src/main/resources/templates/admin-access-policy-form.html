@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>سياسة وصول</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<div class="container">
+    <h1>إعداد سياسة وصول</h1>
+    <form th:action="@{/admin/access-policies}" th:object="${policy}" method="post" class="form-card">
+        <input type="hidden" th:field="*{id}">
+        <label>الدور
+            <select th:field="*{role}">
+                <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+            </select>
+        </label>
+        <label>الصفحات المسموح بها (مفصولة بفواصل)
+            <textarea th:field="*{allowedPages}" rows="3" placeholder="/admin/branches,/admin/departments"></textarea>
+        </label>
+        <button type="submit" class="btn">حفظ</button>
+        <a href="/admin/access-policies" class="link">عودة</a>
+    </form>
+</div>
+</body>
+</html>
