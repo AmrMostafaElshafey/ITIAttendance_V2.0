@@ -12,7 +12,7 @@ public class Employee {
     private String email;
     private String password;
     private String phone;
-    @Column(length = 24)
+    @Column(length = 14)
     private String nationalId;
     private LocalDate hireDate;
 
