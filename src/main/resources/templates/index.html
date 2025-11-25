@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>منصة الحضور - ITI</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<header>
+    <h1>منصة حضور ومعاملات الموارد البشرية - ITI</h1>
+    <p>اختيار المسار المناسب للدخول</p>
+</header>
+<div class="container">
+    <div class="hero">
+        <h2>كل خدمات الموارد البشرية في منصة واحدة</h2>
+        <p>تتيح المنصة للموارد البشرية والمديرين والموظفين إدارة الهيكل التنظيمي، الحضور، والإجازات بسهولة على مختلف الأجهزة.</p>
+        <nav>
+            <button onclick="window.location.href='/admin/login'">الدخول لمسار الإدارة</button>
+            <button onclick="window.location.href='/employee/portal'">الدخول لمسار الموظف</button>
+            <a class="btn" href="/register">تسجيل موظف جديد</a>
+        </nav>
+    </div>
+
+    <div class="section-grid" style="margin-top: 20px;">
+        <div class="card">
+            <h3>التشغيل الإداري</h3>
+            <p>تهيئة الهيكل التنظيمي وربط الموظفين بالمسميات والفروع.</p>
+            <div class="flex">
+                <a class="btn" href="/admin/organizations">المؤسسة</a>
+                <a class="btn" href="/admin/branches">الفروع</a>
+                <a class="btn" href="/admin/departments">الأقسام</a>
+                <a class="btn" href="/admin/job-titles">المسميات</a>
+                <a class="btn" href="/admin/employees">الموظفون</a>
+            </div>
+            <div class="pill">استيراد جماعي متاح لكل كيان</div>
+        </div>
+
+        <div class="card">
+            <h3>القواعد والضبط</h3>
+            <p>تفعيل القواعد والسياسات التي تحكم الحضور والإجازات والوصول.</p>
+            <div class="flex">
+                <a class="btn" href="/admin/rules">قواعد الحضور</a>
+                <a class="btn" href="/admin/leave-types">أنواع الإجازات</a>
+                <a class="btn" href="/admin/approvals">مستويات الاعتماد</a>
+                <a class="btn" href="/admin/access-policies">سياسات الوصول</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>الحضور والإجازات</h3>
+            <p>متابعة سجلات الحضور والطلبات واعتمادها.</p>
+            <div class="flex">
+                <a class="btn" href="/admin/attendance">سجلات الحضور</a>
+                <a class="btn" href="/admin/leaves">طلبات الإجازة</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>بوابة الموظفين</h3>
+            <p>عرض الحضور، تقديم الطلبات، ومتابعة حالة الاعتماد لكل موظف.</p>
+            <div class="flex">
+                <a class="btn" href="/employee/portal">بوابة الموظف</a>
+                <a class="btn" href="/register">تسجيل لأول مرة</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

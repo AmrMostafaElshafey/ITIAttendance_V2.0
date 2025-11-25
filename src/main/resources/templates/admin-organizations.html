@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>الهيكل المؤسسي</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<div class="container">
+    <h1>المؤسسات</h1>
+    <div class="actions">
+        <a class="btn" href="/admin/organizations/new">إضافة مؤسسة</a>
+        <form action="/admin/organizations/import" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="submit">استيراد Excel</button>
+            <a href="/admin/organizations/template" class="link">تنزيل القالب</a>
+        </form>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>الاسم</th>
+            <th>الوصف</th>
+            <th>إجراءات</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="org : ${organizations}">
+            <td th:text="${org.name}"></td>
+            <td th:text="${org.description}"></td>
+            <td>
+                <a th:href="@{'/admin/organizations/edit/' + ${org.id}}">تعديل</a>
+                <form th:action="@{'/admin/organizations/delete/' + ${org.id}}" method="post" style="display:inline">
+                    <button type="submit">حذف ناعم</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

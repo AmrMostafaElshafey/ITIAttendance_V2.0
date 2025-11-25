@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>بوابة الموظف</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<header><h2>بوابة الموظف</h2></header>
+<div class="container section-grid">
+    <div class="card">
+        <h3>سجلات الحضور</h3>
+        <p>متابعة حضورك وانصرافك.</p>
+        <ul>
+            <li th:each="rec : ${records}" th:text="${rec.date + ' - ' + rec.status}"></li>
+        </ul>
+    </div>
+    <div class="card">
+        <h3>طلبات الإجازة</h3>
+        <p>عرض آخر الطلبات والحالة الحالية.</p>
+        <ul>
+            <li th:each="leave : ${leaves}" th:text="${leave.startDate + ' حتى ' + leave.endDate + ' (' + leave.status + ')'}"></li>
+        </ul>
+    </div>
+</div>
+</body>
+</html>
