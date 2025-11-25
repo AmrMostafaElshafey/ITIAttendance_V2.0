@@ -15,7 +15,8 @@ public class Department {
     @ManyToOne
     private Branch branch;
 
-    @OneToOne
+    @OneToOne(optional = true)
+    @JoinColumn(name = "manager_id", nullable = true)
     private Employee manager;
 
     @OneToMany(mappedBy = "department")
