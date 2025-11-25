@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>الأقسام</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<header><h2>إدارة الأقسام</h2></header>
+<div class="container">
+    <nav>
+        <a class="btn" href="/admin/departments/new">إضافة قسم</a>
+        <a class="btn" href="/admin/departments/template">تحميل نموذج Excel</a>
+    </nav>
+    <form th:action="@{/admin/departments/import}" method="post" enctype="multipart/form-data" class="card">
+        <label>رفع ملف Excel<input type="file" name="file" required></label>
+        <button type="submit">استيراد</button>
+    </form>
+    <div class="table-responsive">
+    <table>
+        <thead><tr><th>الاسم</th><th>الوصف</th><th>إجراءات</th></tr></thead>
+        <tbody>
+        <tr th:each="dep : ${departments}">
+            <td th:text="${dep.name}"></td>
+            <td th:text="${dep.description}"></td>
+            <td>
+                <a class="btn" th:href="@{'/admin/departments/edit/' + ${dep.id}}">تعديل</a>
+                <form th:action="@{'/admin/departments/delete/' + ${dep.id}}" method="post" style="display:inline">
+                    <button type="submit">حذف ناعم</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+</body>
+</html>

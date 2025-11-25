@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>مستويات الاعتماد</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<div class="container">
+    <h1>سلسلة الاعتمادات</h1>
+    <div class="actions">
+        <a class="btn" href="/admin/approvals/new">إضافة مستوى</a>
+        <form action="/admin/approvals/import" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="submit">استيراد Excel</button>
+            <a href="/admin/approvals/template" class="link">تنزيل القالب</a>
+        </form>
+    </div>
+    <div class="table-responsive">
+    <table>
+        <thead>
+        <tr>
+            <th>نوع الطلب</th>
+            <th>الدور المطلوب</th>
+            <th>ترتيب المستوى</th>
+            <th>SLA بالساعات</th>
+            <th>إجراءات</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="lvl : ${levels}">
+            <td th:text="${lvl.requestType}"></td>
+            <td th:text="${lvl.role}"></td>
+            <td th:text="${lvl.levelOrder}"></td>
+            <td th:text="${lvl.slaHours}"></td>
+            <td>
+                <a th:href="@{'/admin/approvals/edit/' + ${lvl.id}}">تعديل</a>
+                <form th:action="@{'/admin/approvals/delete/' + ${lvl.id}}" method="post" style="display:inline">
+                    <button type="submit">حذف ناعم</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+</body>
+</html>
