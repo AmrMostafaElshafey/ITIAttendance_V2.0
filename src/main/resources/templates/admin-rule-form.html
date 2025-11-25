@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>قاعدة حضور</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<div class="page-layout">
+    <aside th:replace="fragments/sidebar :: navigation"></aside>
+    <main class="page-content">
+<div class="container">
+    <h1>إدارة قاعدة الحضور</h1>
+    <form th:action="@{/admin/rules}" th:object="${rule}" method="post" class="form-card">
+        <input type="hidden" th:field="*{id}">
+        <label>الاسم
+            <input type="text" th:field="*{name}" required>
+        </label>
+        <label>المؤسسة
+            <select th:field="*{organization}">
+                <option th:each="org : ${organizations}" th:value="${org}" th:text="${org.name}"></option>
+            </select>
+        </label>
+        <label>الفرع
+            <select th:field="*{branch}">
+                <option th:each="branch : ${branches}" th:value="${branch}" th:text="${branch.name}"></option>
+            </select>
+        </label>
+        <label>القسم
+            <select th:field="*{department}">
+                <option th:each="dep : ${departments}" th:value="${dep}" th:text="${dep.name}"></option>
+            </select>
+        </label>
+        <label>بداية الدوام (صيغة HH:MM)
+            <input type="text" th:field="*{expectedCheckIn}" placeholder="08:30">
+        </label>
+        <label>نهاية الدوام (صيغة HH:MM)
+            <input type="text" th:field="*{expectedCheckOut}" placeholder="16:30">
+        </label>
+        <label>دقائق السماح
+            <input type="number" th:field="*{graceMinutes}" min="0">
+        </label>
+        <label>السماح بالوقت الإضافي
+            <input type="checkbox" th:field="*{overtimeAllowed}">
+        </label>
+        <button type="submit" class="btn">حفظ</button>
+        <a href="/admin/rules" class="link">عودة</a>
+    </form>
+</div>
+    </main>
+</div>
+</body>
+</html>
