@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>قواعد الحضور والانصراف</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<div class="container">
+    <h1>قواعد الحضور والانصراف</h1>
+    <div class="actions">
+        <a class="btn" href="/admin/rules/new">إضافة قاعدة</a>
+        <form action="/admin/rules/import" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" required>
+            <button type="submit">استيراد Excel</button>
+            <a href="/admin/rules/template" class="link">تنزيل القالب</a>
+        </form>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th>الاسم</th>
+            <th>المؤسسة</th>
+            <th>الفرع</th>
+            <th>القسم</th>
+            <th>بداية الدوام</th>
+            <th>نهاية الدوام</th>
+            <th>دقائق السماح</th>
+            <th>سماح وقت إضافي</th>
+            <th>إجراءات</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="rule : ${rules}">
+            <td th:text="${rule.name}"></td>
+            <td th:text="${rule.organization != null ? rule.organization.name : '---'}"></td>
+            <td th:text="${rule.branch != null ? rule.branch.name : '---'}"></td>
+            <td th:text="${rule.department != null ? rule.department.name : '---'}"></td>
+            <td th:text="${rule.expectedCheckIn}"></td>
+            <td th:text="${rule.expectedCheckOut}"></td>
+            <td th:text="${rule.graceMinutes}"></td>
+            <td th:text="${rule.overtimeAllowed} ? 'نعم' : 'لا'"></td>
+            <td>
+                <a th:href="@{'/admin/rules/edit/' + ${rule.id}}">تعديل</a>
+                <form th:action="@{'/admin/rules/delete/' + ${rule.id}}" method="post" style="display:inline">
+                    <button type="submit">حذف ناعم</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

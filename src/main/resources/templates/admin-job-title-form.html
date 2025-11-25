@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>مسمى وظيفي</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+</head>
+<body>
+<div class="container">
+    <h1>بيانات المسمى الوظيفي</h1>
+    <form th:action="@{/admin/job-titles}" th:object="${jobTitle}" method="post" class="form-card">
+        <input type="hidden" th:field="*{id}">
+        <label>الاسم
+            <input type="text" th:field="*{name}" required>
+        </label>
+        <label>الوصف
+            <textarea th:field="*{description}" rows="3"></textarea>
+        </label>
+        <button type="submit" class="btn">حفظ</button>
+        <a href="/admin/job-titles" class="link">عودة</a>
+    </form>
+</div>
+</body>
+</html>

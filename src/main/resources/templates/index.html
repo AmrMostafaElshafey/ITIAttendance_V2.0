@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>منصة الحضور - ITI</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<header>
+    <h1>منصة حضور ومعاملات الموارد البشرية - ITI</h1>
+    <p>اختيار المسار المناسب للدخول</p>
+</header>
+<div class="container">
+    <nav>
+        <a class="btn" href="/register">تسجيل موظف جديد</a>
+        <button onclick="window.location.href='/admin/login'">الدخول لمسار الإدارة</button>
+        <button onclick="window.location.href='/employee/portal'">الدخول لمسار الموظف</button>
+    </nav>
+    <div class="section-grid">
+        <div class="card">
+            <h3>إدارة الموظفين</h3>
+            <p>إنشاء وتحديث بيانات الموظفين، تعيين الأقسام والفروع، وتفعيل الحسابات.</p>
+            <a class="btn" href="/admin/employees">الدخول</a>
+        </div>
+        <div class="card">
+            <h3>الأقسام والفروع</h3>
+            <p>تعريف الهيكل التنظيمي من أقسام وفروع وتحديثها.</p>
+            <a class="btn" href="/admin/departments">الأقسام</a>
+            <a class="btn" href="/admin/branches">الفروع</a>
+        </div>
+        <div class="card">
+            <h3>المؤسسات والمسميات</h3>
+            <p>تهيئة المؤسسة والفروع والمسميات الوظيفية وضمان تسكين المديرين والموظفين.</p>
+            <a class="btn" href="/admin/organizations">المؤسسة</a>
+            <a class="btn" href="/admin/job-titles">المسميات الوظيفية</a>
+        </div>
+        <div class="card">
+            <h3>القواعد والسياسات</h3>
+            <p>إضافة قواعد الحضور، أنواع الإجازات، مستويات الاعتماد، وسياسات الوصول للصفحات.</p>
+            <a class="btn" href="/admin/rules">قواعد الحضور</a>
+            <a class="btn" href="/admin/leave-types">أنواع الإجازات</a>
+            <a class="btn" href="/admin/approvals">مستويات الاعتماد</a>
+            <a class="btn" href="/admin/access-policies">سياسات الوصول</a>
+        </div>
+        <div class="card">
+            <h3>الحضور والانصراف</h3>
+            <p>تسجيل وتحميل سجلات الحضور والانصراف اليومية.</p>
+            <a class="btn" href="/admin/attendance">عرض السجلات</a>
+        </div>
+        <div class="card">
+            <h3>الاجازات</h3>
+            <p>إدارة طلبات الإجازات والموافقات.</p>
+            <a class="btn" href="/admin/leaves">إدارة الإجازات</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>
