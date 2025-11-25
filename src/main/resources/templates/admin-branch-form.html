@@ -24,6 +24,7 @@
         </label>
         <label>مدير الفرع
             <select th:field="*{manager}">
+                <option value="" th:text="'بدون مدير (يُحدد لاحقاً)'"></option>
                 <option th:each="manager : ${managers}" th:value="${manager}" th:text="${manager.name}"></option>
             </select>
         </label>
