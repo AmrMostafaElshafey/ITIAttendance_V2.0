@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>الموظفون</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<div class="page-layout">
+    <aside th:replace="fragments/sidebar :: navigation"></aside>
+    <main class="page-content">
+<header><h2>إدارة الموظفين</h2></header>
+<div class="container">
+    <nav>
+        <a class="btn" href="/admin/employees/new">إضافة موظف</a>
+        <a class="btn" href="/admin/employees/template">تحميل نموذج Excel</a>
+    </nav>
+    <form th:action="@{/admin/employees/import}" method="post" enctype="multipart/form-data" class="card">
+        <label>تحميل ملف Excel<input type="file" name="file" required></label>
+        <button type="submit">استيراد جماعي</button>
+    </form>
+    <div class="table-responsive">
+    <table>
+        <thead>
+        <tr><th>الاسم</th><th>البريد</th><th>الدور</th><th>الحالة</th><th>إجراءات</th></tr>
+        </thead>
+        <tbody>
+        <tr th:each="emp : ${employees}">
+            <td th:text="${emp.name}"></td>
+            <td th:text="${emp.email}"></td>
+            <td th:text="${emp.role}"></td>
+            <td th:text="${emp.status}"></td>
+            <td>
+                <a class="btn" th:href="@{'/admin/employees/edit/' + ${emp.id}}">تعديل</a>
+                <form th:action="@{'/admin/employees/delete/' + ${emp.id}}" method="post" style="display:inline">
+                    <button type="submit">حذف ناعم</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+    </main>
+</div>
+</body>
+</html>
