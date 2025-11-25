@@ -1,6 +1,8 @@
 package com.iti.attendance.model;
 
 import jakarta.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Branch {
@@ -15,6 +17,9 @@ public class Branch {
 
     @OneToOne
     private Employee manager;
+
+    @OneToMany(mappedBy = "branch")
+    private List<Employee> employees = new ArrayList<>();
     private boolean deleted = false;
 
     public Long getId() {
@@ -55,6 +60,14 @@ public class Branch {
 
     public void setManager(Employee manager) {
         this.manager = manager;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 
     public boolean isDeleted() {

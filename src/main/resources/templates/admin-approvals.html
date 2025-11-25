@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>مستويات الاعتماد</title>
     <link rel="stylesheet" href="/css/style.css"/>
+    <script src="/js/theme.js" defer></script>
 </head>
 <body>
+<div class="page-layout">
+    <aside th:replace="fragments/sidebar :: navigation"></aside>
+    <main class="page-content">
 <div class="container">
     <h1>سلسلة الاعتمادات</h1>
     <div class="actions">
@@ -16,6 +21,7 @@
             <a href="/admin/approvals/template" class="link">تنزيل القالب</a>
         </form>
     </div>
+    <div class="table-responsive">
     <table>
         <thead>
         <tr>
@@ -41,6 +47,9 @@
         </tr>
         </tbody>
     </table>
+    </div>
+</div>
+    </main>
 </div>
 </body>
 </html>
