@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,6 +8,9 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
+<div class="page-layout">
+    <aside th:replace="fragments/sidebar :: navigation"></aside>
+    <main class="page-content">
 <div class="container">
     <h1>سياسات الوصول للصفحات</h1>
     <div class="actions">
@@ -41,6 +44,8 @@
         </tbody>
     </table>
     </div>
+</div>
+    </main>
 </div>
 </body>
 </html>
