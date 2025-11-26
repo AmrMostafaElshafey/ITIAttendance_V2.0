@@ -20,11 +20,8 @@
                 <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
             </select>
         </label>
-        <label>نقاط النهاية المسموح بها
-            <small class="helper">اختر أكثر من نقطة عبر الضغط مع السحب أو باستخدام Ctrl/⌘.</small>
-            <select th:field="*{allowedPageList}" multiple size="10">
-                <option th:each="endpoint : ${endpoints}" th:value="${endpoint}" th:text="${endpoint}"></option>
-            </select>
+        <label>الصفحات المسموح بها (مفصولة بفواصل)
+            <textarea th:field="*{allowedPages}" rows="3" placeholder="/admin/branches,/admin/departments"></textarea>
         </label>
         <button type="submit" class="btn">حفظ</button>
         <a href="/admin/access-policies" class="link">عودة</a>

@@ -17,8 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @RequestMapping({"/admin/access-policies", "/employee/access-policies"})
@@ -34,7 +32,6 @@ public class AdminAccessPolicyController {
     public String list(Model model) {
         model.addAttribute("policies", accessPolicyService.findAllActive());
         model.addAttribute("roles", Role.values());
-        model.addAttribute("endpoints", allEndpoints());
         return "admin-access-policies";
     }
 
@@ -42,7 +39,6 @@ public class AdminAccessPolicyController {
     public String createForm(Model model) {
         model.addAttribute("policy", new AccessPolicy());
         model.addAttribute("roles", Role.values());
-        model.addAttribute("endpoints", allEndpoints());
         return "admin-access-policy-form";
     }
 
@@ -56,7 +52,6 @@ public class AdminAccessPolicyController {
     public String edit(@PathVariable Long id, Model model) {
         accessPolicyService.findById(id).ifPresent(policy -> model.addAttribute("policy", policy));
         model.addAttribute("roles", Role.values());
-        model.addAttribute("endpoints", allEndpoints());
         return "admin-access-policy-form";
     }
 
@@ -86,27 +81,5 @@ public class AdminAccessPolicyController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=access-policy-template.xlsx")
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(bos.toByteArray());
-    }
-
-    private List<String> allEndpoints() {
-        List<String> endpoints = new ArrayList<>();
-        endpoints.add("/admin/dashboard");
-        endpoints.add("/admin/organizations");
-        endpoints.add("/admin/branches");
-        endpoints.add("/admin/departments");
-        endpoints.add("/admin/employees");
-        endpoints.add("/admin/job-titles");
-        endpoints.add("/admin/attendance-rules");
-        endpoints.add("/admin/attendance");
-        endpoints.add("/admin/leave-types");
-        endpoints.add("/admin/leaves");
-        endpoints.add("/admin/approvals");
-        endpoints.add("/admin/access-policies");
-        endpoints.add("/employee/portal");
-        endpoints.add("/employee/attendance");
-        endpoints.add("/employee/leaves");
-        endpoints.add("/employee/approvals");
-        endpoints.add("/employee/profile");
-        return endpoints;
     }
 }
