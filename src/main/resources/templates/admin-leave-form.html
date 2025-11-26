@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>طلب إجازة</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<div class="page-layout">
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <main class="page-content">
+<header><h2>بيانات طلب الإجازة</h2></header>
+<div class="container card">
+    <form th:action="@{/admin/leaves}" th:object="${leaveRequest}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <label>الموظف
+            <select th:field="*{employee.id}">
+                <option value="" disabled th:selected="${leaveRequest.employee == null}">اختر الموظف</option>
+                <option th:each="emp : ${employees}" th:value="${emp.id}" th:text="${emp.name}"></option>
+            </select>
+        </label>
+        <label>تاريخ البداية<input type="date" th:field="*{startDate}"></label>
+        <label>تاريخ النهاية<input type="date" th:field="*{endDate}"></label>
+        <label>السبب<textarea th:field="*{reason}" style="height:80px"></textarea></label>
+        <label>الحالة<input type="text" th:field="*{status}"></label>
+        <button type="submit">حفظ</button>
+    </form>
+</div>
+    </main>
+</div>
+</body>
+</html>
