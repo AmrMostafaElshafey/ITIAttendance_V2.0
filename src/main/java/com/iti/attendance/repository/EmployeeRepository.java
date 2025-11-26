@@ -14,4 +14,5 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     Optional<Employee> findByEmailAndDeletedFalse(String email);
     List<Employee> findByRoleAndDeletedFalse(Role role);
     List<Employee> findByRoleInAndDeletedFalse(List<Role> roles);
+    List<Employee> findByManagerAndDeletedFalse(Employee manager);
 }

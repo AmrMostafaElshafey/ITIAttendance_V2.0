@@ -8,4 +8,5 @@ import java.util.List;
 public interface AttendanceRecordRepository extends JpaRepository<AttendanceRecord, Long> {
     List<AttendanceRecord> findByDateAndDeletedFalse(LocalDate date);
     List<AttendanceRecord> findByDeletedFalse();
+    List<AttendanceRecord> findByEmployeeIdAndDeletedFalse(Long employeeId);
 }

@@ -37,9 +37,27 @@
         <a class="btn" href="/admin/attendance">إدارة</a>
     </div>
     <div class="card">
+        <h3>حدود التنبيه</h3>
+        <p>تعديل الحد الأدنى لنسبة الحضور المستخدمة في تنبيهات المدراء.</p>
+        <a class="btn" href="/admin/attendance-limit">تعديل الحد</a>
+    </div>
+    <div class="card">
         <h3>الإجازات</h3>
         <p>متابعة طلبات الإجازات والموافقات.</p>
         <a class="btn" href="/admin/leaves">إدارة</a>
+    </div>
+</div>
+<div class="container" th:if="${notifications} != null">
+    <div class="card">
+        <h3>تنبيهات الموارد البشرية</h3>
+        <ul class="list" th:if="${notifications.size()} > 0">
+            <li th:each="note : ${notifications}">
+                <strong th:text="${note.title}"></strong>
+                <div th:text="${note.message}"></div>
+                <small th:text="${#temporals.format(note.createdAt, 'yyyy-MM-dd HH:mm')}"></small>
+            </li>
+        </ul>
+        <p class="muted" th:if="${notifications.size()} == 0">لا توجد تنبيهات حالياً.</p>
     </div>
 </div>
     </main>
