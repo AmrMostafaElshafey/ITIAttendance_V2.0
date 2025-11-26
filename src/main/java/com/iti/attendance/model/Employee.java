@@ -1,6 +1,10 @@
 package com.iti.attendance.model;
 
+import com.iti.attendance.repository.EmployeeRepository;
+import com.iti.attendance.service.EmployeeService;
 import jakarta.persistence.*;
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDate;
 
 @Entity
@@ -137,7 +141,7 @@ public class Employee {
     }
 
     public void setManager(Employee manager) {
-        this.manager = manager;
+        this.manager = manager ;
     }
 
     public boolean isDeleted() {

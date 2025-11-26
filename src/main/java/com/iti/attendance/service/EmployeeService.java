@@ -8,6 +8,9 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EmployeeService {
+public class EmployeeService implements UserDetailsService {
 
     private final EmployeeRepository employeeRepository;
 
@@ -92,5 +95,18 @@ public class EmployeeService {
             }
         }
         return imported;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        Employee emp=this.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        // Map Employee -> Spring Security UserDetails
+        return org.springframework.security.core.userdetails.User
+                .withUsername(emp.getEmail())
+                .password(emp.getPassword())     // must be ENCODED
+                .roles(emp.getRole().name())               // or map from emp.getRole()
+                .build();// or map from emp.getRole()
     }
 }
