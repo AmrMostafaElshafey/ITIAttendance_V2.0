@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>سجلات الحضور</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<div class="page-layout">
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <main class="page-content">
+<header><h2>الحضور والانصراف</h2></header>
+<div class="container">
+    <nav>
+        <a class="btn" href="/admin/attendance/new">إضافة سجل</a>
+        <a class="btn" href="/admin/attendance/template">تحميل نموذج Excel</a>
+    </nav>
+    <form th:action="@{/admin/attendance/import}" method="post" enctype="multipart/form-data" class="card">
+        <label>ملف Excel<input type="file" name="file" required></label>
+        <button type="submit">استيراد</button>
+    </form>
+    <div class="table-responsive">
+    <table>
+        <thead><tr><th>التاريخ</th><th>الموظف</th><th>الحالة</th><th>دخول</th><th>خروج</th><th>إجراءات</th></tr></thead>
+        <tbody>
+        <tr th:each="rec : ${records}">
+            <td th:text="${rec.date}"></td>
+            <td th:text="${rec.employee != null ? rec.employee.name : 'غير مرتبط'}"></td>
+            <td th:text="${rec.status}"></td>
+            <td th:text="${rec.checkIn}"></td>
+            <td th:text="${rec.checkOut}"></td>
+            <td>
+                <a class="btn" th:href="@{'/admin/attendance/edit/' + ${rec.id}}">تعديل</a>
+                <form th:action="@{'/admin/attendance/delete/' + ${rec.id}}" method="post" style="display:inline">
+                    <button type="submit">حذف ناعم</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+    </main>
+</div>
+</body>
+</html>

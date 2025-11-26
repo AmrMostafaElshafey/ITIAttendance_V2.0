@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>منصة الحضور - ITI</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<header>
+    <h1>منصة حضور ومعاملات الموارد البشرية - ITI</h1>
+    <p>واجهة عربية عصرية بلمسات أحمر فاتح ورمادي مع إمكانية تبديل الألوان</p>
+</header>
+<div class="page-layout">
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <main class="page-content">
+        <div class="container">
+            <div class="hero card">
+                <div class="badge">منصة متجاوبة لجميع الأجهزة</div>
+                <h2>كل خدمات الموارد البشرية في منصة واحدة</h2>
+                <p>إدارة الهيكل التنظيمي والحضور والإجازات والتوقيعات في فروع متعددة بواجهة عربية واضحة وودية.</p>
+                <nav class="toolbar">
+                    <div class="flex">
+                        <button th:onclick="${#authorization.expression('isAuthenticated()')}? 'window.location.href=\'/admin/dashboard\'' : 'window.location.href=\'/login\''">الدخول لمسار الإدارة</button>
+                        <button th:onclick="${#authorization.expression('isAuthenticated()')}? 'window.location.href=\'/employee/portal\'' : 'window.location.href=\'/login\''">الدخول لمسار الموظف/المدير</button>
+                        <a class="btn" href="/register">تسجيل موظف جديد</a>
+                    </div>
+                    <span class="badge">جرب تبديل الألوان من الزر العائم أسفل الواجهة 🎨</span>
+                </nav>
+            </div>
+
+            <div class="services-grid" style="margin-top: 20px;">
+                <div class="card service-card">
+                    <div class="service-icon">🏛️</div>
+                    <div class="service-body">
+                        <h3>تهيئة الهيكل</h3>
+                        <p>إضافة المؤسسة والفروع والأقسام والمسميات الوظيفية وربط الموظفين بها.</p>
+                        <div class="flex">
+                            <a class="btn" th:href="${#authorization.expression('isAuthenticated()')}? '/admin/organizations' : '/login'">المؤسسة</a>
+                            <a class="btn" th:href="${#authorization.expression('isAuthenticated()')}? '/admin/branches' : '/login'">الفروع</a>
+                            <a class="btn" th:href="${#authorization.expression('isAuthenticated()')}? '/admin/departments' : '/login'">الأقسام</a>
+                            <a class="btn" th:href="${#authorization.expression('isAuthenticated()')}? '/admin/job-titles' : '/login'">المسميات</a>
+                            <a class="btn" th:href="${#authorization.expression('isAuthenticated()')}? '/admin/employees' : '/login'">الموظفون</a>
+                        </div>
+                        <div class="pill">استيراد Excel متاح لكل عنصر</div>
+                    </div>
+                </div>
+
+                <div class="card service-card">
+                    <div class="service-icon">⚙️</div>
+                    <div class="service-body">
+                        <h3>القواعد والسياسات</h3>
+                        <p>ضبط قواعد الحضور والإجازات ومستويات الاعتماد والوصول.</p>
+                        <div class="flex">
+                            <a class="btn" th:href="${#authorization.expression('isAuthenticated()')}? '/admin/rules' : '/login'">قواعد الحضور</a>
+                            <a class="btn" th:href="${#authorization.expression('isAuthenticated()')}? '/admin/leave-types' : '/login'">أنواع الإجازات</a>
+                            <a class="btn" th:href="${#authorization.expression('isAuthenticated()')}? '/admin/approvals' : '/login'">مستويات الاعتماد</a>
+                            <a class="btn" th:href="${#authorization.expression('isAuthenticated()')}? '/admin/access-policies' : '/login'">سياسات الوصول</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card service-card">
+                    <div class="service-icon">⏱️</div>
+                    <div class="service-body">
+                        <h3>التشغيل اليومي</h3>
+                        <p>تسجيل حضور الموظفين ومتابعة طلبات الإجازات والإذن والمأموريات.</p>
+                        <div class="flex">
+                            <a class="btn" th:href="${#authorization.expression('isAuthenticated()')}? '/admin/attendance' : '/login'">سجلات الحضور</a>
+                            <a class="btn" th:href="${#authorization.expression('isAuthenticated()')}? '/admin/leaves' : '/login'">طلبات الإجازة</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card service-card">
+                    <div class="service-icon">🧭</div>
+                    <div class="service-body">
+                        <h3>بوابة الموظفين</h3>
+                        <p>عرض الحضور والطلبات ومتابعة الاعتماد من منظور الموظف والمدير.</p>
+                        <div class="flex">
+                            <a class="btn" th:href="${#authorization.expression('isAuthenticated()')}? '/employee/portal' : '/login'">بوابة الموظف</a>
+                            <a class="btn" href="/register">تسجيل لأول مرة</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>
