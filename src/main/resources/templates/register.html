@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>تسجيل موظف جديد</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<div class="page-layout">
+    <aside th:replace="fragments/sidebar :: navigation"></aside>
+    <main class="page-content">
+<header>
+    <h2>تسجيل موظف جديد</h2>
+    <p>سيتم تفعيل الحساب بعد موافقة الموارد البشرية</p>
+</header>
+<div class="container">
+    <div th:if="${message}" class="alert" th:text="${message}"></div>
+    <form th:action="@{/register}" th:object="${employee}" method="post" class="card">
+        <label>الاسم الكامل<input type="text" th:field="*{name}" required></label>
+        <label>البريد الالكتروني<input type="email" th:field="*{email}" required></label>
+        <label>كلمة المرور<input type="password" th:field="*{password}" required></label>
+        <label>رقم الهاتف<input type="text" th:field="*{phone}"></label>
+        <label>الدور الوظيفي
+            <select th:field="*{role}">
+                <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+            </select>
+        </label>
+        <button type="submit">تسجيل</button>
+    </form>
+</div>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>الإجازات</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<div class="page-layout">
+    <aside th:replace="fragments/sidebar :: navigation"></aside>
+    <main class="page-content">
+<header><h2>إدارة الإجازات</h2></header>
+<div class="container">
+    <nav>
+        <a class="btn" href="/admin/leaves/new">إضافة طلب</a>
+        <a class="btn" href="/admin/leaves/template">تحميل نموذج Excel</a>
+    </nav>
+    <form th:action="@{/admin/leaves/import}" method="post" enctype="multipart/form-data" class="card">
+        <label>ملف Excel<input type="file" name="file" required></label>
+        <button type="submit">استيراد</button>
+    </form>
+    <div class="table-responsive">
+    <table>
+        <thead><tr><th>الموظف</th><th>من</th><th>إلى</th><th>السبب</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+        <tbody>
+        <tr th:each="leave : ${leaves}">
+            <td th:text="${leave.employee != null ? leave.employee.name : 'غير مرتبط'}"></td>
+            <td th:text="${leave.startDate}"></td>
+            <td th:text="${leave.endDate}"></td>
+            <td th:text="${leave.reason}"></td>
+            <td th:text="${leave.status}"></td>
+            <td>
+                <a class="btn" th:href="@{'/admin/leaves/edit/' + ${leave.id}}">تعديل</a>
+                <form th:action="@{'/admin/leaves/delete/' + ${leave.id}}" method="post" style="display:inline">
+                    <button type="submit">حذف ناعم</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+    </main>
+</div>
+</body>
+</html>
