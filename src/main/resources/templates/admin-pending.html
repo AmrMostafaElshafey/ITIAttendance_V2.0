@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>مراجعة البيانات</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<div class="page-layout">
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <main class="page-content">
+<header>
+    <h2>بياناتك قيد المراجعة</h2>
+</header>
+<div class="container card">
+    <p>الرجاء انتظار موافقة الموارد البشرية على حسابك وتحديد القسم والمستوى.</p>
+    <form th:action="@{/admin/pending/notify}" method="post">
+        <input type="hidden" name="id" th:value="${employee.id}">
+        <button type="submit">إرسال تذكير للموارد البشرية</button>
+    </form>
+    <div th:if="${message}" class="alert" th:text="${message}"></div>
+</div>
+    </main>
+</div>
+</body>
+</html>
