@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,7 +16,9 @@
             <p>أدخل بريدك وكلمة المرور للمتابعة لمسار الموظف أو المدير.</p>
         </header>
         <div class="container card">
-            <div th:if="${error}" class="alert" th:text="${error}"></div>
+            <div th:if="${param.error}" class="alert">بيانات الدخول غير صحيحة</div>
+            <div th:if="${param.disabled}" class="alert">حسابك قيد المراجعة أو غير مفعل. تم إخطار الموارد البشرية.</div>
+            <div th:if="${param.logout}" class="pill">تم تسجيل الخروج بنجاح.</div>
             <form th:action="@{/login}" method="post">
                 <label>البريد الالكتروني<input type="email" name="email" required></label>
                 <label>كلمة المرور<input type="password" name="password" required></label>

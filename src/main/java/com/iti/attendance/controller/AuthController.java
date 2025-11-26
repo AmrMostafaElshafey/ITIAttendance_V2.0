@@ -1,25 +1,26 @@
 package com.iti.attendance.controller;
 
 import com.iti.attendance.model.Employee;
-import com.iti.attendance.model.*;
+import com.iti.attendance.model.EmployeeStatus;
+import com.iti.attendance.model.Role;
 import com.iti.attendance.service.EmployeeService;
 import com.iti.attendance.service.NotificationService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 public class AuthController {
 
     private final EmployeeService employeeService;
     private final NotificationService notificationService;
+    private final PasswordEncoder passwordEncoder;
 
-    public AuthController(EmployeeService employeeService, NotificationService notificationService) {
+    public AuthController(EmployeeService employeeService, NotificationService notificationService, PasswordEncoder passwordEncoder) {
         this.employeeService = employeeService;
         this.notificationService = notificationService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/register")
@@ -32,6 +33,9 @@ public class AuthController {
     @PostMapping("/register")
     public String register(@ModelAttribute Employee employee, Model model) {
         employee.setStatus(EmployeeStatus.PENDING);
+        if (employee.getPassword() != null) {
+            employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+        }
         employeeService.save(employee);
         model.addAttribute("message", "تم استلام التسجيل وسيتم مراجعته بواسطة الموارد البشرية");
         return "register";
@@ -42,48 +46,23 @@ public class AuthController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String employeeLogin(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
-        return handleLogin(email, password, model, session);
-    }
-
     @GetMapping("/admin/login")
     public String loginPage() {
-        return "admin-login";
-    }
-
-    @PostMapping("/admin/login")
-    public String login(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
-        return handleLogin(email, password, model, session);
-    }
-
-    private String handleLogin(String email, String password, Model model, HttpSession session) {
-        Optional<Employee> employeeOptional = employeeService.findByEmail(email);
-        if (employeeOptional.isEmpty() || !employeeOptional.get().getPassword().equals(password)) {
-            model.addAttribute("error", "بيانات الدخول غير صحيحة");
-            return "login";
-        }
-        Employee employee = employeeOptional.get();
-        if (employee.getStatus() == EmployeeStatus.PENDING) {
-            model.addAttribute("employee", employee);
-            notificationService.notifyHrForPendingEmployee(employee);
-            return "admin-pending";
-        }
-        session.setAttribute("currentUserId", employee.getId());
-        session.setAttribute("currentUserRole", employee.getRole().name());
-        if (employee.getRole() == Role.ADMIN || employee.getRole() == Role.HR_MANAGER || employee.getRole() == Role.HR_EMPLOYEE) {
-            return "redirect:/admin/dashboard";
-        }
-        if (employee.getRole() == Role.MANAGER || employee.getRole() == Role.BRANCH_MANAGER) {
-            return "redirect:/manager/dashboard";
-        }
-        return "redirect:/employee/portal";
+        return "login";
     }
 
     @PostMapping("/admin/pending/notify")
     public String notifyHr(@RequestParam Long id, Model model) {
         employeeService.findById(id).ifPresent(employee -> model.addAttribute("employee", employee));
         model.addAttribute("message", "تم إرسال إشعار للموارد البشرية للموافقة على بياناتك");
+        return "admin-pending";
+    }
+
+    @GetMapping("/pending")
+    public String pending(Model model, @SessionAttribute(name = "SPRING_SECURITY_LAST_EXCEPTION", required = false) Exception lastException) {
+        if (lastException instanceof org.springframework.security.authentication.DisabledException) {
+            model.addAttribute("message", lastException.getMessage());
+        }
         return "admin-pending";
     }
 }
