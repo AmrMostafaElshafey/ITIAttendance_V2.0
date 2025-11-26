@@ -47,7 +47,15 @@ public class AdminBranchController {
     }
 
     @PostMapping
-    public String save(@ModelAttribute Branch branch) {
+    public String save(@ModelAttribute Branch branch,
+                       @RequestParam(value = "organization.id", required = false) Long organizationId,
+                       @RequestParam(value = "manager.id", required = false) Long managerId) {
+        branch.setOrganization(organizationId != null ? organizationService.findById(organizationId).orElse(null) : null);
+        if (managerId != null) {
+            branch.setManager(employeeService.findById(managerId).orElse(null));
+        } else {
+            branch.setManager(null);
+        }
         branchService.save(branch);
         return "redirect:/admin/branches";
     }
