@@ -48,15 +48,7 @@ public class AdminDepartmentController {
     }
 
     @PostMapping
-    public String save(@ModelAttribute Department department,
-                       @RequestParam(value = "branch.id", required = false) Long branchId,
-                       @RequestParam(value = "manager.id", required = false) Long managerId) {
-        department.setBranch(branchId != null ? branchService.findById(branchId).orElse(null) : null);
-        if (managerId != null) {
-            department.setManager(employeeService.findById(managerId).orElse(null));
-        } else {
-            department.setManager(null);
-        }
+    public String save(@ModelAttribute Department department) {
         departmentService.save(department);
         return "redirect:/admin/departments";
     }

@@ -54,35 +54,7 @@ public class AdminEmployeeController {
     }
 
     @PostMapping({"/admin/employees", "/employee/employees"})
-    public String save(@ModelAttribute Employee employee,
-                       @RequestParam(value = "department.id", required = false) Long departmentId,
-                       @RequestParam(value = "branch.id", required = false) Long branchId,
-                       @RequestParam(value = "jobTitle.id", required = false) Long jobTitleId,
-                       @RequestParam(value = "manager.id", required = false) Long managerId) {
-        if (departmentId != null) {
-            departmentService.findById(departmentId).ifPresent(employee::setDepartment);
-        } else {
-            employee.setDepartment(null);
-        }
-
-        if (branchId != null) {
-            branchService.findById(branchId).ifPresent(employee::setBranch);
-        } else {
-            employee.setBranch(null);
-        }
-
-        if (jobTitleId != null) {
-            jobTitleService.findById(jobTitleId).ifPresent(employee::setJobTitle);
-        } else {
-            employee.setJobTitle(null);
-        }
-
-        if (managerId != null) {
-            employeeService.findById(managerId).ifPresent(employee::setManager);
-        } else {
-            employee.setManager(null);
-        }
-
+    public String save(@ModelAttribute Employee employee) {
         if (employee.getStatus() == null) {
             employee.setStatus(EmployeeStatus.PENDING);
         }
