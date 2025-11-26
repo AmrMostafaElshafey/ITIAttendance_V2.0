@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>الفروع</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<header><h2>إدارة الفروع</h2></header>
+<div class="page-layout">
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <main class="page-content">
+        <div class="container">
+            <nav>
+                <a class="btn" href="/admin/branches/new">إضافة فرع</a>
+                <a class="btn" href="/admin/branches/template">تحميل نموذج Excel</a>
+            </nav>
+            <form th:action="@{/admin/branches/import}" method="post" enctype="multipart/form-data" class="card">
+                <label>ملف Excel<input type="file" name="file" required></label>
+                <button type="submit">استيراد</button>
+            </form>
+            <div class="table-responsive">
+            <table>
+                <thead><tr><th>الاسم</th><th>الموقع</th><th>إجراءات</th></tr></thead>
+                <tbody>
+                <tr th:each="branch : ${branches}">
+                    <td th:text="${branch.name}"></td>
+                    <td th:text="${branch.location}"></td>
+                    <td>
+                        <a class="btn" th:href="@{'/admin/branches/edit/' + ${branch.id}}">تعديل</a>
+                        <form th:action="@{'/admin/branches/delete/' + ${branch.id}}" method="post" style="display:inline">
+                            <button type="submit">حذف ناعم</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>

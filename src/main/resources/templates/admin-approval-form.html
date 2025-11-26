@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>مستوى اعتماد</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<div class="page-layout">
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <main class="page-content">
+<div class="container">
+    <h1>إضافة/تعديل مستوى اعتماد</h1>
+    <form th:action="@{/admin/approvals}" th:object="${level}" method="post" class="form-card">
+        <input type="hidden" th:field="*{id}">
+        <label>نوع الطلب
+            <select th:field="*{requestType}">
+                <option th:each="type : ${types}" th:value="${type}" th:text="${type}"></option>
+            </select>
+        </label>
+        <label>الدور المعتمد
+            <select th:field="*{role}">
+                <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+            </select>
+        </label>
+        <label>ترتيب المستوى
+            <input type="number" th:field="*{levelOrder}" min="1" required>
+        </label>
+        <label>ساعات SLA
+            <input type="number" th:field="*{slaHours}" min="1" required>
+        </label>
+        <button type="submit" class="btn">حفظ</button>
+        <a href="/admin/approvals" class="link">عودة</a>
+    </form>
+</div>
+    </main>
+</div>
+</body>
+</html>
