@@ -34,17 +34,20 @@
 - الموظفون: `/admin/employees` (قائمة)، `/admin/employees/new` (نموذج)، `/admin/employees/import`, `/admin/employees/template` مع ربط الفرع/القسم/المسمى/المدير.
 - قواعد الحضور: `/admin/rules`, `/admin/rules/new`, `/admin/rules/import`, `/admin/rules/template`.
 - سجلات الحضور: `/admin/attendance`, `/admin/attendance/new`, `/admin/attendance/import`, `/admin/attendance/template`.
+- حد تنبيهات الحضور: `/admin/attendance-limit` لتحديد نسبة الحضور التي يعتمد عليها تنبيه المديرين لمرؤوسيهم.
 - أنواع الإجازات: `/admin/leave-types`, `/admin/leave-types/new`, `/admin/leave-types/import`, `/admin/leave-types/template`.
 - مستويات الاعتماد: `/admin/approvals`, `/admin/approvals/new`, `/admin/approvals/import`, `/admin/approvals/template`.
 - سياسات الوصول: `/admin/access-policies`, `/admin/access-policies/new`, `/admin/access-policies/import`, `/admin/access-policies/template`.
 - طلبات الإجازة: `/admin/leaves`, `/admin/leaves/new`, `/admin/leaves/import`, `/admin/leaves/template`.
-- بوابة الموظف: `/employee/portal` لعرض السجلات والطلبات.
-- تسجيل المستخدم: `/register`، تسجيل دخول الإدارة: `/admin/login` مع إعادة توجيه لحالة الانتظار `/admin/pending/notify`.
+- بوابة الموظف: `/employee/portal` لعرض السجلات والطلبات والرسائل القادمة من المدير.
+- لوحة المدير: `/manager/dashboard` لاستعراض نسب حضور الفريق وإرسال تنبيهات للموظفين منخفضي الحضور.
+- تسجيل المستخدم: `/register`، دخول عام للموظف/المدير: `/login`، ودخول الإدارة: `/admin/login` مع إعادة توجيه لحالة الانتظار `/admin/pending/notify`.
 
 ## الواجهات
 - **الصفحة الرئيسية** (`/`) تحتوي على أزرار للانتقال بين قسم الإدارة وقسم الموظفين مع بطاقات توضح الخدمات.
 - **قسم الإدارة**: يتضمن لوحة تحكم وروابط لكل خدمة مع استيراد جماعي وحذف ناعم.
-- **قسم الموظفين**: يعرض سجلات الحضور وطلبات الإجازة بعد الدخول.
+- **قسم الموظفين**: يعرض سجلات الحضور وطلبات الإجازة والرسائل بعد الدخول.
+- **قسم المدير**: يوضح نسب حضور الموظفين مقابل الحد المعتمد مع إمكانية إرسال تنبيه يظهر في بوابة الموظف.
 - الواجهات جميعها بالعربية وبألوان مستوحاة من الهوية البصرية لـ ITI.
 
 ## التشغيل محليًا
@@ -60,6 +63,7 @@
 2. فعّل الحساب من قاعدة بيانات MySQL بتعديل الحالة إلى `ACTIVE` (مثال: `UPDATE employee SET status='ACTIVE' WHERE email='example@iti.eg';`).
 3. سجّل الدخول من `/admin/login` بالبريد وكلمة المرور التي سجلت بها، ثم انتقل إلى صفحات التهيئة (`/admin/organizations`, `/admin/branches`, ...).
 4. بعد تسجيل الدخول لأول مرة، عيّن صلاحيات كل نوع مستخدم عبر صفحة سياسات الوصول `/admin/access-policies` حتى يتمكن باقي الأدوار من استعمال واجهاتهم.
+5. حدّد نسبة الحضور الدنيا عبر `/admin/attendance-limit` لضمان ظهور تنبيهات انخفاض الحضور في لوحة المدير.
 
 ## ملاحظات الاستخدام
 - الحذف يتم بشكل ناعم عبر حقل `deleted` للحفاظ على البيانات.

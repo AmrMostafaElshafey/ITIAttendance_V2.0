@@ -16,6 +16,7 @@ import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AttendanceRecordService {
@@ -43,6 +44,27 @@ public class AttendanceRecordService {
             record.setDeleted(true);
             attendanceRecordRepository.save(record);
         });
+    }
+
+    public List<AttendanceRecord> findByEmployee(Long employeeId) {
+        return attendanceRecordRepository.findByEmployeeIdAndDeletedFalse(employeeId);
+    }
+
+    public double calculateAttendancePercentage(Long employeeId) {
+        List<AttendanceRecord> records = attendanceRecordRepository.findByEmployeeIdAndDeletedFalse(employeeId)
+                .stream()
+                .filter(record -> record.getDate() != null)
+                .collect(Collectors.toList());
+
+        if (records.isEmpty()) {
+            return 0.0;
+        }
+
+        long presentCount = records.stream()
+                .filter(record -> record.getStatus() == null || record.getStatus().isBlank() || record.getStatus().equalsIgnoreCase("present") || record.getStatus().equalsIgnoreCase("حضور"))
+                .count();
+
+        return (presentCount * 100.0) / records.size();
     }
 
     public List<AttendanceRecord> importFromExcel(MultipartFile file) throws IOException {

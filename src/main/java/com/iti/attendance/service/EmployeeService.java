@@ -58,6 +58,14 @@ public class EmployeeService {
         return employeeRepository.findByRoleInAndDeletedFalse(List.of(Role.MANAGER, Role.BRANCH_MANAGER, Role.HR_MANAGER, Role.TRAINING_MANAGER));
     }
 
+    public List<Employee> findByRoles(List<Role> roles) {
+        return employeeRepository.findByRoleInAndDeletedFalse(roles);
+    }
+
+    public List<Employee> findByManager(Employee manager) {
+        return employeeRepository.findByManagerAndDeletedFalse(manager);
+    }
+
     public List<Employee> importFromExcel(MultipartFile file) throws IOException {
         List<Employee> imported = new ArrayList<>();
         try (InputStream inputStream = file.getInputStream(); Workbook workbook = new XSSFWorkbook(inputStream)) {
