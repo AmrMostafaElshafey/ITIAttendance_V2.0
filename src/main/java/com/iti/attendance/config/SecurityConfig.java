@@ -13,8 +13,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
+                // نسمح لجميع الطلبات ونترك التحكم في تسجيل الدخول للطبقة المخصصة داخل التطبيق
                 .authorizeHttpRequests(auth -> auth.anyRequest().permitAll())
-                .formLogin(Customizer.withDefaults());
+                .formLogin(form -> form.disable())
+                .httpBasic(Customizer.withDefaults());
         return http.build();
     }
 }
