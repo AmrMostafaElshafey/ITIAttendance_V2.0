@@ -47,7 +47,6 @@ public class AdminBranchController {
     }
 
     @PostMapping
-    public String save(@ModelAttribute Branch branch) {
         branchService.save(branch);
         return "redirect:/admin/branches";
     }

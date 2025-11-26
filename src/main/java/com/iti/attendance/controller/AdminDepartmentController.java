@@ -48,7 +48,6 @@ public class AdminDepartmentController {
     }
 
     @PostMapping
-    public String save(@ModelAttribute Department department) {
         departmentService.save(department);
         return "redirect:/admin/departments";
     }
