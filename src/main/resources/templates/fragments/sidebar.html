@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <aside class="sidebar" th:fragment="navigation">
     <div class="sidebar-header">
@@ -7,14 +7,14 @@
         <button type="button" class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
     </div>
     <div class="tree">
-        <details open>
+        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
             <summary>تهيئة الهيكل</summary>
             <ul>
                 <li><a href="/admin/organizations">عرض المؤسسة</a></li>
                 <li><a href="/admin/organizations/new">إضافة مؤسسة</a></li>
             </ul>
         </details>
-        <details open>
+        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
             <summary>الفروع</summary>
             <ul>
                 <li><a href="/admin/branches">عرض الفروع</a></li>
@@ -23,7 +23,7 @@
                 <li><a href="/admin/branches">حذف فرع (ناعم)</a></li>
             </ul>
         </details>
-        <details open>
+        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
             <summary>الأقسام</summary>
             <ul>
                 <li><a href="/admin/departments">عرض الأقسام</a></li>
@@ -32,7 +32,7 @@
                 <li><a href="/admin/departments">حذف قسم (ناعم)</a></li>
             </ul>
         </details>
-        <details open>
+        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
             <summary>المسميات الوظيفية</summary>
             <ul>
                 <li><a href="/admin/job-titles">عرض المسميات</a></li>
@@ -41,7 +41,7 @@
                 <li><a href="/admin/job-titles">حذف مسمى (ناعم)</a></li>
             </ul>
         </details>
-        <details open>
+        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
             <summary>الموظفون</summary>
             <ul>
                 <li><a href="/admin/employees">عرض الموظفين</a></li>
@@ -50,7 +50,7 @@
                 <li><a href="/admin/employees">حذف موظف (ناعم)</a></li>
             </ul>
         </details>
-        <details open>
+        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
             <summary>قواعد الحضور</summary>
             <ul>
                 <li><a href="/admin/rules">عرض القواعد</a></li>
@@ -59,7 +59,7 @@
                 <li><a href="/admin/rules">حذف قاعدة (ناعم)</a></li>
             </ul>
         </details>
-        <details open>
+        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
             <summary>سجلات الحضور</summary>
             <ul>
                 <li><a href="/admin/attendance">عرض السجلات</a></li>
@@ -68,13 +68,13 @@
                 <li><a href="/admin/attendance">حذف سجل (ناعم)</a></li>
             </ul>
         </details>
-        <details>
+        <details sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER')">
             <summary>حد تنبيه الحضور</summary>
             <ul>
                 <li><a href="/admin/attendance-limit">عرض/تعديل الحد</a></li>
             </ul>
         </details>
-        <details open>
+        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
             <summary>أنواع الإجازات</summary>
             <ul>
                 <li><a href="/admin/leave-types">عرض الأنواع</a></li>
@@ -83,7 +83,7 @@
                 <li><a href="/admin/leave-types">حذف نوع (ناعم)</a></li>
             </ul>
         </details>
-        <details open>
+        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER')">
             <summary>طلبات الإجازات</summary>
             <ul>
                 <li><a href="/admin/leaves">عرض الطلبات</a></li>
@@ -92,7 +92,7 @@
                 <li><a href="/admin/leaves">حذف طلب (ناعم)</a></li>
             </ul>
         </details>
-        <details open>
+        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
             <summary>مستويات الاعتماد</summary>
             <ul>
                 <li><a href="/admin/approvals">عرض المستويات</a></li>
@@ -101,7 +101,7 @@
                 <li><a href="/admin/approvals">حذف مستوى (ناعم)</a></li>
             </ul>
         </details>
-        <details open>
+        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
             <summary>سياسات الوصول</summary>
             <ul>
                 <li><a href="/admin/access-policies">عرض السياسات</a></li>
@@ -110,12 +110,18 @@
                 <li><a href="/admin/access-policies">حذف سياسة (ناعم)</a></li>
             </ul>
         </details>
-        <details>
+        <details sec:authorize="isAuthenticated()">
             <summary>بوابة الموظفين</summary>
             <ul>
-                <li><a href="/login">دخول الموظف/المدير</a></li>
                 <li><a href="/manager/dashboard">لوحة المدير</a></li>
                 <li><a href="/employee/portal">بوابة الموظف</a></li>
+                <li><a href="/logout">تسجيل الخروج</a></li>
+            </ul>
+        </details>
+        <details sec:authorize="isAnonymous()">
+            <summary>دخول وتسجيل</summary>
+            <ul>
+                <li><a href="/login">تسجيل الدخول</a></li>
                 <li><a href="/register">تسجيل موظف جديد</a></li>
             </ul>
         </details>

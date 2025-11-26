@@ -11,6 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -28,12 +29,14 @@ public class AdminEmployeeController {
     private final DepartmentService departmentService;
     private final BranchService branchService;
     private final JobTitleService jobTitleService;
+    private final PasswordEncoder passwordEncoder;
 
-    public AdminEmployeeController(EmployeeService employeeService, DepartmentService departmentService, BranchService branchService, JobTitleService jobTitleService) {
+    public AdminEmployeeController(EmployeeService employeeService, DepartmentService departmentService, BranchService branchService, JobTitleService jobTitleService, PasswordEncoder passwordEncoder) {
         this.employeeService = employeeService;
         this.departmentService = departmentService;
         this.branchService = branchService;
         this.jobTitleService = jobTitleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping({"/admin/employees", "/employee/employees"})
@@ -85,6 +88,9 @@ public class AdminEmployeeController {
 
         if (employee.getStatus() == null) {
             employee.setStatus(EmployeeStatus.PENDING);
+        }
+        if (employee.getPassword() != null && !employee.getPassword().isBlank()) {
+            employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         }
         employeeService.save(employee);
         return "redirect:/admin/employees";
