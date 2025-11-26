@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>حدود الحضور</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<div class="page-layout">
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <main class="page-content">
+        <header>
+            <h2>تحديد الحد الأدنى لنسبة الحضور</h2>
+            <p>يتم تطبيق هذا الحد على تنبيهات المدراء تجاه فرقهم.</p>
+        </header>
+        <div class="container card">
+            <form th:action="@{/admin/attendance-limit}" th:object="${limit}" method="post" class="grid">
+                <label>الحد الأدنى للنسبة (%)
+                    <input type="number" th:field="*{limitPercent}" min="0" max="100" required>
+                </label>
+                <label>وصف داخلي
+                    <input type="text" th:field="*{description}" placeholder="مثال: حد افتراضي لكل الفروع">
+                </label>
+                <label class="checkbox">
+                    <input type="checkbox" th:field="*{active}"> تفعيل هذا الحد
+                </label>
+                <div class="toolbar">
+                    <button type="submit">حفظ</button>
+                    <a class="btn" href="/admin/dashboard">رجوع للوحة التحكم</a>
+                </div>
+            </form>
+        </div>
+    </main>
+</div>
+</body>
+</html>
