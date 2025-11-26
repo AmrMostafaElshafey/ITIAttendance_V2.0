@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>بوابة الموظف</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<div class="page-layout">
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <main class="page-content">
+<header>
+    <h2 th:text="'مرحباً، ' + ${employee.name}">بوابة الموظف</h2>
+    <p th:text="'نسبة حضورك الحالية: ' + ${#numbers.formatDecimal(attendancePercent, 1, 'COMMA', 2, 'POINT')} + '%'" class="pill"></p>
+</header>
+<div class="container section-grid">
+    <div class="card">
+        <h3>سجلات الحضور</h3>
+        <p>متابعة حضورك وانصرافك.</p>
+        <ul>
+            <li th:each="rec : ${records}" th:text="${rec.date + ' - ' + rec.status}"></li>
+        </ul>
+    </div>
+    <div class="card">
+        <h3>طلبات الإجازة</h3>
+        <p>عرض آخر الطلبات والحالة الحالية.</p>
+        <ul>
+            <li th:each="leave : ${leaves}" th:text="${leave.startDate + ' حتى ' + leave.endDate + ' (' + leave.status + ')'}"></li>
+        </ul>
+    </div>
+    <div class="card" th:if="${notifications} != null">
+        <h3>التنبيهات والرسائل</h3>
+        <ul class="list" th:if="${notifications.size()} > 0">
+            <li th:each="note : ${notifications}">
+                <strong th:text="${note.title}"></strong>
+                <div th:text="${note.message}"></div>
+                <small th:text="${#temporals.format(note.createdAt, 'yyyy-MM-dd HH:mm')}"></small>
+            </li>
+        </ul>
+        <p class="muted" th:if="${notifications.size()} == 0">لا توجد رسائل حالياً.</p>
+    </div>
+</div>
+    </main>
+</div>
+</body>
+</html>
