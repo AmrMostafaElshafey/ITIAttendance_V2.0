@@ -35,6 +35,10 @@ public class EmployeeService {
         return employeeRepository.findById(id).filter(e -> !e.isDeleted());
     }
 
+    public Employee getReference(Long id) {
+        return employeeRepository.getReferenceById(id);
+    }
+
     public Employee save(Employee employee) {
         return employeeRepository.save(employee);
     }
