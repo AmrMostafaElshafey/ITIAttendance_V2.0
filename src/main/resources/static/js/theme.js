@@ -10,17 +10,18 @@
     if (currentIndex < 0) currentIndex = 0;
 
     const applyTheme = (index) => {
-        body.classList.remove(themes[currentIndex].className);
+        themes
+            .map(t => t.className)
+            .filter(Boolean)
+            .forEach(cls => body.classList.remove(cls));
+
         currentIndex = index;
         const cls = themes[currentIndex].className;
         if (cls) body.classList.add(cls);
+        document.documentElement.setAttribute('data-theme', themes[currentIndex].key);
         localStorage.setItem('iti-theme', themes[currentIndex].key);
         updateLabel();
     };
-
-    if (themes[currentIndex].className) {
-        body.classList.add(themes[currentIndex].className);
-    }
 
     const toggle = document.createElement('button');
     toggle.className = 'theme-toggle';
@@ -40,7 +41,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         document.body.appendChild(toggle);
-        updateLabel();
+        applyTheme(currentIndex);
     });
 })();
 
