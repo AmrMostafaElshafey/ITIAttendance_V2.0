@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="page-layout">
-    <aside th:replace="fragments/sidebar :: navigation"></aside>
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
 <header><h2>بيانات الفرع</h2></header>
 <div class="container card">
@@ -18,14 +18,15 @@
         <label>اسم الفرع<input type="text" th:field="*{name}" required></label>
         <label>الموقع<input type="text" th:field="*{location}" required></label>
         <label>المؤسسة
-            <select th:field="*{organization}">
-                <option th:each="org : ${organizations}" th:value="${org}" th:text="${org.name}"></option>
+            <select th:field="*{organization.id}" required>
+                <option value="" disabled th:selected="${branch.organization == null}">اختر المؤسسة</option>
+                <option th:each="org : ${organizations}" th:value="${org.id}" th:text="${org.name}"></option>
             </select>
         </label>
         <label>مدير الفرع
-            <select th:field="*{manager}">
+            <select th:field="*{manager.id}">
                 <option value="" th:text="'بدون مدير (يُحدد لاحقاً)'"></option>
-                <option th:each="manager : ${managers}" th:value="${manager}" th:text="${manager.name}"></option>
+                <option th:each="manager : ${managers}" th:value="${manager.id}" th:text="${manager.name}"></option>
             </select>
         </label>
         <button type="submit">حفظ</button>
