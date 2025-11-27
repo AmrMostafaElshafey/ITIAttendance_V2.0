@@ -38,7 +38,7 @@ public class EmployeePortalController {
             return "redirect:/login";
         }
         model.addAttribute("records", attendanceRecordService.findByEmployee(userId));
-        model.addAttribute("leaves", leaveRequestService.findAllActive());
+        model.addAttribute("leaves", leaveRequestService.findActiveByEmployee(userId));
         model.addAttribute("notifications", notificationService.getNotificationsForRecipient(employee));
         model.addAttribute("attendancePercent", attendanceRecordService.calculateAttendancePercentage(userId));
         model.addAttribute("employee", employee);
