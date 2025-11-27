@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>لوحة المدير</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<div class="page-layout">
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <main class="page-content">
+        <header>
+            <h2 th:text="${manager.name}">المدير</h2>
+            <p th:text="'نسبة الحضور المستهدفة: ' + ${limit} + '%'">حد الحضور</p>
+        </header>
+        <div class="container card">
+            <table class="table responsive">
+                <thead>
+                <tr>
+                    <th>الموظف</th>
+                    <th>البريد الإلكتروني</th>
+                    <th>القسم</th>
+                    <th>نسبة الحضور</th>
+                    <th>إجراء</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="emp : ${team}">
+                    <td th:text="${emp.name}"></td>
+                    <td th:text="${emp.email}"></td>
+                    <td th:text="${emp.department != null ? emp.department.name : 'غير محدد'}"></td>
+                    <td>
+                        <span th:text="${#numbers.formatDecimal(percentages[emp.id], 1, 'COMMA', 2, 'POINT')} + '%'"
+                              th:classappend="${percentages[emp.id]} < ${limit} ? 'pill warning' : 'pill success'"></span>
+                    </td>
+                    <td>
+                        <form th:action="@{/manager/message}" method="post" class="inline-form">
+                            <input type="hidden" name="employeeId" th:value="${emp.id}">
+                            <input type="text" name="content" placeholder="رسالة تنبيه قصيرة" required>
+                            <button type="submit" th:disabled="${percentages[emp.id]} >= ${limit}">إرسال تنبيه</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <p class="muted">يمكن إرسال تنبيه للموظف إذا انخفضت نسبته عن الحد المعتمد.</p>
+        </div>
+    </main>
+</div>
+</body>
+</html>

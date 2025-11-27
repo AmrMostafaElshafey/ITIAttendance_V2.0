@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>خطأ أثناء التطوير</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="page-content" style="padding:2rem;">
+    <h2>تفاصيل الخطأ (وضع التطوير)</h2>
+    <p><strong>المسار:</strong> <span th:text="${path}"></span></p>
+    <p><strong>الحالة:</strong> <span th:text="${status}"></span> - <span th:text="${error}"></span></p>
+    <p><strong>الرسالة:</strong> <span th:text="${message}"></span></p>
+    <p><strong>الزمن:</strong> <span th:text="${timestamp}"></span></p>
+    <h3>الأثر المتتالي:</h3>
+    <pre style="background:#f7f7f7; padding:1rem; white-space:pre-wrap; direction:ltr;" th:text="${trace}"></pre>
+    <p>يمكنك الرجوع إلى الكائنات المرتبطة أعلاه لتحديد سبب المشكلة.</p>
+    <a class="btn" href="/">العودة للصفحة الرئيسية</a>
+</div>
+</body>
+</html>
