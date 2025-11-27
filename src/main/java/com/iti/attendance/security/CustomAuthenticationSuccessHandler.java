@@ -5,6 +5,7 @@ import com.iti.attendance.model.Role;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,11 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
         EmployeeUserDetails principal = (EmployeeUserDetails) authentication.getPrincipal();
         Employee employee = principal.getEmployee();
+
+        HttpSession session = request.getSession(true);
+        session.setAttribute("currentUserId", employee.getId());
+        session.setAttribute("currentUserRole", employee.getRole().name());
+        session.setAttribute("currentUserName", employee.getName());
 
         if (employee.getRole() == Role.ADMIN || employee.getRole() == Role.HR_MANAGER || employee.getRole() == Role.HR_EMPLOYEE) {
             response.sendRedirect("/admin/dashboard");
