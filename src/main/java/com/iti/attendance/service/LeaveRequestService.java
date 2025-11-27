@@ -29,6 +29,10 @@ public class LeaveRequestService {
         return leaveRequestRepository.findByDeletedFalse();
     }
 
+    public List<LeaveRequest> findActiveByEmployee(Long employeeId) {
+        return leaveRequestRepository.findByEmployeeIdAndDeletedFalse(employeeId);
+    }
+
     public Optional<LeaveRequest> findById(Long id) {
         return leaveRequestRepository.findById(id).filter(l -> !l.isDeleted());
     }

@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.util.List;
 
 @Controller
-@RequestMapping({"/admin/departments", "/employee/departments"})
+@RequestMapping("/admin/departments")
 public class AdminDepartmentController {
 
     private final DepartmentService departmentService;
