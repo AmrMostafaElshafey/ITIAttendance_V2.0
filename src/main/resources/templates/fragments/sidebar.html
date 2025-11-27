@@ -3,18 +3,8 @@
 <body>
 <aside class="sidebar" th:fragment="navigation">
     <div class="sidebar-header">
-        <h3 th:text="${activeOrganization != null ? activeOrganization.name : 'المؤسسة'}">المؤسسة</h3>
+        <h3>خدمات النظام</h3>
         <button type="button" class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
-    </div>
-    <div class="sidebar-brand" th:if="${activeOrganization != null}">
-        <div class="brand-mark">
-            <img th:if="${activeOrganization.logoPath != null}" th:src="${activeOrganization.logoPath}" alt="شعار المؤسسة">
-            <div class="placeholder" th:if="${activeOrganization.logoPath == null}">شعار</div>
-        </div>
-        <div class="brand-info">
-            <div class="brand-name" th:text="${activeOrganization.name}">المؤسسة</div>
-            <div class="brand-sub" th:text="${activeOrganization.description}">الوصف</div>
-        </div>
     </div>
     <div class="sidebar-user" sec:authorize="isAuthenticated()" th:if="${currentEmployee != null}">
         <img th:src="${currentEmployee.personalPhotoPath != null ? currentEmployee.personalPhotoPath : '/img/default-avatar.svg'}" alt="الصورة الشخصية" class="user-avatar">
@@ -170,6 +160,14 @@
             <summary>بوابة الموظفين</summary>
             <ul>
                 <li><a href="/employee/portal">بوابة الموظف</a></li>
+                <li><a href="/logout">تسجيل الخروج</a></li>
+            </ul>
+        </details>
+        <details sec:authorize="isAnonymous()">
+            <summary>دخول وتسجيل</summary>
+            <ul>
+                <li><a href="/login">تسجيل الدخول</a></li>
+                <li><a href="/register">تسجيل موظف جديد</a></li>
             </ul>
         </details>
     </div>
