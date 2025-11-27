@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface LeaveRequestRepository extends JpaRepository<LeaveRequest, Long> {
     List<LeaveRequest> findByDeletedFalse();
+
+    List<LeaveRequest> findByEmployeeIdAndDeletedFalse(Long employeeId);
 }
