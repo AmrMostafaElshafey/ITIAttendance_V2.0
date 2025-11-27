@@ -24,6 +24,14 @@
         <label>الحد الأقصى للأيام في الطلب
             <input type="number" th:field="*{maxDaysPerRequest}" min="1" required>
         </label>
+        <label>فترة السماح للتقديم (ساعات)
+            <input type="number" th:field="*{graceHours}" min="0" required>
+        </label>
+        <label>نوع الطلب
+            <select th:field="*{requestType}">
+                <option th:each="rt : ${requestTypes}" th:value="${rt}" th:text="${rt}"></option>
+            </select>
+        </label>
         <label>يحتاج موافقة المدير؟
             <input type="checkbox" th:field="*{requiresManagerApproval}">
         </label>

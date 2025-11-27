@@ -6,6 +6,13 @@
         <h3>خدمات النظام</h3>
         <button type="button" class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
     </div>
+    <div class="sidebar-user" sec:authorize="isAuthenticated()" th:if="${currentEmployee != null}">
+        <img th:src="${currentEmployee.personalPhotoPath != null ? currentEmployee.personalPhotoPath : '/img/default-avatar.svg'}" alt="الصورة الشخصية" class="user-avatar">
+        <div class="user-meta">
+            <div class="user-name" th:text="${currentEmployee.name}">الموظف</div>
+            <div class="user-role" th:text="${currentEmployee.role}">الدور</div>
+        </div>
+    </div>
     <div class="tree">
         <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
             <summary>تهيئة الهيكل</summary>
@@ -84,21 +91,45 @@
             </ul>
         </details>
         <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
-            <summary>طلبات الإجازات والمأموريات</summary>
+            <summary>طلبات الإجازات</summary>
             <ul>
-                <li><a href="/admin/leaves">عرض الطلبات</a></li>
-                <li><a href="/admin/leaves/new">إضافة طلب</a></li>
-                <li><a href="/admin/leaves">تعديل طلب</a></li>
-                <li><a href="/admin/leaves">حذف طلب (ناعم)</a></li>
+                <li><a href="/admin/leaves">عرض طلبات الإجازة</a></li>
+                <li><a href="/admin/leaves/new">إضافة طلب إجازة</a></li>
+            </ul>
+        </details>
+        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
+            <summary>طلبات المأموريات</summary>
+            <ul>
+                <li><a href="/admin/missions">عرض طلبات المأموريات</a></li>
+                <li><a href="/admin/missions/new">إضافة طلب مأمورية</a></li>
+            </ul>
+        </details>
+        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
+            <summary>طلبات الأذونات</summary>
+            <ul>
+                <li><a href="/admin/permits">عرض طلبات الأذونات</a></li>
+                <li><a href="/admin/permits/new">إضافة طلب إذن</a></li>
             </ul>
         </details>
         <details open sec:authorize="hasAnyRole('EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER','SECURITY')">
-            <summary>طلبات الإجازات والمأموريات</summary>
+            <summary>طلبات الإجازات</summary>
             <ul>
-                <li><a href="/employee/leaves">عرض الطلبات</a></li>
-                <li><a href="/employee/leaves/new">إضافة طلب</a></li>
-                <li><a href="/employee/leaves">تعديل طلب</a></li>
-                <li><a href="/employee/leaves">حذف طلب (ناعم)</a></li>
+                <li><a href="/employee/leaves">عرض طلبات الإجازة</a></li>
+                <li><a href="/employee/leaves/new">إضافة طلب إجازة</a></li>
+            </ul>
+        </details>
+        <details open sec:authorize="hasAnyRole('EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER','SECURITY')">
+            <summary>طلبات المأموريات</summary>
+            <ul>
+                <li><a href="/employee/missions">عرض طلبات المأموريات</a></li>
+                <li><a href="/employee/missions/new">إضافة طلب مأمورية</a></li>
+            </ul>
+        </details>
+        <details open sec:authorize="hasAnyRole('EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER','SECURITY')">
+            <summary>طلبات الأذونات</summary>
+            <ul>
+                <li><a href="/employee/permits">عرض طلبات الأذونات</a></li>
+                <li><a href="/employee/permits/new">إضافة طلب إذن</a></li>
             </ul>
         </details>
         <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
