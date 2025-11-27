@@ -36,12 +36,6 @@
                 <a class="link" href="/setup/departments">التالي: الأقسام</a>
             </div>
         </form>
-        <form th:action="@{/setup/branches/import}" method="post" enctype="multipart/form-data" class="inline-upload">
-            <label class="file-upload">استيراد الفروع (Excel)
-                <input type="file" name="file" accept=".xlsx,.xls" required>
-            </label>
-            <button type="submit" class="btn secondary">رفع ملف</button>
-        </form>
     </section>
 
     <section class="setup-card" th:if="${branches != null and !branches.isEmpty()}">

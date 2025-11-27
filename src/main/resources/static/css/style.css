@@ -595,18 +595,6 @@ form {
     grid-column: 1 / -1;
 }
 
-.inline-upload {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-}
-
-.file-upload input[type="file"] {
-    display: block;
-    margin-top: 6px;
-}
-
 .checkbox-row {
     flex-direction: row;
     align-items: center;
