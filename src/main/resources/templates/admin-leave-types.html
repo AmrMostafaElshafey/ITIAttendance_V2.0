@@ -28,6 +28,8 @@
             <th>الاسم</th>
             <th>الوصف</th>
             <th>الحد الأقصى للأيام</th>
+            <th>ساعات السماح للتقديم</th>
+            <th>نوع الطلب</th>
             <th>اعتماد مدير؟</th>
             <th>اعتماد الموارد البشرية؟</th>
             <th>إجراءات</th>
@@ -38,6 +40,8 @@
             <td th:text="${type.name}"></td>
             <td th:text="${type.description}"></td>
             <td th:text="${type.maxDaysPerRequest}"></td>
+            <td th:text="${type.graceHours}"></td>
+            <td th:text="${type.requestType}"></td>
             <td th:text="${type.requiresManagerApproval} ? 'نعم' : 'لا'"></td>
             <td th:text="${type.requiresHrApproval} ? 'نعم' : 'لا'"></td>
             <td>

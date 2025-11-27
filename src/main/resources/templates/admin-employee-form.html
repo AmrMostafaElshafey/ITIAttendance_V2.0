@@ -13,8 +13,10 @@
     <main class="page-content">
 <header><h2>بيانات موظف</h2></header>
 <div class="container card">
-    <form th:action="@{/admin/employees}" th:object="${employee}" method="post">
+    <form th:action="@{/admin/employees}" th:object="${employee}" method="post" enctype="multipart/form-data">
         <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{personalPhotoPath}">
+        <input type="hidden" th:field="*{nationalIdPhotoPath}">
         <label>الاسم<input type="text" th:field="*{name}" required></label>
         <label>البريد<input type="email" th:field="*{email}" required></label>
         <label>كلمة المرور<input type="password" th:field="*{password}" required></label>
@@ -58,6 +60,14 @@
                 <option value="" th:text="'بدون مدير (يُحدد لاحقاً)'"></option>
                 <option th:each="manager : ${managers}" th:value="${manager.id}" th:text="${manager.name}"></option>
             </select>
+        </label>
+        <label>الصورة الشخصية
+            <input type="file" name="personalPhoto" accept="image/*">
+            <span class="pill" th:if="${employee.personalPhotoPath}" th:text="${employee.personalPhotoPath}"></span>
+        </label>
+        <label>صورة الرقم القومي
+            <input type="file" name="nationalIdPhoto" accept="image/*">
+            <span class="pill" th:if="${employee.nationalIdPhotoPath}" th:text="${employee.nationalIdPhotoPath}"></span>
         </label>
         <button type="submit">حفظ</button>
     </form>
