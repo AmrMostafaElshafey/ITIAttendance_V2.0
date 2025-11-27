@@ -21,6 +21,11 @@
                 <option th:each="emp : ${employees}" th:value="${emp.id}" th:text="${emp.name}"></option>
             </select>
         </label>
+        <label>نوع الطلب
+            <select th:field="*{type}">
+                <option th:each="rt : ${requestTypes}" th:value="${rt}" th:text="${rt}"></option>
+            </select>
+        </label>
         <label>تاريخ البداية<input type="date" th:field="*{startDate}"></label>
         <label>تاريخ النهاية<input type="date" th:field="*{endDate}"></label>
         <label>السبب<textarea th:field="*{reason}" style="height:80px"></textarea></label>
