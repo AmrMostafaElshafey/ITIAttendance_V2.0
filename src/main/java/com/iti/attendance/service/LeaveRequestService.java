@@ -1,6 +1,7 @@
 package com.iti.attendance.service;
 
 import com.iti.attendance.model.LeaveRequest;
+import com.iti.attendance.model.RequestType;
 import com.iti.attendance.repository.LeaveRequestRepository;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -33,6 +34,14 @@ public class LeaveRequestService {
         return leaveRequestRepository.findByEmployeeIdAndDeletedFalse(employeeId);
     }
 
+    public List<LeaveRequest> findActiveByEmployeeAndType(Long employeeId, RequestType type) {
+        return leaveRequestRepository.findByEmployeeIdAndDeletedFalseAndType(employeeId, type);
+    }
+
+    public List<LeaveRequest> findAllActiveByType(RequestType type) {
+        return leaveRequestRepository.findByDeletedFalseAndType(type);
+    }
+
     public Optional<LeaveRequest> findById(Long id) {
         return leaveRequestRepository.findById(id).filter(l -> !l.isDeleted());
     }
@@ -63,6 +72,14 @@ public class LeaveRequestService {
                 request.setEndDate(LocalDate.parse(row.getCell(1).getStringCellValue()));
                 request.setReason(row.getCell(2).getStringCellValue());
                 request.setStatus(row.getCell(3).getStringCellValue());
+                if (row.getCell(4) != null) {
+                    String typeValue = row.getCell(4).getStringCellValue();
+                    try {
+                        request.setType(RequestType.valueOf(typeValue));
+                    } catch (IllegalArgumentException ex) {
+                        request.setType(RequestType.LEAVE);
+                    }
+                }
                 imported.add(leaveRequestRepository.save(request));
             }
         }

@@ -1,6 +1,7 @@
 package com.iti.attendance.controller;
 
 import com.iti.attendance.model.Employee;
+import com.iti.attendance.model.RequestType;
 import com.iti.attendance.service.AttendanceRecordService;
 import com.iti.attendance.service.EmployeeService;
 import com.iti.attendance.service.LeaveRequestService;
@@ -38,7 +39,9 @@ public class EmployeePortalController {
             return "redirect:/login";
         }
         model.addAttribute("records", attendanceRecordService.findByEmployee(userId));
-        model.addAttribute("leaves", leaveRequestService.findActiveByEmployee(userId));
+        model.addAttribute("leaves", leaveRequestService.findActiveByEmployeeAndType(userId, RequestType.LEAVE));
+        model.addAttribute("missions", leaveRequestService.findActiveByEmployeeAndType(userId, RequestType.MISSION));
+        model.addAttribute("permits", leaveRequestService.findActiveByEmployeeAndType(userId, RequestType.PERMIT));
         model.addAttribute("notifications", notificationService.getNotificationsForRecipient(employee));
         model.addAttribute("attendancePercent", attendanceRecordService.calculateAttendancePercentage(userId));
         model.addAttribute("employee", employee);
