@@ -263,6 +263,41 @@ table {
     margin-bottom: 8px;
 }
 
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(255,255,255,0.8);
+    border: 1px solid #f1c2c6;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.user-avatar {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #f06161;
+}
+
+.user-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: 700;
+    color: #c13737;
+}
+
+.user-role {
+    font-size: 12px;
+    color: #666;
+}
+
 .sidebar-header h3 {
     margin: 0;
     font-size: 1.05rem;
