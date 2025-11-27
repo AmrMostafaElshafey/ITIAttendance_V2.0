@@ -13,7 +13,7 @@
     <main class="page-content">
 <header><h2>بيانات طلب الإجازة</h2></header>
 <div class="container card">
-    <form th:action="@{/admin/leaves}" th:object="${leaveRequest}" method="post">
+    <form th:action="|${basePath}|" th:object="${leaveRequest}" method="post">
         <input type="hidden" th:field="*{id}">
         <label>الموظف
             <select th:field="*{employee.id}">
