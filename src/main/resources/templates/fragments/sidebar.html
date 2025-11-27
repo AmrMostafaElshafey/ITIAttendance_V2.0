@@ -68,7 +68,7 @@
                 <li><a href="/admin/attendance">حذف سجل (ناعم)</a></li>
             </ul>
         </details>
-        <details sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER')">
+        <details sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER','SECURITY')">
             <summary>حد تنبيه الحضور</summary>
             <ul>
                 <li><a href="/admin/attendance-limit">عرض/تعديل الحد</a></li>
@@ -84,7 +84,7 @@
             </ul>
         </details>
         <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER')">
-            <summary>طلبات الإجازات</summary>
+            <summary>طلبات الإجازات والمأموريات</summary>
             <ul>
                 <li><a href="/admin/leaves">عرض الطلبات</a></li>
                 <li><a href="/admin/leaves/new">إضافة طلب</a></li>
@@ -110,10 +110,15 @@
                 <li><a href="/admin/access-policies">حذف سياسة (ناعم)</a></li>
             </ul>
         </details>
-        <details sec:authorize="isAuthenticated()">
-            <summary>بوابة الموظفين</summary>
+        <details sec:authorize="hasAnyRole('MANAGER','BRANCH_MANAGER','TRAINING_MANAGER')">
+            <summary>إدارة الفرق</summary>
             <ul>
                 <li><a href="/manager/dashboard">لوحة المدير</a></li>
+            </ul>
+        </details>
+        <details sec:authorize="hasAnyRole('EMPLOYEE','HR_EMPLOYEE','HR_MANAGER','ADMIN','SECURITY','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER')">
+            <summary>بوابة الموظفين</summary>
+            <ul>
                 <li><a href="/employee/portal">بوابة الموظف</a></li>
                 <li><a href="/logout">تسجيل الخروج</a></li>
             </ul>

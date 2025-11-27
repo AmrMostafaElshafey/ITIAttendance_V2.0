@@ -30,6 +30,20 @@
             <li th:each="leave : ${leaves}" th:text="${leave.startDate + ' حتى ' + leave.endDate + ' (' + leave.status + ')'}"></li>
         </ul>
     </div>
+    <div class="card">
+        <h3>المأموريات</h3>
+        <p>المهام الميدانية الموجهة إليك.</p>
+        <ul>
+            <li th:each="mission : ${missions}" th:text="${mission.startDate + ' حتى ' + mission.endDate + ' (' + mission.status + ')'}"></li>
+        </ul>
+    </div>
+    <div class="card">
+        <h3>الأذونات</h3>
+        <p>طلبات الأذونات الخاصة بك.</p>
+        <ul>
+            <li th:each="permit : ${permits}" th:text="${permit.startDate + ' حتى ' + permit.endDate + ' (' + permit.status + ')'}"></li>
+        </ul>
+    </div>
     <div class="card" th:if="${notifications} != null">
         <h3>التنبيهات والرسائل</h3>
         <ul class="list" th:if="${notifications.size()} > 0">

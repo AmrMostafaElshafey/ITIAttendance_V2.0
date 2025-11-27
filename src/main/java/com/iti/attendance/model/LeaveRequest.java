@@ -18,6 +18,9 @@ public class LeaveRequest {
     private String status = "PENDING";
     private boolean deleted = false;
 
+    @Enumerated(EnumType.STRING)
+    private RequestType type = RequestType.LEAVE;
+
     public Long getId() {
         return id;
     }
@@ -72,5 +75,13 @@ public class LeaveRequest {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public RequestType getType() {
+        return type;
+    }
+
+    public void setType(RequestType type) {
+        this.type = type;
     }
 }

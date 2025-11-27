@@ -1,6 +1,7 @@
 package com.iti.attendance.controller;
 
 import com.iti.attendance.model.LeaveRequest;
+import com.iti.attendance.model.RequestType;
 import com.iti.attendance.service.EmployeeService;
 import com.iti.attendance.service.LeaveRequestService;
 import org.apache.poi.ss.usermodel.Row;
@@ -35,6 +36,7 @@ public class AdminLeaveController {
     public String list(Model model) {
         model.addAttribute("leaves", leaveRequestService.findAllActive());
         model.addAttribute("employees", employeeService.findAllActive());
+        model.addAttribute("requestTypes", RequestType.values());
         return "admin-leaves";
     }
 
@@ -42,6 +44,7 @@ public class AdminLeaveController {
     public String createForm(Model model) {
         model.addAttribute("leaveRequest", new LeaveRequest());
         model.addAttribute("employees", employeeService.findAllActive());
+        model.addAttribute("requestTypes", RequestType.values());
         return "admin-leave-form";
     }
 
@@ -57,6 +60,7 @@ public class AdminLeaveController {
     public String edit(@PathVariable Long id, Model model) {
         leaveRequestService.findById(id).ifPresent(lr -> model.addAttribute("leaveRequest", lr));
         model.addAttribute("employees", employeeService.findAllActive());
+        model.addAttribute("requestTypes", RequestType.values());
         return "admin-leave-form";
     }
 
@@ -81,6 +85,7 @@ public class AdminLeaveController {
         header.createCell(1).setCellValue("endDate");
         header.createCell(2).setCellValue("reason");
         header.createCell(3).setCellValue("status");
+        header.createCell(4).setCellValue("type (LEAVE|MISSION|PERMIT)");
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         workbook.write(bos);
         workbook.close();

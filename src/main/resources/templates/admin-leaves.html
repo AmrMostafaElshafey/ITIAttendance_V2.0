@@ -23,10 +23,11 @@
     </form>
     <div class="table-responsive">
     <table>
-        <thead><tr><th>الموظف</th><th>من</th><th>إلى</th><th>السبب</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+        <thead><tr><th>الموظف</th><th>النوع</th><th>من</th><th>إلى</th><th>السبب</th><th>الحالة</th><th>إجراءات</th></tr></thead>
         <tbody>
         <tr th:each="leave : ${leaves}">
             <td th:text="${leave.employee != null ? leave.employee.name : 'غير مرتبط'}"></td>
+            <td th:text="${leave.type}"></td>
             <td th:text="${leave.startDate}"></td>
             <td th:text="${leave.endDate}"></td>
             <td th:text="${leave.reason}"></td>
