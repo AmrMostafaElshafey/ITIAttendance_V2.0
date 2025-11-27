@@ -22,8 +22,8 @@
                 <p>إدارة الهيكل التنظيمي والحضور والإجازات والتوقيعات في فروع متعددة بواجهة عربية واضحة وودية.</p>
                 <nav class="toolbar">
                     <div class="flex">
-                        <button th:onclick="${#authorization.expression('isAuthenticated()') ? 'window.location.href=\'/admin/dashboard\'' : 'window.location.href=\'/login\''}">الدخول لمسار الإدارة</button>
-                        <button th:onclick="${#authorization.expression('isAuthenticated()') ? 'window.location.href=\'/employee/portal\'' : 'window.location.href=\'/login\''}">الدخول لمسار الموظف/المدير</button>
+                        <button th:onclick="${#authorization.expression('isAuthenticated()') ? \"window.location.href='/admin/dashboard'\" : \"window.location.href='/login'\"}">الدخول لمسار الإدارة</button>
+                        <button th:onclick="${#authorization.expression('isAuthenticated()') ? \"window.location.href='/employee/portal'\" : \"window.location.href='/login'\"}">الدخول لمسار الموظف/المدير</button>
                         <a class="btn" href="/register">تسجيل موظف جديد</a>
                     </div>
                     <span class="badge">جرب تبديل الألوان من الزر العائم أسفل الواجهة 🎨</span>
