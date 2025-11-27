@@ -83,13 +83,22 @@
                 <li><a href="/admin/leave-types">حذف نوع (ناعم)</a></li>
             </ul>
         </details>
-        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER')">
+        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
             <summary>طلبات الإجازات والمأموريات</summary>
             <ul>
                 <li><a href="/admin/leaves">عرض الطلبات</a></li>
                 <li><a href="/admin/leaves/new">إضافة طلب</a></li>
                 <li><a href="/admin/leaves">تعديل طلب</a></li>
                 <li><a href="/admin/leaves">حذف طلب (ناعم)</a></li>
+            </ul>
+        </details>
+        <details open sec:authorize="hasAnyRole('EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER','SECURITY')">
+            <summary>طلبات الإجازات والمأموريات</summary>
+            <ul>
+                <li><a href="/employee/leaves">عرض الطلبات</a></li>
+                <li><a href="/employee/leaves/new">إضافة طلب</a></li>
+                <li><a href="/employee/leaves">تعديل طلب</a></li>
+                <li><a href="/employee/leaves">حذف طلب (ناعم)</a></li>
             </ul>
         </details>
         <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">

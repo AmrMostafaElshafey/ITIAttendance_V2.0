@@ -68,7 +68,8 @@
                         <p>تسجيل حضور الموظفين ومتابعة طلبات الإجازات والإذن والمأموريات.</p>
                         <div class="flex">
                             <a class="btn" th:href="${#authorization.expression('isAuthenticated()')}? '/admin/attendance' : '/login'">سجلات الحضور</a>
-                            <a class="btn" th:href="${#authorization.expression('isAuthenticated()')}? '/admin/leaves' : '/login'">طلبات الإجازة</a>
+                            <a class="btn"
+                               th:href="${#authorization.expression('hasAnyRole(''ADMIN'',''HR_MANAGER'',''HR_EMPLOYEE'')')} ? '/admin/leaves' : (${#authorization.expression('isAuthenticated()')} ? '/employee/leaves' : '/login')}">طلبات الإجازة</a>
                         </div>
                     </div>
                 </div>
