@@ -35,11 +35,13 @@ public class LeaveRequestService {
     }
 
     public List<LeaveRequest> findActiveByEmployeeAndType(Long employeeId, RequestType type) {
-        return leaveRequestRepository.findByEmployeeIdAndDeletedFalseAndType(employeeId, type);
+        boolean includeNullType = RequestType.LEAVE.equals(type);
+        return leaveRequestRepository.findByEmployeeIdAndDeletedFalseAndTypeOrNull(employeeId, type, includeNullType);
     }
 
     public List<LeaveRequest> findAllActiveByType(RequestType type) {
-        return leaveRequestRepository.findByDeletedFalseAndType(type);
+        boolean includeNullType = RequestType.LEAVE.equals(type);
+        return leaveRequestRepository.findByDeletedFalseAndTypeOrNull(type, includeNullType);
     }
 
     public Optional<LeaveRequest> findById(Long id) {
