@@ -34,6 +34,9 @@ public class Employee {
     @ManyToOne
     private Employee manager;
 
+    private String personalPhotoPath;
+    private String nationalIdPhotoPath;
+
     private boolean deleted = false;
 
     public Long getId() {
@@ -138,6 +141,22 @@ public class Employee {
 
     public void setManager(Employee manager) {
         this.manager = manager;
+    }
+
+    public String getPersonalPhotoPath() {
+        return personalPhotoPath;
+    }
+
+    public void setPersonalPhotoPath(String personalPhotoPath) {
+        this.personalPhotoPath = personalPhotoPath;
+    }
+
+    public String getNationalIdPhotoPath() {
+        return nationalIdPhotoPath;
+    }
+
+    public void setNationalIdPhotoPath(String nationalIdPhotoPath) {
+        this.nationalIdPhotoPath = nationalIdPhotoPath;
     }
 
     public boolean isDeleted() {
