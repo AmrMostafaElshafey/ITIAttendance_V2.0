@@ -11,6 +11,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,6 +40,7 @@ public class AdminLeaveController {
         model.addAttribute("leaves", leaveRequestService.findAllActive());
         model.addAttribute("employees", employeeService.findAllActive());
         model.addAttribute("requestTypes", RequestType.values());
+        model.addAttribute("basePath", resolveBasePath());
         return "admin-leaves";
     }
 
@@ -45,6 +49,7 @@ public class AdminLeaveController {
         model.addAttribute("leaveRequest", new LeaveRequest());
         model.addAttribute("employees", employeeService.findAllActive());
         model.addAttribute("requestTypes", RequestType.values());
+        model.addAttribute("basePath", resolveBasePath());
         return "admin-leave-form";
     }
 
@@ -53,7 +58,7 @@ public class AdminLeaveController {
         leaveRequest.setStartDate(LocalDate.parse(start));
         leaveRequest.setEndDate(LocalDate.parse(end));
         leaveRequestService.save(leaveRequest);
-        return "redirect:/admin/leaves";
+        return "redirect:" + resolveBasePath();
     }
 
     @GetMapping("/edit/{id}")
@@ -61,19 +66,20 @@ public class AdminLeaveController {
         leaveRequestService.findById(id).ifPresent(lr -> model.addAttribute("leaveRequest", lr));
         model.addAttribute("employees", employeeService.findAllActive());
         model.addAttribute("requestTypes", RequestType.values());
+        model.addAttribute("basePath", resolveBasePath());
         return "admin-leave-form";
     }
 
     @PostMapping("/delete/{id}")
     public String delete(@PathVariable Long id) {
         leaveRequestService.softDelete(id);
-        return "redirect:/admin/leaves";
+        return "redirect:" + resolveBasePath();
     }
 
     @PostMapping("/import")
     public String bulkImport(@RequestParam("file") MultipartFile file) throws IOException {
         leaveRequestService.importFromExcel(file);
-        return "redirect:/admin/leaves";
+        return "redirect:" + resolveBasePath();
     }
 
     @GetMapping("/template")
@@ -93,5 +99,20 @@ public class AdminLeaveController {
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=leave-template.xlsx")
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
                 .body(bos.toByteArray());
+    }
+
+    private String resolveBasePath() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.getAuthorities() != null) {
+            boolean adminContext = authentication.getAuthorities().stream()
+                    .map(GrantedAuthority::getAuthority)
+                    .anyMatch(auth -> auth.equals("ROLE_ADMIN")
+                            || auth.equals("ROLE_HR_MANAGER")
+                            || auth.equals("ROLE_HR_EMPLOYEE"));
+            if (adminContext) {
+                return "/admin/leaves";
+            }
+        }
+        return "/employee/leaves";
     }
 }
