@@ -28,6 +28,20 @@ public class DepartmentService {
         return departmentRepository.findByDeletedFalse();
     }
 
+    public List<Department> findByBranch(Long branchId) {
+        if (branchId == null) {
+            return List.of();
+        }
+        return departmentRepository.findByBranchIdAndDeletedFalse(branchId);
+    }
+
+    public List<Department> findByBranches(List<Long> branchIds) {
+        if (branchIds == null || branchIds.isEmpty()) {
+            return List.of();
+        }
+        return departmentRepository.findByBranchIdInAndDeletedFalse(branchIds);
+    }
+
     public Optional<Department> findById(Long id) {
         return departmentRepository.findById(id).filter(d -> !d.isDeleted());
     }
