@@ -2,6 +2,7 @@ package com.iti.attendance.model;
 
 import jakarta.persistence.*;
 
+
 @Entity
 public class LeaveType {
     @Id
@@ -13,6 +14,9 @@ public class LeaveType {
     private int maxDaysPerRequest;
     private boolean requiresManagerApproval;
     private boolean requiresHrApproval;
+    private int graceHours;
+    @Enumerated(EnumType.STRING)
+    private RequestType requestType = RequestType.LEAVE;
     private boolean deleted = false;
 
     public Long getId() {
@@ -61,6 +65,22 @@ public class LeaveType {
 
     public void setRequiresHrApproval(boolean requiresHrApproval) {
         this.requiresHrApproval = requiresHrApproval;
+    }
+
+    public int getGraceHours() {
+        return graceHours;
+    }
+
+    public void setGraceHours(int graceHours) {
+        this.graceHours = graceHours;
+    }
+
+    public RequestType getRequestType() {
+        return requestType;
+    }
+
+    public void setRequestType(RequestType requestType) {
+        this.requestType = requestType;
     }
 
     public boolean isDeleted() {
