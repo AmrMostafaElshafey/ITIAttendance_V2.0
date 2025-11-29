@@ -1,5 +1,6 @@
 :root,
 :root[data-theme="warm"] {
+    --topbar-height: 76px;
     --primary: #e77d8c;
     --primary-strong: #d3556a;
     --secondary: #f1eef0;
@@ -63,7 +64,7 @@ header {
     text-align: center;
     color: #fff;
     position: sticky;
-    top: 0;
+    top: calc(var(--topbar-height) + 16px);
     z-index: 10;
 }
 
@@ -202,6 +203,57 @@ table {
     gap: 16px;
 }
 
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 14px;
+    margin-bottom: 12px;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    min-height: var(--topbar-height);
+}
+
+.topbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0;
+}
+
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-chip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 10px;
+    background: rgba(255, 235, 238, 0.7);
+    border-radius: 12px;
+    border: 1px solid #f1c2c6;
+}
+
+.logout-form {
+    margin: 0;
+}
+
+.btn.ghost {
+    background: transparent;
+    color: var(--primary-strong);
+    border: 1px solid var(--primary);
+    box-shadow: none;
+}
+
 .sidebar {
     width: 280px;
     flex: 0 0 280px;
@@ -222,6 +274,41 @@ table {
     align-items: center;
     gap: 8px;
     margin-bottom: 8px;
+}
+
+.sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px;
+    background: rgba(255,255,255,0.8);
+    border: 1px solid #f1c2c6;
+    border-radius: 12px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.user-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #f06161;
+}
+
+.user-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-name {
+    font-weight: 700;
+    color: #c13737;
+}
+
+.user-role {
+    font-size: 12px;
+    color: #666;
 }
 
 .sidebar-header h3 {
