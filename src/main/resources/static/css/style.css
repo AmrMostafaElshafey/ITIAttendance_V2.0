@@ -1,5 +1,6 @@
 :root,
 :root[data-theme="warm"] {
+    --topbar-height: 76px;
     --primary: #e77d8c;
     --primary-strong: #d3556a;
     --secondary: #f1eef0;
@@ -60,7 +61,7 @@ header {
     text-align: center;
     color: #fff;
     position: sticky;
-    top: 96px;
+    top: calc(var(--topbar-height) + 16px);
     z-index: 10;
 }
 
@@ -204,7 +205,8 @@ table {
     box-shadow: 0 6px 18px rgba(0,0,0,0.05);
     position: sticky;
     top: 0;
-    z-index: 8;
+    z-index: 20;
+    min-height: var(--topbar-height);
 }
 
 .topbar-brand {
@@ -249,7 +251,8 @@ table {
     padding: 16px 14px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.06);
     position: sticky;
-    top: 12px;
+    top: calc(var(--topbar-height) + 16px);
+    z-index: 15;
 }
 
 .sidebar-header {
