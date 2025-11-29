@@ -213,8 +213,8 @@ table {
 .sidebar-user {
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 10px;
+    gap: 14px;
+    padding: 12px;
     background: rgba(255,255,255,0.8);
     border: 1px solid #f1c2c6;
     border-radius: 12px;
@@ -223,8 +223,8 @@ table {
 }
 
 .user-avatar {
-    width: 56px;
-    height: 56px;
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #f06161;
@@ -479,9 +479,9 @@ form {
 }
 
 .brand-mark {
-    width: 56px;
-    height: 56px;
-    border-radius: 12px;
+    width: 80px;
+    height: 80px;
+    border-radius: 16px;
     background: var(--card-bg);
     display: grid;
     place-items: center;
@@ -497,7 +497,31 @@ form {
 
 .brand-mark .placeholder {
     color: var(--muted);
-    font-size: 14px;
+    font-size: 15px;
+}
+
+.image-preview {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.image-preview img {
+    width: 140px;
+    height: 140px;
+    border-radius: 12px;
+    object-fit: cover;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    background: #fff;
+}
+
+.image-preview .placeholder {
+    padding: 12px 14px;
+    border: 1px dashed #ccc;
+    border-radius: 10px;
+    color: var(--muted);
+    background: rgba(0,0,0,0.02);
 }
 
 .wizard-steps {
