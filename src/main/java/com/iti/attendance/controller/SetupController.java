@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -212,7 +211,6 @@ public class SetupController {
         model.addAttribute("approvalLevels", approvalLevelService.findAllActive());
         model.addAttribute("accessPolicy", accessPolicy);
         model.addAttribute("accessPolicies", accessPolicyService.findAllActive());
-        model.addAttribute("endpoints", allEndpoints());
         model.addAttribute("limit", limit);
         model.addAttribute("currentStep", 5);
         return "setup-policies";
@@ -246,32 +244,6 @@ public class SetupController {
     public String saveAttendanceLimit(@ModelAttribute("limit") AttendanceLimit limit) {
         attendanceLimitService.save(limit);
         return "redirect:/setup/policies";
-    }
-
-    private List<String> allEndpoints() {
-        List<String> endpoints = new ArrayList<>();
-        endpoints.add("/admin/dashboard");
-        endpoints.add("/admin/organizations");
-        endpoints.add("/admin/branches");
-        endpoints.add("/admin/departments");
-        endpoints.add("/admin/employees");
-        endpoints.add("/admin/job-titles");
-        endpoints.add("/admin/attendance-rules");
-        endpoints.add("/admin/attendance");
-        endpoints.add("/admin/leave-types");
-        endpoints.add("/admin/leaves");
-        endpoints.add("/admin/approvals");
-        endpoints.add("/admin/access-policies");
-        endpoints.add("/admin/missions");
-        endpoints.add("/admin/permits");
-        endpoints.add("/employee/portal");
-        endpoints.add("/employee/attendance");
-        endpoints.add("/employee/leaves");
-        endpoints.add("/employee/missions");
-        endpoints.add("/employee/permits");
-        endpoints.add("/employee/approvals");
-        endpoints.add("/employee/profile");
-        return endpoints;
     }
 
     @GetMapping("/rules")
