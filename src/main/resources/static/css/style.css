@@ -45,7 +45,7 @@ body {
     margin: 0;
     padding: 0;
     direction: rtl;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -189,7 +189,6 @@ table {
     align-items: stretch;
     flex: 1;
     min-height: 0;
-    height: 100%;
     padding: 16px;
 }
 
