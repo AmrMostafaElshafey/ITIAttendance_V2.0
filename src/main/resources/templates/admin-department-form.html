@@ -11,7 +11,10 @@
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-<header><h2>بيانات القسم</h2></header>
+        <header>
+    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
+    <h2>بيانات القسم</h2>
+</header>
 <div class="container card">
     <form th:action="@{/admin/departments}" th:object="${department}" method="post">
         <input type="hidden" th:field="*{id}">

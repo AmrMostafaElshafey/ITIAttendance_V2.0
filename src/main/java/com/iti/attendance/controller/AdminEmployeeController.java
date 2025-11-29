@@ -30,13 +30,15 @@ public class AdminEmployeeController {
     private final BranchService branchService;
     private final JobTitleService jobTitleService;
     private final PasswordEncoder passwordEncoder;
+    private final FileStorageService fileStorageService;
 
-    public AdminEmployeeController(EmployeeService employeeService, DepartmentService departmentService, BranchService branchService, JobTitleService jobTitleService, PasswordEncoder passwordEncoder) {
+    public AdminEmployeeController(EmployeeService employeeService, DepartmentService departmentService, BranchService branchService, JobTitleService jobTitleService, PasswordEncoder passwordEncoder, FileStorageService fileStorageService) {
         this.employeeService = employeeService;
         this.departmentService = departmentService;
         this.branchService = branchService;
         this.jobTitleService = jobTitleService;
         this.passwordEncoder = passwordEncoder;
+        this.fileStorageService = fileStorageService;
     }
 
     @GetMapping({"/admin/employees", "/employee/employees"})
@@ -61,7 +63,9 @@ public class AdminEmployeeController {
                        @RequestParam(value = "department.id", required = false) Long departmentId,
                        @RequestParam(value = "branch.id", required = false) Long branchId,
                        @RequestParam(value = "jobTitle.id", required = false) Long jobTitleId,
-                       @RequestParam(value = "manager.id", required = false) Long managerId) {
+                       @RequestParam(value = "manager.id", required = false) Long managerId,
+                       @RequestParam(value = "personalPhoto", required = false) MultipartFile personalPhoto,
+                       @RequestParam(value = "nationalIdPhoto", required = false) MultipartFile nationalIdPhoto) throws IOException {
         if (departmentId != null) {
             departmentService.findById(departmentId).ifPresent(employee::setDepartment);
         } else {
@@ -91,6 +95,14 @@ public class AdminEmployeeController {
         }
         if (employee.getPassword() != null && !employee.getPassword().isBlank()) {
             employee.setPassword(passwordEncoder.encode(employee.getPassword()));
+        }
+        String personalPath = fileStorageService.storeFile(personalPhoto);
+        if (personalPath != null) {
+            employee.setPersonalPhotoPath(personalPath);
+        }
+        String nationalIdPath = fileStorageService.storeFile(nationalIdPhoto);
+        if (nationalIdPath != null) {
+            employee.setNationalIdPhotoPath(nationalIdPath);
         }
         employeeService.save(employee);
         return "redirect:/admin/employees";
