@@ -11,7 +11,6 @@
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-    <div th:replace="~{fragments/topbar :: topbar}"></div>
 <header><h2>بيانات موظف</h2></header>
 <div class="container card">
     <form th:action="@{/admin/employees}" th:object="${employee}" method="post" enctype="multipart/form-data">
@@ -64,14 +63,14 @@
         </label>
         <label>الصورة الشخصية
             <input type="file" name="personalPhoto" accept="image/*" id="personalPhotoInput">
-            <div class="image-preview large" id="personalPhotoPreview">
+            <div class="image-preview" id="personalPhotoPreview">
                 <img th:if="${employee.personalPhotoPath}" th:src="${employee.personalPhotoPath}" alt="الصورة الشخصية">
                 <div class="placeholder" th:if="${employee.personalPhotoPath == null}">لم يتم اختيار صورة بعد</div>
             </div>
         </label>
         <label>صورة الرقم القومي
             <input type="file" name="nationalIdPhoto" accept="image/*" id="nationalIdPhotoInput">
-            <div class="image-preview national-id" id="nationalIdPhotoPreview">
+            <div class="image-preview" id="nationalIdPhotoPreview">
                 <img th:if="${employee.nationalIdPhotoPath}" th:src="${employee.nationalIdPhotoPath}" alt="صورة الرقم القومي">
                 <div class="placeholder" th:if="${employee.nationalIdPhotoPath == null}">لم يتم اختيار صورة بعد</div>
             </div>
