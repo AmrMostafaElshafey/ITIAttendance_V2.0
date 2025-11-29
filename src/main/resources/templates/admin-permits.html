@@ -11,7 +11,10 @@
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-<header><h2 th:text="${pageTitle}">الأذونات</h2></header>
+        <header>
+    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
+    <h2 th:text="${pageTitle}">الأذونات</h2>
+</header>
 <div class="container">
     <div class="alert warning" th:if="${param.graceError}">
         لا يمكن تقديم الطلب لأن فترة السماح للتقديم قد انتهت لهذا النوع.
