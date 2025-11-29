@@ -3,7 +3,7 @@
 <body>
 <aside class="sidebar" th:fragment="navigation">
     <div class="sidebar-header">
-        <h3>خدمات النظام</h3>
+        <h3 th:text="${activeOrganization != null ? activeOrganization.name : 'المؤسسة'}">المؤسسة</h3>
         <button type="button" class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
     </div>
     <div class="sidebar-brand" th:if="${activeOrganization != null}">
@@ -170,14 +170,6 @@
             <summary>بوابة الموظفين</summary>
             <ul>
                 <li><a href="/employee/portal">بوابة الموظف</a></li>
-                <li><a href="/logout">تسجيل الخروج</a></li>
-            </ul>
-        </details>
-        <details sec:authorize="isAnonymous()">
-            <summary>دخول وتسجيل</summary>
-            <ul>
-                <li><a href="/login">تسجيل الدخول</a></li>
-                <li><a href="/register">تسجيل موظف جديد</a></li>
             </ul>
         </details>
     </div>

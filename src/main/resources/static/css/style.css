@@ -488,6 +488,7 @@ form {
     align-items: center;
     gap: 12px;
     min-width: 0;
+    text-align: right;
 }
 
 .brand-logo {
@@ -522,6 +523,7 @@ form {
     display: flex;
     align-items: center;
     gap: 12px;
+    margin-right: auto;
 }
 
 .header-actions .btn {
