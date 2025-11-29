@@ -47,6 +47,9 @@ body {
     padding: 0;
     direction: rtl;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -184,12 +187,20 @@ table {
 .page-layout {
     display: flex;
     gap: 16px;
-    align-items: flex-start;
+    align-items: stretch;
+    flex: 1;
+    min-height: 0;
+    padding: 16px;
 }
 
 .page-content {
     flex: 1;
     min-width: 0;
+    max-height: 100%;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
 }
 
 .topbar {
@@ -245,14 +256,16 @@ table {
 
 .sidebar {
     width: 280px;
+    flex: 0 0 280px;
     background: linear-gradient(180deg, rgba(255,235,238,0.95), rgba(241,241,241,0.95));
     border: 1px solid #f1c2c6;
     border-radius: 14px;
     padding: 16px 14px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.06);
     position: sticky;
-    top: calc(var(--topbar-height) + 16px);
-    z-index: 15;
+    top: 16px;
+    max-height: calc(100vh - 32px);
+    overflow: auto;
 }
 
 .sidebar-header {
