@@ -11,7 +11,6 @@
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-    <div th:replace="~{fragments/topbar :: topbar}"></div>
 <header><h2 th:text="${formTitle}">بيانات طلب إذن</h2></header>
 <div class="container card">
     <form th:action="|${basePath}|" th:object="${leaveRequest}" method="post">

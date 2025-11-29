@@ -11,7 +11,6 @@
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-    <div th:replace="~{fragments/topbar :: topbar}"></div>
 <header><h2 th:text="${pageTitle}">المأموريات</h2></header>
 <div class="container">
     <div class="alert warning" th:if="${param.graceError}">
