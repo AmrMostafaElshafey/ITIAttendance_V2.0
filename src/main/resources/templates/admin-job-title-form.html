@@ -11,6 +11,7 @@
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
+    <div th:replace="~{fragments/topbar :: topbar}"></div>
 <div class="container">
     <h1>بيانات المسمى الوظيفي</h1>
     <form th:action="@{/admin/job-titles}" th:object="${jobTitle}" method="post" class="form-card">
