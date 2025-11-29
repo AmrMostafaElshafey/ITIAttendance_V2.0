@@ -11,7 +11,8 @@
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-        <header>
+        <div th:replace="~{fragments/topbar :: topbar}"></div>
+<header>
     <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
     <h2 th:text="'مرحباً، ' + ${employee.name}">بوابة الموظف</h2>
     <p th:text="'نسبة حضورك الحالية: ' + ${#numbers.formatDecimal(attendancePercent, 1, 'COMMA', 2, 'POINT')} + '%'" class="pill"></p>
