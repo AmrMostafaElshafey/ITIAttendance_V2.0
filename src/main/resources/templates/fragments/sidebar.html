@@ -6,6 +6,23 @@
         <h3 th:text="${activeOrganization != null ? activeOrganization.name : 'المؤسسة'}">المؤسسة</h3>
         <button type="button" class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
     </div>
+    <div class="sidebar-brand" th:if="${activeOrganization != null}">
+        <div class="brand-mark">
+            <img th:if="${activeOrganization.logoPath != null}" th:src="${activeOrganization.logoPath}" alt="شعار المؤسسة">
+            <div class="placeholder" th:if="${activeOrganization.logoPath == null}">شعار</div>
+        </div>
+        <div class="brand-info">
+            <div class="brand-name" th:text="${activeOrganization.name}">المؤسسة</div>
+            <div class="brand-sub" th:text="${activeOrganization.description}">الوصف</div>
+        </div>
+    </div>
+    <div class="sidebar-user" sec:authorize="isAuthenticated()" th:if="${currentEmployee != null}">
+        <img th:src="${currentEmployee.personalPhotoPath != null ? currentEmployee.personalPhotoPath : '/img/default-avatar.svg'}" alt="الصورة الشخصية" class="user-avatar">
+        <div class="user-meta">
+            <div class="user-name" th:text="${currentEmployee.name}">الموظف</div>
+            <div class="user-role" th:text="${currentEmployee.role}">الدور</div>
+        </div>
+    </div>
     <div class="tree">
         <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
             <summary>تهيئة الهيكل</summary>
