@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface BranchRepository extends JpaRepository<Branch, Long> {
     List<Branch> findByDeletedFalse();
+    List<Branch> findByOrganizationIdAndDeletedFalse(Long organizationId);
 }
