@@ -518,11 +518,6 @@ form {
     font-size: 18px;
 }
 
-.brand-sub {
-    color: rgba(255,255,255,0.85);
-    font-size: 14px;
-}
-
 .header-actions {
     display: flex;
     align-items: center;
@@ -850,13 +845,4 @@ form {
 
 .sidebar-brand .brand-name {
     font-weight: 700;
-}
-
-.sidebar-brand .brand-sub {
-    color: var(--muted);
-    font-size: 12px;
-    max-width: 220px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
