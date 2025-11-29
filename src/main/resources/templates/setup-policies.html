@@ -8,140 +8,148 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
-<div class="setup-page">
-    <header class="setup-header">
-        <div>
-            <h1>سياسات الاعتماد والصلاحيات</h1>
-            <p>حدد مستويات الاعتماد، سياسات الوصول، وحدود الحضور.</p>
-        </div>
-        <a class="link" href="/setup/job-titles">العودة للمسميات</a>
-    </header>
-
-    <div th:replace="~{fragments/setup-steps :: steps(${currentStep})}"></div>
-
-    <section class="setup-card">
-        <div class="setup-card__header">
-            <h2>مستوى اعتماد جديد</h2>
-            <p class="muted">حدد ترتيب الاعتماد حسب نوع الطلب.</p>
-        </div>
-        <form th:action="@{/setup/policies/approval-level}" th:object="${approvalLevel}" method="post" class="form-grid two-columns">
-            <label>نوع الطلب
-                <select th:field="*{requestType}">
-                    <option th:each="type : ${T(com.iti.attendance.model.RequestType).values()}" th:value="${type}" th:text="${type}"></option>
-                </select>
-            </label>
-            <label>الدور المعتمد
-                <select th:field="*{role}">
-                    <option th:each="role : ${T(com.iti.attendance.model.Role).values()}" th:value="${role}" th:text="${role}"></option>
-                </select>
-            </label>
-            <label>ترتيب المستوى
-                <input type="number" min="1" th:field="*{levelOrder}" required>
-            </label>
-            <label>SLA (ساعات)
-                <input type="number" min="0" th:field="*{slaHours}" required>
-            </label>
-            <div class="form-actions full-row">
-                <button type="submit" class="btn">حفظ المستوى</button>
-                <a class="link" href="/setup/rules">التالي: القواعد</a>
+<header>
+    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
+    <h1>سياسات الاعتماد والصلاحيات</h1>
+    <p>حدد مستويات الاعتماد، سياسات الوصول، وحدود الحضور.</p>
+</header>
+<div class="page-layout">
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <main class="page-content">
+        <div class="container setup-body">
+            <div class="card setup-intro">
+                <div>
+                    <h2>اعتماد وإتاحة</h2>
+                    <p class="muted">اضبط الترتيب الزمني للاعتمادات والصفحات المسموحة لكل دور.</p>
+                </div>
+                <a class="link" href="/setup/job-titles">العودة للمسميات</a>
             </div>
-        </form>
-        <form th:action="@{/setup/policies/approval-level/import}" method="post" enctype="multipart/form-data" class="inline-upload">
-            <label class="file-upload">استيراد مستويات الاعتماد (Excel)
-                <input type="file" name="file" accept=".xlsx,.xls" required>
-            </label>
-            <button type="submit" class="btn secondary">رفع ملف</button>
-        </form>
-        <div class="table-responsive" th:if="${approvalLevels != null and !approvalLevels.isEmpty()}">
-            <table>
-                <thead>
-                <tr>
-                    <th>نوع الطلب</th>
-                    <th>الدور</th>
-                    <th>الترتيب</th>
-                    <th>SLA</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="level : ${approvalLevels}">
-                    <td th:text="${level.requestType}"></td>
-                    <td th:text="${level.role}"></td>
-                    <td th:text="${level.levelOrder}"></td>
-                    <td th:text="${level.slaHours}"></td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
+            <div th:replace="~{fragments/setup-steps :: steps(${currentStep})}"></div>
+            <section class="setup-card card">
+                <div class="setup-card__header">
+                    <h3>مستوى اعتماد جديد</h3>
+                    <p class="muted">حدد ترتيب الاعتماد حسب نوع الطلب.</p>
+                </div>
+                <form th:action="@{/setup/policies/approval-level}" th:object="${approvalLevel}" method="post" class="form-grid two-columns">
+                    <label>نوع الطلب
+                        <select th:field="*{requestType}">
+                            <option th:each="type : ${T(com.iti.attendance.model.RequestType).values()}" th:value="${type}" th:text="${type}"></option>
+                        </select>
+                    </label>
+                    <label>الدور المعتمد
+                        <select th:field="*{role}">
+                            <option th:each="role : ${T(com.iti.attendance.model.Role).values()}" th:value="${role}" th:text="${role}"></option>
+                        </select>
+                    </label>
+                    <label>ترتيب المستوى
+                        <input type="number" min="1" th:field="*{levelOrder}" required>
+                    </label>
+                    <label>SLA (ساعات)
+                        <input type="number" min="0" th:field="*{slaHours}" required>
+                    </label>
+                    <div class="form-actions full-row">
+                        <button type="submit" class="btn">حفظ المستوى</button>
+                        <a class="link" href="/setup/rules">التالي: القواعد</a>
+                    </div>
+                </form>
+                <form th:action="@{/setup/policies/approval-level/import}" method="post" enctype="multipart/form-data" class="inline-upload">
+                    <label class="file-upload">استيراد مستويات الاعتماد (Excel)
+                        <input type="file" name="file" accept=".xlsx,.xls" required>
+                    </label>
+                    <button type="submit" class="btn secondary">رفع ملف</button>
+                </form>
+                <div class="table-responsive" th:if="${approvalLevels != null and !approvalLevels.isEmpty()}">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>نوع الطلب</th>
+                            <th>الدور</th>
+                            <th>الترتيب</th>
+                            <th>SLA</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="level : ${approvalLevels}">
+                            <td th:text="${level.requestType}"></td>
+                            <td th:text="${level.role}"></td>
+                            <td th:text="${level.levelOrder}"></td>
+                            <td th:text="${level.slaHours}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
-    <section class="setup-card">
-        <div class="setup-card__header">
-            <h2>سياسة وصول</h2>
-            <p class="muted">حدد الصفحات المسموحة لكل دور.</p>
-        </div>
-        <form th:action="@{/setup/policies/access-policy}" th:object="${accessPolicy}" method="post" class="form-grid two-columns">
-            <label>الدور
-                <select th:field="*{role}">
-                    <option th:each="role : ${T(com.iti.attendance.model.Role).values()}" th:value="${role}" th:text="${role}"></option>
-                </select>
-            </label>
-            <label>الصفحات المسموحة
-                <select th:field="*{allowedPageList}" multiple size="10">
-                    <option th:each="endpoint : ${endpoints}" th:value="${endpoint}" th:text="${endpoint}"></option>
-                </select>
-            </label>
-            <div class="form-actions full-row">
-                <button type="submit" class="btn">حفظ السياسة</button>
-            </div>
-        </form>
-        <form th:action="@{/setup/policies/access-policy/import}" method="post" enctype="multipart/form-data" class="inline-upload">
-            <label class="file-upload">استيراد سياسات الوصول (Excel)
-                <input type="file" name="file" accept=".xlsx,.xls" required>
-            </label>
-            <button type="submit" class="btn secondary">رفع ملف</button>
-        </form>
-        <div class="table-responsive" th:if="${accessPolicies != null and !accessPolicies.isEmpty()}">
-            <table>
-                <thead>
-                <tr>
-                    <th>الدور</th>
-                    <th>الصفحات</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="policy : ${accessPolicies}">
-                    <td th:text="${policy.role}"></td>
-                    <td>
-                        <div class="tag-row">
-                            <span class="tag" th:each="page : ${policy.allowedPageList}" th:text="${page}"></span>
-                        </div>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
+            <section class="setup-card card">
+                <div class="setup-card__header">
+                    <h3>سياسة وصول</h3>
+                    <p class="muted">حدد الصفحات المسموحة لكل دور.</p>
+                </div>
+                <form th:action="@{/setup/policies/access-policy}" th:object="${accessPolicy}" method="post" class="form-grid two-columns">
+                    <label>الدور
+                        <select th:field="*{role}">
+                            <option th:each="role : ${T(com.iti.attendance.model.Role).values()}" th:value="${role}" th:text="${role}"></option>
+                        </select>
+                    </label>
+                    <label>الصفحات المسموحة
+                        <select th:field="*{allowedPageList}" multiple size="10">
+                            <option th:each="endpoint : ${endpoints}" th:value="${endpoint}" th:text="${endpoint}"></option>
+                        </select>
+                    </label>
+                    <div class="form-actions full-row">
+                        <button type="submit" class="btn">حفظ السياسة</button>
+                    </div>
+                </form>
+                <form th:action="@{/setup/policies/access-policy/import}" method="post" enctype="multipart/form-data" class="inline-upload">
+                    <label class="file-upload">استيراد سياسات الوصول (Excel)
+                        <input type="file" name="file" accept=".xlsx,.xls" required>
+                    </label>
+                    <button type="submit" class="btn secondary">رفع ملف</button>
+                </form>
+                <div class="table-responsive" th:if="${accessPolicies != null and !accessPolicies.isEmpty()}">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>الدور</th>
+                            <th>الصفحات</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="policy : ${accessPolicies}">
+                            <td th:text="${policy.role}"></td>
+                            <td>
+                                <div class="tag-row">
+                                    <span class="tag" th:each="page : ${policy.allowedPageList}" th:text="${page}"></span>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
-    <section class="setup-card">
-        <div class="setup-card__header">
-            <h2>حد الحضور</h2>
-            <p class="muted">تفعيل حد إنذار الأداء بناءً على نسبة الحضور.</p>
+            <section class="setup-card card">
+                <div class="setup-card__header">
+                    <h3>حد الحضور</h3>
+                    <p class="muted">تفعيل حد إنذار الأداء بناءً على نسبة الحضور.</p>
+                </div>
+                <form th:action="@{/setup/policies/attendance-limit}" th:object="${limit}" method="post" class="form-grid two-columns">
+                    <label>نسبة الحد (%)
+                        <input type="number" min="0" max="100" th:field="*{limitPercent}" required>
+                    </label>
+                    <label>الوصف
+                        <textarea th:field="*{description}" rows="3" placeholder="تفاصيل الحد"></textarea>
+                    </label>
+                    <label class="checkbox-row">تفعيل الحد
+                        <input type="checkbox" th:field="*{active}">
+                    </label>
+                    <div class="form-actions full-row">
+                        <button type="submit" class="btn">حفظ الحد</button>
+                    </div>
+                </form>
+            </section>
         </div>
-        <form th:action="@{/setup/policies/attendance-limit}" th:object="${limit}" method="post" class="form-grid two-columns">
-            <label>نسبة الحد (%)
-                <input type="number" min="0" max="100" th:field="*{limitPercent}" required>
-            </label>
-            <label>الوصف
-                <textarea th:field="*{description}" rows="3" placeholder="تفاصيل الحد"></textarea>
-            </label>
-            <label class="checkbox-row">تفعيل الحد
-                <input type="checkbox" th:field="*{active}">
-            </label>
-            <div class="form-actions full-row">
-                <button type="submit" class="btn">حفظ الحد</button>
-            </div>
-        </form>
-    </section>
+    </main>
 </div>
 </body>
 </html>

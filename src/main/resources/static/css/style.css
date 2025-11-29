@@ -53,6 +53,10 @@ body {
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
+.muted {
+    color: var(--muted);
+}
+
 img {
     max-width: 100%;
     height: auto;
@@ -218,6 +222,27 @@ table {
     overflow: auto;
 }
 
+.sidebar-org {
+    display: grid;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.sidebar-org .org-name {
+    font-weight: 800;
+    font-size: 1.05rem;
+}
+
+.sidebar-common {
+    display: grid;
+    gap: 6px;
+}
+
+.sidebar-common .tree a,
+.sidebar-common .tree .dimmed {
+    margin: 0;
+}
+
 .sidebar-header {
     display: flex;
     justify-content: space-between;
@@ -312,6 +337,16 @@ table {
     border: 1px solid #f1c2c6;
     display: block;
     transition: all 0.2s ease;
+}
+
+.tree .dimmed {
+    color: var(--muted);
+    background: #f9f9f9;
+    border: 1px dashed #e0e0e0;
+    border-radius: 10px;
+    padding: 6px 10px;
+    display: block;
+    opacity: 0.8;
 }
 
 .tree a:hover {
@@ -588,6 +623,18 @@ form {
     gap: 16px;
 }
 
+.setup-body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.setup-intro {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
 .setup-header {
     display: flex;
     align-items: center;
@@ -708,11 +755,11 @@ form {
 }
 
 .setup-card {
-    background: var(--card-bg);
+    background: var(--card);
     padding: 20px;
     border-radius: 12px;
-    border: 1px solid rgba(0, 0, 0, 0.06);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--secondary);
+    box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
     gap: 12px;
