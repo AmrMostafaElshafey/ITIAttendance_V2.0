@@ -85,8 +85,10 @@
                     <option th:each="role : ${T(com.iti.attendance.model.Role).values()}" th:value="${role}" th:text="${role}"></option>
                 </select>
             </label>
-            <label>الصفحات المسموحة (مفصولة بفاصلة)
-                <input type="text" th:field="*{allowedPages}" placeholder="/admin,/dashboard" required>
+            <label>الصفحات المسموحة
+                <select th:field="*{allowedPageList}" multiple size="10">
+                    <option th:each="endpoint : ${endpoints}" th:value="${endpoint}" th:text="${endpoint}"></option>
+                </select>
             </label>
             <div class="form-actions full-row">
                 <button type="submit" class="btn">حفظ السياسة</button>
@@ -109,7 +111,11 @@
                 <tbody>
                 <tr th:each="policy : ${accessPolicies}">
                     <td th:text="${policy.role}"></td>
-                    <td th:text="${policy.allowedPages}"></td>
+                    <td>
+                        <div class="tag-row">
+                            <span class="tag" th:each="page : ${policy.allowedPageList}" th:text="${page}"></span>
+                        </div>
+                    </td>
                 </tr>
                 </tbody>
             </table>

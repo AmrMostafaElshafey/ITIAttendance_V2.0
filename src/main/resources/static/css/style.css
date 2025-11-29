@@ -619,6 +619,23 @@ form {
     grid-column: 1 / -1;
 }
 
+.tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 8px;
+    border-radius: 999px;
+    background: #eef2ff;
+    color: #344054;
+    font-size: 12px;
+    border: 1px solid rgba(52, 64, 84, 0.12);
+}
+
 .inline-upload {
     display: flex;
     align-items: center;
