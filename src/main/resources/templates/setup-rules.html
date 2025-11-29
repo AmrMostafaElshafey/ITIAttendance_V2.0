@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>معالج الإعداد - القواعد</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<div class="setup-page">
+    <header class="setup-header">
+        <div>
+            <h1>قواعد الحضور والطلبات</h1>
+            <p>ضبط قواعد الحضور، الإجازات، المأموريات، والأذونات.</p>
+        </div>
+        <a class="link" href="/setup/policies">العودة للسياسات</a>
+    </header>
+
+    <div th:replace="~{fragments/setup-steps :: steps(${currentStep})}"></div>
+
+    <section class="setup-card">
+        <div class="setup-card__header">
+            <h2>قاعدة طلب</h2>
+            <p class="muted">أضف قواعد الإجازة/المأمورية/الإذن مع ساعات السماح.</p>
+        </div>
+        <form th:action="@{/setup/rules/leave-type}" th:object="${leaveType}" method="post" class="form-grid two-columns">
+            <label>الاسم
+                <input type="text" th:field="*{name}" required placeholder="مثال: إجازة سنوية">
+            </label>
+            <label>نوع الطلب
+                <select th:field="*{requestType}">
+                    <option th:value="${T(com.iti.attendance.model.RequestType).LEAVE}">إجازة</option>
+                    <option th:value="${T(com.iti.attendance.model.RequestType).MISSION}">مأمورية</option>
+                    <option th:value="${T(com.iti.attendance.model.RequestType).PERMIT}">إذن</option>
+                </select>
+            </label>
+            <label>الوصف
+                <textarea th:field="*{description}" rows="3"></textarea>
+            </label>
+            <label>أقصى مدة للطلب (أيام)
+                <input type="number" min="1" th:field="*{maxDaysPerRequest}" required>
+            </label>
+            <label>ساعات السماح للتقديم
+                <input type="number" min="0" th:field="*{graceHours}" required>
+            </label>
+            <label class="checkbox-row">يتطلب اعتماد مدير؟
+                <input type="checkbox" th:field="*{requiresManagerApproval}">
+            </label>
+            <label class="checkbox-row">يتطلب اعتماد الموارد البشرية؟
+                <input type="checkbox" th:field="*{requiresHrApproval}">
+            </label>
+            <div class="form-actions full-row">
+                <button type="submit" class="btn">حفظ قاعدة الطلب</button>
+                <a class="link" href="/setup/hr">التالي: فريق الموارد البشرية</a>
+            </div>
+        </form>
+        <form th:action="@{/setup/rules/leave-type/import}" method="post" enctype="multipart/form-data" class="inline-upload">
+            <label class="file-upload">استيراد قواعد الطلب (Excel)
+                <input type="file" name="file" accept=".xlsx,.xls" required>
+            </label>
+            <button type="submit" class="btn secondary">رفع ملف</button>
+        </form>
+        <div class="table-responsive" th:if="${leaveTypes != null and !leaveTypes.isEmpty()}">
+            <table>
+                <thead>
+                <tr>
+                    <th>الاسم</th>
+                    <th>النوع</th>
+                    <th>ساعات السماح</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="type : ${leaveTypes}">
+                    <td th:text="${type.name}"></td>
+                    <td th:text="${type.requestType}"></td>
+                    <td th:text="${type.graceHours}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section class="setup-card">
+        <div class="setup-card__header">
+            <h2>قاعدة حضور</h2>
+            <p class="muted">حدد أوقات الدخول والخروج وسماح التأخير.</p>
+        </div>
+        <form th:action="@{/setup/rules/attendance-rule}" th:object="${attendanceRule}" method="post" class="form-grid two-columns">
+            <label>الاسم
+                <input type="text" th:field="*{name}" required placeholder="قاعدة الحضور اليومية">
+            </label>
+            <label>وقت الحضور المتوقع
+                <input type="time" th:field="*{expectedCheckIn}" required>
+            </label>
+            <label>وقت الانصراف المتوقع
+                <input type="time" th:field="*{expectedCheckOut}" required>
+            </label>
+            <label>دقائق السماح
+                <input type="number" min="0" th:field="*{graceMinutes}" required>
+            </label>
+            <label>الفرع (اختياري)
+                <select name="branchId">
+                    <option value="" selected>عام لكل الفروع</option>
+                    <option th:each="branchItem : ${branches}" th:value="${branchItem.id}" th:text="${branchItem.name}"></option>
+                </select>
+            </label>
+            <label>القسم (اختياري)
+                <select name="departmentId">
+                    <option value="" selected>عام لكل الأقسام</option>
+                    <option th:each="dept : ${departments}" th:value="${dept.id}" th:text="${dept.name}"></option>
+                </select>
+            </label>
+            <label class="checkbox-row">السماح بالعمل الإضافي
+                <input type="checkbox" th:field="*{overtimeAllowed}">
+            </label>
+            <div class="form-actions full-row">
+                <button type="submit" class="btn">حفظ قاعدة الحضور</button>
+            </div>
+        </form>
+        <form th:action="@{/setup/rules/attendance-rule/import}" method="post" enctype="multipart/form-data" class="inline-upload">
+            <label class="file-upload">استيراد قواعد الحضور (Excel)
+                <input type="file" name="file" accept=".xlsx,.xls" required>
+            </label>
+            <button type="submit" class="btn secondary">رفع ملف</button>
+        </form>
+        <div class="table-responsive" th:if="${attendanceRules != null and !attendanceRules.isEmpty()}">
+            <table>
+                <thead>
+                <tr>
+                    <th>الاسم</th>
+                    <th>تسجيل الدخول</th>
+                    <th>تسجيل الخروج</th>
+                    <th>سماح (دقائق)</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="rule : ${attendanceRules}">
+                    <td th:text="${rule.name}"></td>
+                    <td th:text="${rule.expectedCheckIn}"></td>
+                    <td th:text="${rule.expectedCheckOut}"></td>
+                    <td th:text="${rule.graceMinutes}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+</body>
+</html>

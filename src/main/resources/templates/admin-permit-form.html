@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${formTitle}">طلب إذن</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<div class="page-layout">
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <main class="page-content">
+    <div th:replace="~{fragments/topbar :: topbar}"></div>
+<header><h2 th:text="${formTitle}">بيانات طلب إذن</h2></header>
+<div class="container card">
+    <form th:action="|${basePath}|" th:object="${leaveRequest}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <label>الموظف
+            <select th:field="*{employee.id}">
+                <option value="" disabled th:selected="${leaveRequest.employee == null}">اختر الموظف</option>
+                <option th:each="emp : ${employees}" th:value="${emp.id}" th:text="${emp.name}"></option>
+            </select>
+        </label>
+        <label>نوع الطلب
+            <select name="leaveTypeId" required>
+                <option value="" disabled th:selected="${leaveRequest.leaveType == null}">اختر نوع الطلب</option>
+                <option th:each="type : ${leaveTypes}" th:value="${type.id}"
+                        th:selected="${leaveRequest.leaveType != null and leaveRequest.leaveType.id == type.id}"
+                        th:text="${type.name}"></option>
+            </select>
+        </label>
+        <label>تاريخ البداية<input type="date" name="start" th:value="${leaveRequest.startDate}" required></label>
+        <label>تاريخ النهاية<input type="date" name="end" th:value="${leaveRequest.endDate}" required></label>
+        <label>السبب<textarea th:field="*{reason}" style="height:80px"></textarea></label>
+        <label>الحالة<input type="text" th:field="*{status}" readonly></label>
+        <button type="submit">حفظ</button>
+    </form>
+</div>
+    </main>
+</div>
+</body>
+</html>
