@@ -11,6 +11,10 @@
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
+        <header>
+    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
+    <h2 th:text="${formTitle}">بيانات طلب إذن</h2>
+</header>
 <div class="container card">
     <form th:action="|${basePath}|" th:object="${leaveRequest}" method="post">
         <input type="hidden" th:field="*{id}">
