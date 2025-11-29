@@ -11,8 +11,10 @@
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-    <div th:replace="~{fragments/topbar :: topbar}"></div>
-<header><h2>بيانات موظف</h2></header>
+        <header>
+    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
+    <h2>بيانات موظف</h2>
+</header>
 <div class="container card">
     <form th:action="@{/admin/employees}" th:object="${employee}" method="post" enctype="multipart/form-data">
         <input type="hidden" th:field="*{id}">
