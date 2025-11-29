@@ -8,7 +8,10 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
-<header><h2>إدارة الفروع</h2></header>
+<header>
+    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
+    <h2>إدارة الفروع</h2>
+</header>
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
