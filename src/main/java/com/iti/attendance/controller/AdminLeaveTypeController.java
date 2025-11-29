@@ -1,6 +1,7 @@
 package com.iti.attendance.controller;
 
 import com.iti.attendance.model.LeaveType;
+import com.iti.attendance.model.RequestType;
 import com.iti.attendance.service.LeaveTypeService;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -30,12 +31,14 @@ public class AdminLeaveTypeController {
     @GetMapping
     public String list(Model model) {
         model.addAttribute("leaveTypes", leaveTypeService.findAllActive());
+        model.addAttribute("requestTypes", RequestType.values());
         return "admin-leave-types";
     }
 
     @GetMapping("/new")
     public String createForm(Model model) {
         model.addAttribute("leaveType", new LeaveType());
+        model.addAttribute("requestTypes", RequestType.values());
         return "admin-leave-type-form";
     }
 
@@ -48,6 +51,7 @@ public class AdminLeaveTypeController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Long id, Model model) {
         leaveTypeService.findById(id).ifPresent(type -> model.addAttribute("leaveType", type));
+        model.addAttribute("requestTypes", RequestType.values());
         return "admin-leave-type-form";
     }
 
@@ -73,6 +77,8 @@ public class AdminLeaveTypeController {
         header.createCell(2).setCellValue("maxDaysPerRequest");
         header.createCell(3).setCellValue("requiresManagerApproval");
         header.createCell(4).setCellValue("requiresHrApproval");
+        header.createCell(5).setCellValue("graceHours");
+        header.createCell(6).setCellValue("requestType (LEAVE|MISSION|PERMIT)");
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         workbook.write(bos);
         workbook.close();
