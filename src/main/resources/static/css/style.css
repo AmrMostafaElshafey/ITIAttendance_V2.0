@@ -194,7 +194,6 @@ table {
     flex: 1;
     min-height: 0;
     padding: 16px;
-    margin-top: 16px;
 }
 
 .page-content {
@@ -353,11 +352,6 @@ input, select {
 }
 
 form {
-    display: grid;
-    gap: 12px;
-}
-
-.stack {
     display: grid;
     gap: 12px;
 }
