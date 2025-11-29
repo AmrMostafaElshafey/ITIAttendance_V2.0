@@ -39,8 +39,14 @@
             </label>
             <div class="form-actions">
                 <button type="submit" class="btn" th:disabled="${branches == null or branches.isEmpty()}">حفظ القسم</button>
-                <a class="link" href="/setup/hr">التالي: الموارد البشرية والقواعد</a>
+                <a class="link" href="/setup/job-titles">التالي: المسميات الوظيفية</a>
             </div>
+        </form>
+        <form th:action="@{/setup/departments/import}" method="post" enctype="multipart/form-data" class="inline-upload">
+            <label class="file-upload">استيراد الأقسام (Excel)
+                <input type="file" name="file" accept=".xlsx,.xls" required>
+            </label>
+            <button type="submit" class="btn secondary">رفع ملف</button>
         </form>
     </section>
 
