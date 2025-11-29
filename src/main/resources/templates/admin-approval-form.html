@@ -11,8 +11,7 @@
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-    <div th:replace="~{fragments/topbar :: topbar}"></div>
-<div class="container">
+        <div class="container">
     <h1>إضافة/تعديل مستوى اعتماد</h1>
     <form th:action="@{/admin/approvals}" th:object="${level}" method="post" class="form-card">
         <input type="hidden" th:field="*{id}">
