@@ -21,6 +21,9 @@ public class LeaveRequest {
     @Enumerated(EnumType.STRING)
     private RequestType type = RequestType.LEAVE;
 
+    @ManyToOne
+    private LeaveType leaveType;
+
     public Long getId() {
         return id;
     }
@@ -83,5 +86,13 @@ public class LeaveRequest {
 
     public void setType(RequestType type) {
         this.type = type;
+    }
+
+    public LeaveType getLeaveType() {
+        return leaveType;
+    }
+
+    public void setLeaveType(LeaveType leaveType) {
+        this.leaveType = leaveType;
     }
 }

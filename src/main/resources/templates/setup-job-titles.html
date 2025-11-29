@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>معالج الإعداد - المسميات الوظيفية</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<div class="setup-page">
+    <header class="setup-header">
+        <div>
+            <h1>إعداد المسميات الوظيفية</h1>
+            <p>أضف التدرج الوظيفي قبل ربطه بالموظفين.</p>
+        </div>
+        <a class="link" href="/setup/departments">العودة للأقسام</a>
+    </header>
+
+    <div th:replace="~{fragments/setup-steps :: steps(${currentStep})}"></div>
+
+    <section class="setup-card">
+        <div class="setup-card__header">
+            <h2>مسمى جديد</h2>
+            <p class="muted">أضف مسمى وظيفي ووصفه.</p>
+        </div>
+        <form th:action="@{/setup/job-titles}" th:object="${jobTitle}" method="post" class="form-grid">
+            <label>المسمى
+                <input type="text" th:field="*{name}" required placeholder="مثال: مدير موارد بشرية">
+            </label>
+            <label>الوصف
+                <textarea th:field="*{description}" rows="3" placeholder="نبذة مختصرة"></textarea>
+            </label>
+            <div class="form-actions">
+                <button type="submit" class="btn">حفظ المسمى</button>
+                <a class="link" href="/setup/policies">التالي: سياسات الاعتماد</a>
+            </div>
+        </form>
+        <form th:action="@{/setup/job-titles/import}" method="post" enctype="multipart/form-data" class="inline-upload">
+            <label class="file-upload">استيراد المسميات (Excel)
+                <input type="file" name="file" accept=".xlsx,.xls" required>
+            </label>
+            <button type="submit" class="btn secondary">رفع ملف</button>
+        </form>
+    </section>
+
+    <section class="setup-card" th:if="${jobTitles != null and !jobTitles.isEmpty()}">
+        <h3>المسميات الحالية</h3>
+        <div class="table-responsive">
+            <table>
+                <thead>
+                <tr>
+                    <th>المسمى</th>
+                    <th>الوصف</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="title : ${jobTitles}">
+                    <td th:text="${title.name}"></td>
+                    <td th:text="${title.description}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</div>
+</body>
+</html>
