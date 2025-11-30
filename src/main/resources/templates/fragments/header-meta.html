@@ -2,14 +2,14 @@
 <html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <div class="header-bar" th:fragment="headerMeta">
-    <div class="brand-block" th:if="${activeOrganization != null}">
+    <div class="brand-block">
         <div class="brand-logo">
-            <img th:if="${activeOrganization.logoPath != null}" th:src="${activeOrganization.logoPath}" alt="شعار المؤسسة">
-            <div class="brand-placeholder" th:if="${activeOrganization.logoPath == null}">شعار</div>
+            <img th:if="${activeOrganization != null and activeOrganization.logoPath != null}" th:src="${activeOrganization.logoPath}" alt="شعار المؤسسة">
+            <div class="brand-placeholder" th:if="${activeOrganization == null or activeOrganization.logoPath == null}">شعار</div>
         </div>
         <div>
-            <div class="brand-name" th:text="${activeOrganization.name}">المؤسسة</div>
-            <div th:text="${activeOrganization.description}">الوصف</div>
+            <div class="brand-name" th:text="${activeOrganization != null ? activeOrganization.name : 'المؤسسة'}">المؤسسة</div>
+            <div th:text="${activeOrganization != null ? activeOrganization.description : 'وصف قصير للمؤسسة'}">الوصف</div>
         </div>
     </div>
     <div class="header-actions">
@@ -18,6 +18,13 @@
             <div class="user-meta">
                 <div class="user-name" th:text="${currentEmployee.name}">الموظف</div>
                 <div class="user-role" th:text="${currentEmployee.role}">الدور</div>
+            </div>
+        </div>
+        <div class="user-chip muted" sec:authorize="isAnonymous()">
+            <img src="/img/default-avatar.svg" alt="الصورة الشخصية" class="user-avatar">
+            <div class="user-meta">
+                <div class="user-name">زائر</div>
+                <div class="user-role">غير مسجل</div>
             </div>
         </div>
         <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="logout-form">

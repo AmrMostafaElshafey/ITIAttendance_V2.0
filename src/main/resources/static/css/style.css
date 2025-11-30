@@ -481,6 +481,7 @@ form {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    flex-direction: row-reverse;
     gap: 16px;
     flex-wrap: wrap;
     margin-bottom: 14px;
@@ -492,6 +493,7 @@ form {
     gap: 12px;
     min-width: 0;
     text-align: right;
+    margin-left: auto;
 }
 
 .brand-logo {
@@ -526,7 +528,8 @@ form {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-right: auto;
+    margin-right: 0;
+    margin-left: auto;
 }
 
 .header-actions .btn {
@@ -548,6 +551,12 @@ form {
     background: rgba(255, 235, 238, 0.75);
     border-radius: 12px;
     border: 1px solid #f1c2c6;
+}
+
+.user-chip.muted {
+    background: rgba(255,255,255,0.65);
+    border-color: rgba(0,0,0,0.08);
+    color: var(--muted);
 }
 
 .user-avatar {
