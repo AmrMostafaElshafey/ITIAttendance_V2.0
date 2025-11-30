@@ -12,6 +12,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long> {
     List<Employee> findByDeletedFalse();
     List<Employee> findByStatus(EmployeeStatus status);
     Optional<Employee> findByEmailAndDeletedFalse(String email);
+    boolean existsByEmailAndDeletedFalse(String email);
     List<Employee> findByRoleAndDeletedFalse(Role role);
     List<Employee> findByRoleInAndDeletedFalse(List<Role> roles);
     List<Employee> findByManagerAndDeletedFalse(Employee manager);
