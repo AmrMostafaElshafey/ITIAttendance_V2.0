@@ -67,7 +67,7 @@ header {
     padding: 30px 16px;
     text-align: center;
     color: #fff;
-    position: relative;
+    /*position: relative;*/
     top: calc(var(--topbar-height) + 8px);
 
     z-index: 10;
@@ -158,8 +158,10 @@ button:hover, .btn:hover {
 }
 
 .container {
-    width: min(1100px, 94%);
-    margin: 0 auto 40px;
+    padding-top: 0;
+    padding-right: 5%;
+    padding-left: 5%;
+    padding-bottom: 5%;
 }
 
 .hero {
@@ -204,9 +206,10 @@ table {
     min-width: 0;
     min-height: 0;
     overflow: auto;
-    display: flex;
+    /*display: flex;*/
     flex-direction: column;
     gap: 24px;
+    scrollbar-width: none;
 }
 
 .sidebar {
@@ -301,6 +304,8 @@ table {
     cursor: pointer;
     font-weight: 600;
     box-shadow: 0 2px 8px rgba(240,97,97,0.25);
+    height: min-content;
+    position: relative;
 }
 
 .tree details {
@@ -574,8 +579,8 @@ form {
 }
 
 .btn.ghost {
-    background: transparent;
-    color: var(--primary-strong);
+    background: #ffffff;
+    color: #000;
     border: 1px solid var(--primary);
     box-shadow: none;
 }

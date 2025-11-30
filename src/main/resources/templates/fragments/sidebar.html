@@ -3,172 +3,123 @@
 <body>
 <aside class="sidebar" th:fragment="navigation">
     <div class="sidebar-header">
-        <h3 th:text="${activeOrganization != null ? activeOrganization.name : 'المؤسسة'}">المؤسسة</h3>
-        <button type="button" class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+        <h3 class="org-name" th:text="${activeOrganization != null ? activeOrganization.name : 'المؤسسة'}">المؤسسة</h3>
     </div>
-    <div class="sidebar-brand" th:if="${activeOrganization != null}">
-        <div class="brand-mark">
-            <img th:if="${activeOrganization.logoPath != null}" th:src="${activeOrganization.logoPath}" alt="شعار المؤسسة">
-            <div class="placeholder" th:if="${activeOrganization.logoPath == null}">شعار</div>
-        </div>
-        <div class="brand-info">
-            <div class="brand-name" th:text="${activeOrganization.name}">المؤسسة</div>
-        </div>
-    </div>
-    <div class="sidebar-user" sec:authorize="isAuthenticated()" th:if="${currentEmployee != null}">
-        <img th:src="${currentEmployee.personalPhotoPath != null ? currentEmployee.personalPhotoPath : '/img/default-avatar.svg'}" alt="الصورة الشخصية" class="user-avatar">
-        <div class="user-meta">
-            <div class="user-name" th:text="${currentEmployee.name}">الموظف</div>
-            <div class="user-role" th:text="${currentEmployee.role}">الدور</div>
+    <div class="sidebar-org">
+        <div class="muted">وظائف عامة</div>
+        <div class="sidebar-common tree">
+            <a class="tree-link" href="/">الصفحة الرئيسية</a>
+            <a class="tree-link" href="/setup/organization">معالج الإعداد</a>
+            <span class="dimmed" sec:authorize="!isAuthenticated()">تسجيل الدخول لتفعيل الخدمات</span>
         </div>
     </div>
     <div class="tree">
-        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
-            <summary>تهيئة الهيكل</summary>
+        <details open>
+            <summary>المؤسسة</summary>
             <ul>
-                <li><a href="/admin/organizations">عرض المؤسسة</a></li>
-                <li><a href="/admin/organizations/new">إضافة مؤسسة</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">عرض المؤسسة</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/organizations">عرض المؤسسة</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">إضافة مؤسسة</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/organizations/new">إضافة مؤسسة</a></li>
             </ul>
         </details>
-        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
+        <details open>
             <summary>الفروع</summary>
             <ul>
-                <li><a href="/admin/branches">عرض الفروع</a></li>
-                <li><a href="/admin/branches/new">إضافة فرع</a></li>
-                <li><a href="/admin/branches">تعديل فرع</a></li>
-                <li><a href="/admin/branches">حذف فرع (ناعم)</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">عرض الفروع</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/branches">عرض الفروع</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">إضافة فرع</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/branches/new">إضافة فرع</a></li>
             </ul>
         </details>
-        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
+        <details open>
             <summary>الأقسام</summary>
             <ul>
-                <li><a href="/admin/departments">عرض الأقسام</a></li>
-                <li><a href="/admin/departments/new">إضافة قسم</a></li>
-                <li><a href="/admin/departments">تعديل قسم</a></li>
-                <li><a href="/admin/departments">حذف قسم (ناعم)</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">عرض الأقسام</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/departments">عرض الأقسام</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">إضافة قسم</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/departments/new">إضافة قسم</a></li>
             </ul>
         </details>
-        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
+        <details open>
             <summary>المسميات الوظيفية</summary>
             <ul>
-                <li><a href="/admin/job-titles">عرض المسميات</a></li>
-                <li><a href="/admin/job-titles/new">إضافة مسمى</a></li>
-                <li><a href="/admin/job-titles">تعديل مسمى</a></li>
-                <li><a href="/admin/job-titles">حذف مسمى (ناعم)</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">عرض المسميات</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/job-titles">عرض المسميات</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">إضافة مسمى</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/job-titles/new">إضافة مسمى</a></li>
             </ul>
         </details>
-        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
+        <details open>
             <summary>الموظفون</summary>
             <ul>
-                <li><a href="/admin/employees">عرض الموظفين</a></li>
-                <li><a href="/admin/employees/new">إضافة موظف</a></li>
-                <li><a href="/admin/employees">تعديل موظف</a></li>
-                <li><a href="/admin/employees">حذف موظف (ناعم)</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">عرض الموظفين</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/employees">عرض الموظفين</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">إضافة موظف</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/employees/new">إضافة موظف</a></li>
             </ul>
         </details>
-        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
+        <details open>
             <summary>قواعد الحضور</summary>
             <ul>
-                <li><a href="/admin/rules">عرض القواعد</a></li>
-                <li><a href="/admin/rules/new">إضافة قاعدة</a></li>
-                <li><a href="/admin/rules">تعديل قاعدة</a></li>
-                <li><a href="/admin/rules">حذف قاعدة (ناعم)</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">عرض القواعد</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/rules">عرض القواعد</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">إضافة قاعدة</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/rules/new">إضافة قاعدة</a></li>
             </ul>
         </details>
-        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
+        <details>
             <summary>سجلات الحضور</summary>
             <ul>
-                <li><a href="/admin/attendance">عرض السجلات</a></li>
-                <li><a href="/admin/attendance/new">إضافة سجل</a></li>
-                <li><a href="/admin/attendance">تعديل سجل</a></li>
-                <li><a href="/admin/attendance">حذف سجل (ناعم)</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">عرض السجلات</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/attendance">عرض السجلات</a></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/attendance/new">إضافة سجل</a></li>
             </ul>
         </details>
-        <details sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER','SECURITY')">
+        <details>
             <summary>حد تنبيه الحضور</summary>
             <ul>
-                <li><a href="/admin/attendance-limit">عرض/تعديل الحد</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">عرض/تعديل الحد</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER','SECURITY')"><a href="/admin/attendance-limit">عرض/تعديل الحد</a></li>
             </ul>
         </details>
-        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
-            <summary>أنواع الإجازات</summary>
+        <details open>
+            <summary>الطلبات والأنواع</summary>
             <ul>
-                <li><a href="/admin/leave-types">عرض الأنواع</a></li>
-                <li><a href="/admin/leave-types/new">إضافة نوع</a></li>
-                <li><a href="/admin/leave-types">تعديل نوع</a></li>
-                <li><a href="/admin/leave-types">حذف نوع (ناعم)</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">أنواع الإجازات</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/leave-types">أنواع الإجازات</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">طلبات الإجازات</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/leaves">طلبات الإجازات</a></li>
+                <li sec:authorize="hasAnyRole('EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER','SECURITY')"><a href="/employee/leaves">طلبات الإجازات (موظف)</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">طلبات المأموريات</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/missions">طلبات المأموريات</a></li>
+                <li sec:authorize="hasAnyRole('EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER','SECURITY')"><a href="/employee/missions">طلبات المأموريات (موظف)</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">طلبات الأذونات</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/permits">طلبات الأذونات</a></li>
+                <li sec:authorize="hasAnyRole('EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER','SECURITY')"><a href="/employee/permits">طلبات الأذونات (موظف)</a></li>
             </ul>
         </details>
-        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
-            <summary>طلبات الإجازات</summary>
+        <details open>
+            <summary>الموافقات والسياسات</summary>
             <ul>
-                <li><a href="/admin/leaves">عرض طلبات الإجازة</a></li>
-                <li><a href="/admin/leaves/new">إضافة طلب إجازة</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">مستويات الاعتماد</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/approvals">مستويات الاعتماد</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">سياسات الوصول</span></li>
+                <li sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')"><a href="/admin/access-policies">سياسات الوصول</a></li>
             </ul>
         </details>
-        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
-            <summary>طلبات المأموريات</summary>
-            <ul>
-                <li><a href="/admin/missions">عرض طلبات المأموريات</a></li>
-                <li><a href="/admin/missions/new">إضافة طلب مأمورية</a></li>
-            </ul>
-        </details>
-        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
-            <summary>طلبات الأذونات</summary>
-            <ul>
-                <li><a href="/admin/permits">عرض طلبات الأذونات</a></li>
-                <li><a href="/admin/permits/new">إضافة طلب إذن</a></li>
-            </ul>
-        </details>
-        <details open sec:authorize="hasAnyRole('EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER','SECURITY')">
-            <summary>طلبات الإجازات</summary>
-            <ul>
-                <li><a href="/employee/leaves">عرض طلبات الإجازة</a></li>
-                <li><a href="/employee/leaves/new">إضافة طلب إجازة</a></li>
-            </ul>
-        </details>
-        <details open sec:authorize="hasAnyRole('EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER','SECURITY')">
-            <summary>طلبات المأموريات</summary>
-            <ul>
-                <li><a href="/employee/missions">عرض طلبات المأموريات</a></li>
-                <li><a href="/employee/missions/new">إضافة طلب مأمورية</a></li>
-            </ul>
-        </details>
-        <details open sec:authorize="hasAnyRole('EMPLOYEE','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER','SECURITY')">
-            <summary>طلبات الأذونات</summary>
-            <ul>
-                <li><a href="/employee/permits">عرض طلبات الأذونات</a></li>
-                <li><a href="/employee/permits/new">إضافة طلب إذن</a></li>
-            </ul>
-        </details>
-        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
-            <summary>مستويات الاعتماد</summary>
-            <ul>
-                <li><a href="/admin/approvals">عرض المستويات</a></li>
-                <li><a href="/admin/approvals/new">إضافة مستوى</a></li>
-                <li><a href="/admin/approvals">تعديل مستوى</a></li>
-                <li><a href="/admin/approvals">حذف مستوى (ناعم)</a></li>
-            </ul>
-        </details>
-        <details open sec:authorize="hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')">
-            <summary>سياسات الوصول</summary>
-            <ul>
-                <li><a href="/admin/access-policies">عرض السياسات</a></li>
-                <li><a href="/admin/access-policies/new">إضافة سياسة</a></li>
-                <li><a href="/admin/access-policies">تعديل سياسة</a></li>
-                <li><a href="/admin/access-policies">حذف سياسة (ناعم)</a></li>
-            </ul>
-        </details>
-        <details sec:authorize="hasAnyRole('MANAGER','BRANCH_MANAGER','TRAINING_MANAGER')">
+        <details>
             <summary>إدارة الفرق</summary>
             <ul>
-                <li><a href="/manager/dashboard">لوحة المدير</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">لوحة المدير</span></li>
+                <li sec:authorize="hasAnyRole('MANAGER','BRANCH_MANAGER','TRAINING_MANAGER')"><a href="/manager/dashboard">لوحة المدير</a></li>
             </ul>
         </details>
-        <details sec:authorize="hasAnyRole('EMPLOYEE','HR_EMPLOYEE','HR_MANAGER','ADMIN','SECURITY','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER')">
-            <summary>بوابة الموظفين</summary>
+        <details>
+            <summary>بوابة الموظف</summary>
             <ul>
-                <li><a href="/employee/portal">بوابة الموظف</a></li>
+                <li sec:authorize="!isAuthenticated()"><span class="dimmed">بوابة الموظف</span></li>
+                <li sec:authorize="hasAnyRole('EMPLOYEE','HR_EMPLOYEE','HR_MANAGER','ADMIN','SECURITY','MANAGER','BRANCH_MANAGER','TRAINING_MANAGER')"><a href="/employee/portal">بوابة الموظف</a></li>
             </ul>
         </details>
     </div>

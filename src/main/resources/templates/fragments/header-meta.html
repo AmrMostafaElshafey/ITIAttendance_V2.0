@@ -23,6 +23,7 @@
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
             <button type="submit" class="btn">تسجيل الخروج</button>
         </form>
+
         <a sec:authorize="isAnonymous()" class="btn ghost" href="/login">تسجيل الدخول</a>
     </div>
 </div>
