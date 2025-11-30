@@ -28,6 +28,13 @@ public class BranchService {
         return branchRepository.findByDeletedFalse();
     }
 
+    public List<Branch> findByOrganization(Long organizationId) {
+        if (organizationId == null) {
+            return List.of();
+        }
+        return branchRepository.findByOrganizationIdAndDeletedFalse(organizationId);
+    }
+
     public Optional<Branch> findById(Long id) {
         return branchRepository.findById(id).filter(b -> !b.isDeleted());
     }
