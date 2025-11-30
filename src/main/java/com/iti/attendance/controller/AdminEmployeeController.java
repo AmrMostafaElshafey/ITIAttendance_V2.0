@@ -65,7 +65,8 @@ public class AdminEmployeeController {
                        @RequestParam(value = "jobTitle.id", required = false) Long jobTitleId,
                        @RequestParam(value = "manager.id", required = false) Long managerId,
                        @RequestParam(value = "personalPhoto", required = false) MultipartFile personalPhoto,
-                       @RequestParam(value = "nationalIdPhoto", required = false) MultipartFile nationalIdPhoto) throws IOException {
+                       @RequestParam(value = "nationalIdPhoto", required = false) MultipartFile nationalIdPhoto,
+                       Model model) throws IOException {
         Employee existing = employee.getId() != null ? employeeService.findById(employee.getId()).orElse(null) : null;
         if (departmentId != null) {
             departmentService.findById(departmentId).ifPresent(employee::setDepartment);
