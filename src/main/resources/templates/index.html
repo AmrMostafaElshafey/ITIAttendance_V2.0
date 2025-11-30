@@ -9,13 +9,9 @@
 </head>
 <body>
 <header>
-    <div class="header-inner">
-        <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
-        <div class="header-copy">
-            <h1>منصة حضور ومعاملات الموارد البشرية - ITI</h1>
-            <p>واجهة عربية عصرية بلمسات أحمر فاتح ورمادي مع إمكانية تبديل الألوان</p>
-        </div>
-    </div>
+    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
+    <h1>منصة حضور ومعاملات الموارد البشرية - ITI</h1>
+    <p>واجهة عربية عصرية بلمسات أحمر فاتح ورمادي مع إمكانية تبديل الألوان</p>
 </header>
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
@@ -29,6 +25,7 @@
                     <div class="flex">
                         <button th:onclick="|window.location.href='${#authorization.expression('isAuthenticated()') ? '/admin/dashboard' : '/login'}'|">الدخول لمسار الإدارة</button>
                         <button th:onclick="|window.location.href='${#authorization.expression('isAuthenticated()') ? '/employee/portal' : '/login'}'|">الدخول لمسار الموظف/المدير</button>
+                        <a class="btn" href="/register">تسجيل موظف جديد</a>
                     </div>
                     <span class="badge">جرب تبديل الألوان من الزر العائم أسفل الواجهة 🎨</span>
                 </nav>
