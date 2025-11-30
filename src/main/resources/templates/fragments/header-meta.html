@@ -9,6 +9,7 @@
         </div>
         <div>
             <div class="brand-name" th:text="${activeOrganization.name}">المؤسسة</div>
+            <div th:text="${activeOrganization.description}">الوصف</div>
         </div>
     </div>
     <div class="header-actions">
@@ -19,12 +20,11 @@
                 <div class="user-role" th:text="${currentEmployee.role}">الدور</div>
             </div>
         </div>
-        <form class="logout-form" method="post" sec:authorize="isAuthenticated()" th:action="@{/logout}"
-              th:with="csrf= ${#httpServletRequest.getAttribute('_csrf')}">
-        <input type="hidden" th:if="${csrf != null}" th:name="${csrf.parameterName}" th:value="${csrf.token}">
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="logout-form"
+              th:with="csrf=${#request != null ? #request.getAttribute('_csrf') : null}">
+            <input type="hidden" th:if="${csrf != null}" th:name="${csrf.parameterName}" th:value="${csrf.token}">
             <button type="submit" class="btn">تسجيل الخروج</button>
         </form>
-
         <a sec:authorize="isAnonymous()" class="btn ghost" href="/login">تسجيل الدخول</a>
     </div>
 </div>
