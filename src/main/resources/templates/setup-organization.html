@@ -8,14 +8,25 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
-<header th:replace="~{fragments/page-header :: pageHeader(title='معالج إعداد المؤسسة', subtitle='ابدأ بإنشاء معلومات المؤسسة وإضافة شعارها')}"></header>
+<header>
+    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
+    <h1>معالج إعداد المؤسسة</h1>
+    <p>ابدأ بإنشاء معلومات المؤسسة وإضافة شعارها.</p>
+</header>
 <div class="page-layout">
-    <div>
-    <button type="button" class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
-    </div>
     <main class="page-content" >
         <div class="container setup-body">
+            <div class="card setup-intro">
+                <div class="brand-mark large">
+                    <img th:if="${organization.logoPath != null}" th:src="${organization.logoPath}" alt="شعار المؤسسة">
+                    <div class="placeholder" th:if="${organization.logoPath == null}">شعار</div>
+                </div>
+                <div>
+                    <h2>بيانات المؤسسة</h2>
+                    <p class="muted">سجل الاسم والوصف وأضف شعار المؤسسة ليظهر في الواجهات.</p>
+                </div>
+            </div>
             <div th:replace="~{fragments/setup-steps :: steps(${currentStep})}"></div>
             <section class="setup-card card">
                 <form th:action="@{/setup/organization}" th:object="${organization}" method="post" enctype="multipart/form-data" class="form-grid">
