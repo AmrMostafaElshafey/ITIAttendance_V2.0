@@ -20,8 +20,7 @@
                 <div class="user-role" th:text="${currentEmployee.role}">الدور</div>
             </div>
         </div>
-        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="logout-form"
-              th:with="csrf=${#request != null ? #request.getAttribute('_csrf') : null}">
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="logout-form" th:with="csrf=${_csrf}">
             <input type="hidden" th:if="${csrf != null}" th:name="${csrf.parameterName}" th:value="${csrf.token}">
             <button type="submit" class="btn">تسجيل الخروج</button>
         </form>
