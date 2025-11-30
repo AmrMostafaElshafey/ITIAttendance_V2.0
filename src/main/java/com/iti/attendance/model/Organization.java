@@ -10,6 +10,7 @@ public class Organization {
 
     private String name;
     private String description;
+    private String logoPath;
     private boolean deleted = false;
 
     public Long getId() {
@@ -34,6 +35,14 @@ public class Organization {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getLogoPath() {
+        return logoPath;
+    }
+
+    public void setLogoPath(String logoPath) {
+        this.logoPath = logoPath;
     }
 
     public boolean isDeleted() {
