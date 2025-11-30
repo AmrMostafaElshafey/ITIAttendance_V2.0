@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>معالج الإعداد - الفروع</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<header>
+    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
+    <h1>إضافة الفروع</h1>
+    <p>أضف الفروع المرتبطة بالمؤسسة قبل الانتقال للأقسام.</p>
+</header>
+<div class="page-layout">
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <main class="page-content">
+        <div class="container setup-body">
+            <div class="card setup-intro">
+                <div>
+                    <h2>تهيئة الفروع</h2>
+                    <p class="muted">يمكنك إضافة الفروع يدوياً أو بالاستيراد دفعة واحدة.</p>
+                </div>
+                <a class="link" href="/setup/organization">رجوع لبيانات المؤسسة</a>
+            </div>
+            <div th:replace="~{fragments/setup-steps :: steps(${currentStep})}"></div>
+            <section class="setup-card card">
+                <div class="setup-card__header">
+                    <h3>فرع جديد</h3>
+                    <span class="muted" th:if="${organization != null}" th:text="${organization.name}">المؤسسة</span>
+                </div>
+                <form th:action="@{/setup/branches}" th:object="${branch}" method="post" class="form-grid">
+                    <label>اسم الفرع
+                        <input type="text" th:field="*{name}" required placeholder="مثال: فرع القاهرة">
+                    </label>
+                    <label>الموقع
+                        <input type="text" th:field="*{location}" placeholder="العنوان أو المدينة">
+                    </label>
+                    <div class="form-actions">
+                        <button type="submit" class="btn">حفظ الفرع</button>
+                        <a class="link" href="/setup/departments">التالي: الأقسام</a>
+                    </div>
+                </form>
+                <form th:action="@{/setup/branches/import}" method="post" enctype="multipart/form-data" class="inline-upload">
+                    <label class="file-upload">استيراد الفروع (Excel)
+                        <input type="file" name="file" accept=".xlsx,.xls" required>
+                    </label>
+                    <button type="submit" class="btn secondary">رفع ملف</button>
+                </form>
+            </section>
+            <section class="setup-card card" th:if="${branches != null and !branches.isEmpty()}">
+                <h3>الفروع الحالية</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>الموقع</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="branchItem : ${branches}">
+                            <td th:text="${branchItem.name}"></td>
+                            <td th:text="${branchItem.location}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+</div>
+</body>
+</html>

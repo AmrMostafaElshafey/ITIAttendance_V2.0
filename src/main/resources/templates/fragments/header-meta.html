@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<div class="header-bar" th:fragment="headerMeta">
+    <div class="brand-block">
+        <div class="brand-logo">
+            <img th:if="${activeOrganization != null and activeOrganization.logoPath != null}" th:src="${activeOrganization.logoPath}" alt="شعار المؤسسة">
+            <div class="brand-placeholder" th:if="${activeOrganization == null or activeOrganization.logoPath == null}">شعار</div>
+        </div>
+        <div>
+            <div class="brand-name" th:text="${activeOrganization != null ? activeOrganization.name : 'المؤسسة'}">المؤسسة</div>
+            <div th:text="${activeOrganization != null ? activeOrganization.description : 'وصف قصير للمؤسسة'}">الوصف</div>
+        </div>
+    </div>
+    <div class="header-actions">
+        <div class="user-chip" sec:authorize="isAuthenticated()" th:if="${currentEmployee != null}">
+            <img th:src="${currentEmployee.personalPhotoPath != null ? currentEmployee.personalPhotoPath : '/img/default-avatar.svg'}" alt="الصورة الشخصية" class="user-avatar">
+            <div class="user-meta">
+                <div class="user-name" th:text="${currentEmployee.name}">الموظف</div>
+                <div class="user-role" th:text="${currentEmployee.role}">الدور</div>
+            </div>
+        </div>
+        <div class="user-chip muted" sec:authorize="isAnonymous()">
+            <img src="/img/default-avatar.svg" alt="الصورة الشخصية" class="user-avatar">
+            <div class="user-meta">
+                <div class="user-name">زائر</div>
+                <div class="user-role">غير مسجل</div>
+            </div>
+        </div>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="logout-form">
+            <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <button type="submit" class="btn">تسجيل الخروج</button>
+        </form>
+        <a sec:authorize="isAnonymous()" class="btn ghost" href="/login">تسجيل الدخول</a>
+    </div>
+</div>
+</body>
+</html>
