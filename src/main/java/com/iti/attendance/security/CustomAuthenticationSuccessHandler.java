@@ -29,7 +29,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             response.sendRedirect("/admin/dashboard");
             return;
         }
-        if (employee.getRole() == Role.MANAGER || employee.getRole() == Role.BRANCH_MANAGER || employee.getRole() == Role.TRAINING_MANAGER) {
+        if (employee.getRole() == Role.MANAGER || employee.getRole() == Role.BRANCH_MANAGER ) {
             response.sendRedirect("/manager/dashboard");
             return;
         }
