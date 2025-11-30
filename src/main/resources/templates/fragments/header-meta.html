@@ -21,7 +21,6 @@
         </div>
         <form class="logout-form" method="post" sec:authorize="isAuthenticated()" th:action="@{/logout}"
               th:with="csrf= ${#httpServletRequest.getAttribute('_csrf')}">
-
         <input type="hidden" th:if="${csrf != null}" th:name="${csrf.parameterName}" th:value="${csrf.token}">
             <button type="submit" class="btn">تسجيل الخروج</button>
         </form>
