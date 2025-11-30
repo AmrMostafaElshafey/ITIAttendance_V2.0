@@ -16,13 +16,16 @@
     <h2>بيانات موظف</h2>
 </header>
 <div class="container card">
+    <div th:if="${error}" class="alert" th:text="${error}"></div>
     <form th:action="@{/admin/employees}" th:object="${employee}" method="post" enctype="multipart/form-data">
         <input type="hidden" th:field="*{id}">
         <input type="hidden" th:field="*{personalPhotoPath}">
         <input type="hidden" th:field="*{nationalIdPhotoPath}">
         <label>الاسم<input type="text" th:field="*{name}" required></label>
         <label>البريد<input type="email" th:field="*{email}" required></label>
-        <label>كلمة المرور<input type="password" th:field="*{password}" required></label>
+        <label>كلمة المرور
+            <input type="password" th:field="*{password}" th:value="${employee.id != null ? '' : employee.password}" th:attr="required=${employee.id == null} ? 'required' : null">
+        </label>
         <label>الهاتف<input type="text" th:field="*{phone}"></label>
         <label>الرقم القومي (14 رقمًا)
             <input type="text" th:field="*{nationalId}" maxlength="14" required>
