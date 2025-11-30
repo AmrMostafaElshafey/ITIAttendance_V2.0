@@ -8,22 +8,29 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
-<div class="page-layout">
+<header>
+    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
+    <h2>تسجيل دخول المستخدم</h2>
+    <p>أدخل بريدك وكلمة المرور للمتابعة لمسار الموظف أو المدير.</p>
+</header>
+<div class="page-layout auth-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-        <header>
-            <h2>تسجيل دخول المستخدم</h2>
-            <p>أدخل بريدك وكلمة المرور للمتابعة لمسار الموظف أو المدير.</p>
-        </header>
-        <div class="container card">
-            <div th:if="${param.error}" class="alert">بيانات الدخول غير صحيحة</div>
-            <div th:if="${param.disabled}" class="alert">حسابك قيد المراجعة أو غير مفعل. تم إخطار الموارد البشرية.</div>
-            <div th:if="${param.logout}" class="pill">تم تسجيل الخروج بنجاح.</div>
-            <form th:action="@{/login}" method="post">
-                <label>البريد الالكتروني<input type="email" name="email" required></label>
-                <label>كلمة المرور<input type="password" name="password" required></label>
-                <button type="submit">دخول</button>
-            </form>
+        <div class="container">
+            <div class="hero card">
+                <div class="badge">مرحبًا بعودتك</div>
+                <p>استخدم البريد الإلكتروني المسجل وكلمة المرور للوصول إلى البوابة المناسبة لدورك.</p>
+            </div>
+            <div class="card form-grid">
+                <div th:if="${param.error}" class="alert">بيانات الدخول غير صحيحة</div>
+                <div th:if="${param.disabled}" class="alert">حسابك قيد المراجعة أو غير مفعل. تم إخطار الموارد البشرية.</div>
+                <div th:if="${param.logout}" class="pill">تم تسجيل الخروج بنجاح.</div>
+                <form th:action="@{/login}" method="post" class="stack">
+                    <label>البريد الالكتروني<input type="email" name="email" required></label>
+                    <label>كلمة المرور<input type="password" name="password" required></label>
+                    <button type="submit">دخول</button>
+                </form>
+            </div>
         </div>
     </main>
 </div>
