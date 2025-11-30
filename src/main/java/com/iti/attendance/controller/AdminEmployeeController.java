@@ -66,7 +66,6 @@ public class AdminEmployeeController {
                        @RequestParam(value = "manager.id", required = false) Long managerId,
                        @RequestParam(value = "personalPhoto", required = false) MultipartFile personalPhoto,
                        @RequestParam(value = "nationalIdPhoto", required = false) MultipartFile nationalIdPhoto) throws IOException {
-        Employee existing = employee.getId() != null ? employeeService.findById(employee.getId()).orElse(null) : null;
         if (departmentId != null) {
             departmentService.findById(departmentId).ifPresent(employee::setDepartment);
         } else {
@@ -94,13 +93,8 @@ public class AdminEmployeeController {
         if (employee.getStatus() == null) {
             employee.setStatus(EmployeeStatus.PENDING);
         }
-        String submittedPassword = employee.getPassword();
-        if (submittedPassword == null || submittedPassword.isBlank()) {
-            if (existing != null) {
-                employee.setPassword(existing.getPassword());
-            }
-        } else if (!submittedPassword.startsWith("$2a$")) {
-            employee.setPassword(passwordEncoder.encode(submittedPassword));
+        if (employee.getPassword() != null && !employee.getPassword().isBlank()) {
+            employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         }
         String personalPath = fileStorageService.storeFile(personalPhoto);
         if (personalPath != null) {
@@ -110,27 +104,8 @@ public class AdminEmployeeController {
         if (nationalIdPath != null) {
             employee.setNationalIdPhotoPath(nationalIdPath);
         }
-        try {
-            employeeService.save(employee);
-            return "redirect:/admin/employees";
-        } catch (IllegalArgumentException ex) {
-            return prepareForm(modelForError(model), employee, ex.getMessage());
-        }
-    }
-
-    private Model modelForError(Model model) {
-        model.addAttribute("departments", departmentService.findAllActive());
-        model.addAttribute("branches", branchService.findAllActive());
-        model.addAttribute("jobTitles", jobTitleService.findAllActive());
-        model.addAttribute("managers", employeeService.findManagers());
-        model.addAttribute("roles", Role.values());
-        return model;
-    }
-
-    private String prepareForm(Model model, Employee employee, String errorMessage) {
-        model.addAttribute("employee", employee);
-        model.addAttribute("error", errorMessage);
-        return "admin-employee-form";
+        employeeService.save(employee);
+        return "redirect:/admin/employees";
     }
 
     @GetMapping({"/admin/employees/edit/{id}", "/employee/employees/edit/{id}"})
