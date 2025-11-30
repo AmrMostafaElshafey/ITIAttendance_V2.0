@@ -10,6 +10,7 @@
 <body>
 <header th:replace="~{fragments/page-header :: pageHeader(title='معالج إعداد المؤسسة', subtitle='ابدأ بإنشاء معلومات المؤسسة وإضافة شعارها')}"></header>
 <div class="page-layout">
+    <button type="button" class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content" >
         <div class="container setup-body">

@@ -10,7 +10,11 @@
 <body>
 <header th:replace="~{fragments/page-header :: pageHeader(title='منصة حضور ومعاملات الموارد البشرية - ITI', subtitle='واجهة عربية عصرية بلمسات أحمر فاتح ورمادي مع إمكانية تبديل الألوان')}"></header>
 <div class="page-layout">
-    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <div>
+    <button type="button" class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+    <aside th:replace="~{fragments/sidebar :: navigation}">
+
+    </aside></div>
     <main class="page-content">
 <!--    <div th:replace="~{fragments/topbar :: topbar}"></div>-->
         <div class="container">
