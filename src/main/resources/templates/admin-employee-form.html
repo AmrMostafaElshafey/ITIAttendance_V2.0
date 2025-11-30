@@ -11,10 +11,15 @@
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-<header><h2>بيانات موظف</h2></header>
+        <header>
+    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
+    <h2>بيانات موظف</h2>
+</header>
 <div class="container card">
-    <form th:action="@{/admin/employees}" th:object="${employee}" method="post">
+    <form th:action="@{/admin/employees}" th:object="${employee}" method="post" enctype="multipart/form-data">
         <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{personalPhotoPath}">
+        <input type="hidden" th:field="*{nationalIdPhotoPath}">
         <label>الاسم<input type="text" th:field="*{name}" required></label>
         <label>البريد<input type="email" th:field="*{email}" required></label>
         <label>كلمة المرور<input type="password" th:field="*{password}" required></label>
@@ -59,10 +64,60 @@
                 <option th:each="manager : ${managers}" th:value="${manager.id}" th:text="${manager.name}"></option>
             </select>
         </label>
+        <label>الصورة الشخصية
+            <input type="file" name="personalPhoto" accept="image/*" id="personalPhotoInput">
+            <div class="image-preview large" id="personalPhotoPreview">
+                <img th:if="${employee.personalPhotoPath}" th:src="${employee.personalPhotoPath}" alt="الصورة الشخصية">
+                <div class="placeholder" th:if="${employee.personalPhotoPath == null}">لم يتم اختيار صورة بعد</div>
+            </div>
+        </label>
+        <label>صورة الرقم القومي
+            <input type="file" name="nationalIdPhoto" accept="image/*" id="nationalIdPhotoInput">
+            <div class="image-preview national-id" id="nationalIdPhotoPreview">
+                <img th:if="${employee.nationalIdPhotoPath}" th:src="${employee.nationalIdPhotoPath}" alt="صورة الرقم القومي">
+                <div class="placeholder" th:if="${employee.nationalIdPhotoPath == null}">لم يتم اختيار صورة بعد</div>
+            </div>
+        </label>
         <button type="submit">حفظ</button>
     </form>
 </div>
     </main>
 </div>
+<script>
+    function bindPreview(inputId, previewId) {
+        const input = document.getElementById(inputId);
+        const preview = document.getElementById(previewId);
+        if (!input || !preview) return;
+
+        input.addEventListener('change', () => {
+            const file = input.files && input.files[0];
+            const existingImg = preview.querySelector('img');
+            const placeholder = preview.querySelector('.placeholder');
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    if (placeholder) placeholder.style.display = 'none';
+                    if (existingImg) {
+                        existingImg.src = e.target.result;
+                        existingImg.style.display = 'block';
+                    } else {
+                        const img = document.createElement('img');
+                        img.alt = input.name;
+                        img.src = e.target.result;
+                        preview.appendChild(img);
+                    }
+                };
+                reader.readAsDataURL(file);
+            } else if (placeholder) {
+                placeholder.style.display = 'inline-flex';
+                if (existingImg) existingImg.style.display = 'none';
+            }
+        });
+    }
+
+    bindPreview('personalPhotoInput', 'personalPhotoPreview');
+    bindPreview('nationalIdPhotoInput', 'nationalIdPhotoPreview');
+</script>
 </body>
 </html>

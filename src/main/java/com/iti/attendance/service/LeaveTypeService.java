@@ -1,6 +1,7 @@
 package com.iti.attendance.service;
 
 import com.iti.attendance.model.LeaveType;
+import com.iti.attendance.model.RequestType;
 import com.iti.attendance.repository.LeaveTypeRepository;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -26,6 +27,14 @@ public class LeaveTypeService {
 
     public List<LeaveType> findAllActive() {
         return leaveTypeRepository.findByDeletedFalse();
+    }
+
+    public List<LeaveType> findActiveByType(RequestType requestType) {
+        if (requestType == null) {
+            return findAllActive();
+        }
+        boolean includeNull = RequestType.LEAVE.equals(requestType);
+        return leaveTypeRepository.findByDeletedFalseAndRequestTypeOrNull(requestType, includeNull);
     }
 
     public Optional<LeaveType> findById(Long id) {
@@ -59,6 +68,16 @@ public class LeaveTypeService {
                 type.setMaxDaysPerRequest((int) row.getCell(2).getNumericCellValue());
                 type.setRequiresManagerApproval(Boolean.parseBoolean(row.getCell(3).getStringCellValue()));
                 type.setRequiresHrApproval(Boolean.parseBoolean(row.getCell(4).getStringCellValue()));
+                if (row.getCell(5) != null) {
+                    type.setGraceHours((int) row.getCell(5).getNumericCellValue());
+                }
+                if (row.getCell(6) != null) {
+                    try {
+                        type.setRequestType(RequestType.valueOf(row.getCell(6).getStringCellValue()));
+                    } catch (IllegalArgumentException ignored) {
+                        type.setRequestType(RequestType.LEAVE);
+                    }
+                }
                 imported.add(leaveTypeRepository.save(type));
             }
         }
