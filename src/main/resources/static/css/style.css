@@ -45,10 +45,10 @@ body {
     margin: 0;
     padding: 0;
     direction: rtl;
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
+    overflow: hidden;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -66,6 +66,8 @@ header {
     padding: 24px 12px;
     text-align: right;
     color: #fff;
+    position: sticky;
+    top: 0;
     z-index: 10;
 }
 
@@ -208,6 +210,7 @@ table {
     flex: 1;
     min-height: 0;
     padding: 16px;
+    margin-top: 16px;
 }
 
 .page-content {
@@ -229,8 +232,8 @@ table {
     padding: 16px 14px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.06);
     position: sticky;
-    top: 12px;
-    max-height: calc(100vh - 24px);
+    top: 16px;
+    max-height: calc(100vh - 32px);
     overflow: auto;
 }
 
@@ -458,14 +461,10 @@ form {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    flex-direction: row;
+    flex-direction: row-reverse;
     gap: 16px;
     flex-wrap: wrap;
     margin-bottom: 14px;
-}
-
-.header-branding {
-    margin-inline-start: auto;
 }
 
 .brand-block {
@@ -474,6 +473,7 @@ form {
     gap: 12px;
     min-width: 0;
     text-align: right;
+    margin-left: auto;
 }
 
 .brand-logo {
@@ -508,6 +508,8 @@ form {
     display: flex;
     align-items: center;
     gap: 12px;
+    margin-right: 0;
+    margin-left: auto;
 }
 
 .header-actions .btn {
@@ -529,19 +531,6 @@ form {
     background: rgba(255, 235, 238, 0.75);
     border-radius: 12px;
     border: 1px solid #f1c2c6;
-}
-
-.user-chip.icon-only {
-    padding: 8px;
-}
-
-.user-chip.icon-only .user-avatar {
-    width: 48px;
-    height: 48px;
-}
-
-.user-chip.icon-only .user-meta {
-    display: none;
 }
 
 .user-chip.muted {
