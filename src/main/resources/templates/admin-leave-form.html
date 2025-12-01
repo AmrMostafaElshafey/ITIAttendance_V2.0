@@ -8,10 +8,15 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
+<header>
+    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
+    <h2>بيانات طلب الإجازة</h2>
+</header>
+
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-<header><h2>بيانات طلب الإجازة</h2></header>
+        
 <div class="container card">
     <form th:action="|${basePath}|" th:object="${leaveRequest}" method="post">
         <input type="hidden" th:field="*{id}">
@@ -22,14 +27,17 @@
             </select>
         </label>
         <label>نوع الطلب
-            <select th:field="*{type}">
-                <option th:each="rt : ${requestTypes}" th:value="${rt}" th:text="${rt}"></option>
+            <select name="leaveTypeId" required>
+                <option value="" disabled th:selected="${leaveRequest.leaveType == null}">اختر نوع الطلب</option>
+                <option th:each="type : ${leaveTypes}" th:value="${type.id}"
+                        th:selected="${leaveRequest.leaveType != null and leaveRequest.leaveType.id == type.id}"
+                        th:text="${type.name + ' (' + type.requestType + ')'}"></option>
             </select>
         </label>
-        <label>تاريخ البداية<input type="date" th:field="*{startDate}"></label>
-        <label>تاريخ النهاية<input type="date" th:field="*{endDate}"></label>
+        <label>تاريخ البداية<input type="date" th:field="*{startDate}" required></label>
+        <label>تاريخ النهاية<input type="date" th:field="*{endDate}" required></label>
         <label>السبب<textarea th:field="*{reason}" style="height:80px"></textarea></label>
-        <label>الحالة<input type="text" th:field="*{status}"></label>
+        <label>الحالة<input type="text" th:field="*{status}" readonly></label>
         <button type="submit">حفظ</button>
     </form>
 </div>
