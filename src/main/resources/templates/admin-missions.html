@@ -8,7 +8,10 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
-<header th:replace="~{fragments/page-header :: pageHeader(title=${pageTitle}, subtitle='استعراض طلبات المأموريات الحالية والمتابعة')}"></header>
+<header>
+    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
+    <h2 th:text="${pageTitle}">المأموريات</h2>
+</header>
 
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
