@@ -8,63 +8,76 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
-<div class="setup-page">
-    <header class="setup-header">
-        <div>
-            <h1>تجهيز الأقسام</h1>
-            <p>اربط الأقسام بالفروع التي أنشأتها.</p>
-        </div>
-        <a class="link" href="/setup/branches">العودة للفروع</a>
-    </header>
-
-    <div th:replace="~{fragments/setup-steps :: steps(${currentStep})}"></div>
-
-    <section class="setup-card">
-        <div class="setup-card__header">
-            <h2>قسم جديد</h2>
-            <span class="muted" th:if="${branches == null or branches.isEmpty()}">أضف فرعًا أولاً</span>
-        </div>
-        <form th:action="@{/setup/departments}" th:object="${department}" method="post" class="form-grid">
-            <label>اسم القسم
-                <input type="text" th:field="*{name}" required placeholder="مثال: الموارد البشرية">
-            </label>
-            <label>الوصف
-                <textarea th:field="*{description}" rows="3" placeholder="نبذة عن القسم"></textarea>
-            </label>
-            <label>الفرع
-                <select name="branchId" required>
-                    <option value="" disabled selected>اختر الفرع</option>
-                    <option th:each="branchItem : ${branches}" th:value="${branchItem.id}" th:text="${branchItem.name}"></option>
-                </select>
-            </label>
-            <div class="form-actions">
-                <button type="submit" class="btn" th:disabled="${branches == null or branches.isEmpty()}">حفظ القسم</button>
-                <a class="link" href="/setup/hr">التالي: الموارد البشرية والقواعد</a>
+<header>
+    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
+    <h1>تجهيز الأقسام</h1>
+    <p>اربط الأقسام بالفروع التي أنشأتها.</p>
+</header>
+<div class="page-layout">
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <main class="page-content">
+        <div class="container setup-body">
+            <div class="card setup-intro">
+                <div>
+                    <h2>هيكلة الأقسام</h2>
+                    <p class="muted">اختر فرعًا لكل قسم وأضفه أو استورده دفعة واحدة.</p>
+                </div>
+                <a class="link" href="/setup/branches">العودة للفروع</a>
             </div>
-        </form>
-    </section>
-
-    <section class="setup-card" th:if="${departments != null and !departments.isEmpty()}">
-        <h3>الأقسام الحالية</h3>
-        <div class="table-responsive">
-            <table>
-                <thead>
-                <tr>
-                    <th>الاسم</th>
-                    <th>الوصف</th>
-                    <th>الفرع</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="dept : ${departments}">
-                    <td th:text="${dept.name}"></td>
-                    <td th:text="${dept.description}"></td>
-                    <td th:text="${dept.branch != null ? dept.branch.name : ''}"></td>
-                </tr>
-                </tbody>
-            </table>
+            <div th:replace="~{fragments/setup-steps :: steps(${currentStep})}"></div>
+            <section class="setup-card card">
+                <div class="setup-card__header">
+                    <h3>قسم جديد</h3>
+                    <span class="muted" th:if="${branches == null or branches.isEmpty()}">أضف فرعًا أولاً</span>
+                </div>
+                <form th:action="@{/setup/departments}" th:object="${department}" method="post" class="form-grid">
+                    <label>اسم القسم
+                        <input type="text" th:field="*{name}" required placeholder="مثال: الموارد البشرية">
+                    </label>
+                    <label>الوصف
+                        <textarea th:field="*{description}" rows="3" placeholder="نبذة عن القسم"></textarea>
+                    </label>
+                    <label>الفرع
+                        <select name="branchId" required>
+                            <option value="" disabled selected>اختر الفرع</option>
+                            <option th:each="branchItem : ${branches}" th:value="${branchItem.id}" th:text="${branchItem.name}"></option>
+                        </select>
+                    </label>
+                    <div class="form-actions">
+                        <button type="submit" class="btn" th:disabled="${branches == null or branches.isEmpty()}">حفظ القسم</button>
+                        <a class="link" href="/setup/job-titles">التالي: المسميات الوظيفية</a>
+                    </div>
+                </form>
+                <form th:action="@{/setup/departments/import}" method="post" enctype="multipart/form-data" class="inline-upload">
+                    <label class="file-upload">استيراد الأقسام (Excel)
+                        <input type="file" name="file" accept=".xlsx,.xls" required>
+                    </label>
+                    <button type="submit" class="btn secondary">رفع ملف</button>
+                </form>
+            </section>
+            <section class="setup-card card" th:if="${departments != null and !departments.isEmpty()}">
+                <h3>الأقسام الحالية</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>الوصف</th>
+                            <th>الفرع</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="dept : ${departments}">
+                            <td th:text="${dept.name}"></td>
+                            <td th:text="${dept.description}"></td>
+                            <td th:text="${dept.branch != null ? dept.branch.name : ''}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
         </div>
-    </section>
+    </main>
 </div>
 </body>
 </html>

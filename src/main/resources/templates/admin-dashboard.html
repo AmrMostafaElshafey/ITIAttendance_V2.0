@@ -8,14 +8,16 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
-<div class="page-layout">
-    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
-    <main class="page-content">
-        <header>
+<header>
     <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
     <h2>لوحة تحكم الإدارة</h2>
     <p>الوصول السريع للخدمات</p>
 </header>
+
+<div class="page-layout">
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <main class="page-content">
+        
 <div class="container section-grid">
     <div class="card">
         <h3>الموظفون</h3>
