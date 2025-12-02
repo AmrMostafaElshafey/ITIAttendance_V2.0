@@ -9,10 +9,15 @@
 </head>
 <body>
 <header>
-    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
-    <h1>إضافة الفروع</h1>
-    <p>أضف الفروع المرتبطة بالمؤسسة قبل الانتقال للأقسام.</p>
+    <div class="header-inner">
+        <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
+        <div class="header-copy">
+            <h1>إضافة الفروع</h1>
+            <p>أضف الفروع المرتبطة بالمؤسسة قبل الانتقال للأقسام.</p>
+        </div>
+    </div>
 </header>
+
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
