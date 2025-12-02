@@ -8,11 +8,7 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
-<header>
-    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
-    <h1>إضافة الفروع</h1>
-    <p>أضف الفروع المرتبطة بالمؤسسة قبل الانتقال للأقسام.</p>
-</header>
+<header th:replace="~{fragments/page-header :: pageHeader(title='إضافة الفروع', subtitle='أضف الفروع المرتبطة بالمؤسسة قبل الانتقال للأقسام')}"></header>
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
