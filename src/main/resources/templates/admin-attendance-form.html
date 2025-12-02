@@ -8,10 +8,7 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
-<header>
-    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
-    <h2>إدخال سجل حضور</h2>
-</header>
+<header th:replace="~{fragments/page-header :: pageHeader(title='إدخال سجل حضور', subtitle='سجل حضور أو انصراف لموظف محدد')}"></header>
 
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
