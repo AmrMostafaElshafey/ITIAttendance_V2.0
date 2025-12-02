@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="${pageTitle}">الأذونات</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<header>
+    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
+    <h2 th:text="${pageTitle}">الأذونات</h2>
+</header>
+
+<div class="page-layout">
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <main class="page-content">
+        
+<div class="container">
+    <div class="alert warning" th:if="${param.graceError}">
+        لا يمكن تقديم الطلب لأن فترة السماح للتقديم قد انتهت لهذا النوع.
+    </div>
+    <nav>
+        <a class="btn" th:href="|${basePath}/new|">إضافة طلب</a>
+    </nav>
+    <div class="table-responsive">
+    <table>
+        <thead><tr><th>الموظف</th><th>نوع القاعدة</th><th>من</th><th>إلى</th><th>السبب</th><th>الحالة</th><th>إجراءات</th></tr></thead>
+        <tbody>
+        <tr th:each="leave : ${leaves}">
+            <td th:text="${leave.employee != null ? leave.employee.name : 'غير مرتبط'}"></td>
+            <td th:text="${leave.leaveType != null ? leave.leaveType.name : '---'}"></td>
+            <td th:text="${leave.startDate}"></td>
+            <td th:text="${leave.endDate}"></td>
+            <td th:text="${leave.reason}"></td>
+            <td th:text="${leave.status}"></td>
+            <td>
+                <a class="btn" th:href="|${basePath}/edit/${leave.id}|">تعديل</a>
+                <form th:action="|${basePath}/delete/${leave.id}|" method="post" style="display:inline">
+                    <button type="submit">حذف ناعم</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    </div>
+</div>
+    </main>
+</div>
+</body>
+</html>

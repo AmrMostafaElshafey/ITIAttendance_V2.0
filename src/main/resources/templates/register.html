@@ -8,28 +8,34 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
-<div class="page-layout">
-    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
-    <main class="page-content">
 <header>
+    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
     <h2>تسجيل موظف جديد</h2>
     <p>سيتم تفعيل الحساب بعد موافقة الموارد البشرية</p>
 </header>
-<div class="container">
-    <div th:if="${message}" class="alert" th:text="${message}"></div>
-    <form th:action="@{/register}" th:object="${employee}" method="post" class="card">
-        <label>الاسم الكامل<input type="text" th:field="*{name}" required></label>
-        <label>البريد الالكتروني<input type="email" th:field="*{email}" required></label>
-        <label>كلمة المرور<input type="password" th:field="*{password}" required></label>
-        <label>رقم الهاتف<input type="text" th:field="*{phone}"></label>
-        <label>الدور الوظيفي
-            <select th:field="*{role}">
-                <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
-            </select>
-        </label>
-        <button type="submit">تسجيل</button>
-    </form>
-</div>
+<div class="page-layout auth-layout">
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <main class="page-content">
+        <div class="container">
+            <div class="hero card">
+                <div class="badge">بيانات أساسية</div>
+                <p>أدخل بياناتك بدقة ليتم إرسالها لمسؤول الموارد البشرية واعتمادها.</p>
+            </div>
+            <div th:if="${message}" class="pill" th:text="${message}"></div>
+            <div th:if="${error}" class="alert" th:text="${error}"></div>
+            <form th:action="@{/register}" th:object="${employee}" method="post" class="card form-grid">
+                <label>الاسم الكامل<input type="text" th:field="*{name}" required></label>
+                <label>البريد الالكتروني<input type="email" th:field="*{email}" required></label>
+                <label>كلمة المرور<input type="password" th:field="*{password}" required></label>
+                <label>رقم الهاتف<input type="text" th:field="*{phone}"></label>
+                <label>الدور الوظيفي
+                    <select th:field="*{role}">
+                        <option th:each="role : ${roles}" th:value="${role}" th:text="${role}"></option>
+                    </select>
+                </label>
+                <button type="submit">تسجيل</button>
+            </form>
+        </div>
     </main>
 </div>
 </body>

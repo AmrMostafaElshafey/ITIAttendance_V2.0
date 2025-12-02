@@ -40,7 +40,26 @@ public class EmployeeService {
     }
 
     public Employee save(Employee employee) {
+        normalizeEmail(employee);
+        enforceUniqueEmail(employee);
         return employeeRepository.save(employee);
+    }
+
+    private void normalizeEmail(Employee employee) {
+        if (employee.getEmail() != null) {
+            employee.setEmail(employee.getEmail().trim().toLowerCase());
+        }
+    }
+
+    private void enforceUniqueEmail(Employee employee) {
+        if (employee.getEmail() == null || employee.getEmail().isBlank()) {
+            return;
+        }
+        employeeRepository.findByEmailAndDeletedFalse(employee.getEmail())
+                .filter(existing -> !existing.getId().equals(employee.getId()))
+                .ifPresent(existing -> {
+                    throw new IllegalArgumentException("البريد الإلكتروني مستخدم بالفعل لموظف آخر");
+                });
     }
 
     public void softDelete(Long id) {
@@ -51,7 +70,10 @@ public class EmployeeService {
     }
 
     public Optional<Employee> findByEmail(String email) {
-        return employeeRepository.findByEmailAndDeletedFalse(email);
+        if (email == null) {
+            return Optional.empty();
+        }
+        return employeeRepository.findByEmailAndDeletedFalse(email.trim().toLowerCase());
     }
 
     public List<Employee> findPendingEmployees() {
@@ -82,13 +104,15 @@ public class EmployeeService {
                 }
                 Employee employee = new Employee();
                 employee.setName(row.getCell(0).getStringCellValue());
-                employee.setEmail(row.getCell(1).getStringCellValue());
+                employee.setEmail(row.getCell(1).getStringCellValue().trim().toLowerCase());
                 employee.setPhone(row.getCell(2).getStringCellValue());
                 employee.setRole(Role.valueOf(row.getCell(3).getStringCellValue().toUpperCase()));
                 employee.setNationalId(row.getCell(4).getStringCellValue());
                 employee.setStatus(EmployeeStatus.PENDING);
                 employee.setHireDate(LocalDate.now());
-                imported.add(employeeRepository.save(employee));
+                if (!employeeRepository.existsByEmailAndDeletedFalse(employee.getEmail())) {
+                    imported.add(employeeRepository.save(employee));
+                }
             }
         }
         return imported;
