@@ -81,7 +81,7 @@ public class EmployeeService {
     }
 
     public List<Employee> findManagers() {
-        return employeeRepository.findByRoleInAndDeletedFalse(List.of(Role.MANAGER, Role.BRANCH_MANAGER, Role.HR_MANAGER, Role.TRAINING_MANAGER));
+        return employeeRepository.findByRoleInAndDeletedFalse(List.of(Role.MANAGER, Role.BRANCH_MANAGER, Role.HR_MANAGER));
     }
 
     public List<Employee> findByRoles(List<Role> roles) {
