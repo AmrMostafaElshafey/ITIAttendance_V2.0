@@ -27,22 +27,6 @@
                     <button type="submit">دخول</button>
                 </form>
             </div>
-=======
-    <div th:replace="~{fragments/topbar :: topbar}"></div>
-        <header>
-            <h2>تسجيل دخول المستخدم</h2>
-            <p>أدخل بريدك وكلمة المرور للمتابعة لمسار الموظف أو المدير.</p>
-        </header>
-        <div class="container card">
-            <div th:if="${param.error}" class="alert">بيانات الدخول غير صحيحة</div>
-            <div th:if="${param.disabled}" class="alert">حسابك قيد المراجعة أو غير مفعل. تم إخطار الموارد البشرية.</div>
-            <div th:if="${param.logout}" class="pill">تم تسجيل الخروج بنجاح.</div>
-            <form th:action="@{/login}" method="post">
-                <label>البريد الالكتروني<input type="email" name="email" required></label>
-                <label>كلمة المرور<input type="password" name="password" required></label>
-                <button type="submit">دخول</button>
-            </form>
->>>>>>> main
         </div>
     </main>
 </div>
