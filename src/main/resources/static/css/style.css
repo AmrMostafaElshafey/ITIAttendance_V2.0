@@ -46,10 +46,10 @@ body {
     margin: 0;
     padding: 0;
     direction: rtl;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    overflow-x: hidden;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
@@ -64,13 +64,30 @@ img {
 
 header {
     background: linear-gradient(120deg, var(--primary), var(--primary-strong));
-    padding: 30px 16px;
-    text-align: center;
+    padding: 0;
+    text-align: right;
     color: #fff;
-    /*position: relative;*/
-    top: calc(var(--topbar-height) + 8px);
-
     z-index: 10;
+}
+
+.header-inner {
+    max-width: none;   /* allow full width */
+    width: 100%;       /* stretch across header */
+    margin: 0;         /* no centering margin */
+    padding: 24px 12px;/* move padding here so content breathes */
+
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*gap: 10px;*/
+}
+
+.header-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 4px;
+    justify-content: space-between;
 }
 
 header h1 {
@@ -158,10 +175,8 @@ button:hover, .btn:hover {
 }
 
 .container {
-    padding-top: 0;
-    padding-right: 5%;
-    padding-left: 5%;
-    padding-bottom: 5%;
+    width: min(1100px, 94%);
+    margin: 0 40px 40px;
 }
 
 .hero {
@@ -197,8 +212,7 @@ table {
     align-items: stretch;
     flex: 1;
     min-height: 0;
-    padding: 24px;
-    margin-top: 24px;
+    padding: 16px;
 }
 
 .page-content {
@@ -206,10 +220,9 @@ table {
     min-width: 0;
     min-height: 0;
     overflow: auto;
-    /*display: flex;*/
+    display: flex;
     flex-direction: column;
-    gap: 24px;
-    scrollbar-width: none;
+    gap: 16px;
 }
 
 .sidebar {
@@ -220,9 +233,9 @@ table {
     border-radius: 14px;
     padding: 16px 14px;
     box-shadow: 0 4px 16px rgba(0,0,0,0.06);
-    position: relative;
-    top: 16px;
-    max-height: calc(100vh - 32px);
+    position: sticky;
+    top: 12px;
+    max-height: calc(100vh - 24px);
     overflow: auto;
 }
 
@@ -304,8 +317,6 @@ table {
     cursor: pointer;
     font-weight: 600;
     box-shadow: 0 2px 8px rgba(240,97,97,0.25);
-    height: min-content;
-    position: relative;
 }
 
 .tree details {
@@ -399,6 +410,11 @@ form {
     gap: 12px;
 }
 
+.stack {
+    display: grid;
+    gap: 12px;
+}
+
 .form-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -481,11 +497,16 @@ form {
 .header-bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; /* brand-right, actions-left */
+    flex-direction: row;
     gap: 16px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* <-- THIS IS THE IMPORTANT FIX */
+    width: 100%;
     margin-bottom: 14px;
 }
+
+.header-branding {
+    margin-inline-start: 0 !important;}
 
 .brand-block {
     display: flex;
@@ -527,7 +548,6 @@ form {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-right: auto;
 }
 
 .header-actions .btn {
@@ -549,6 +569,25 @@ form {
     background: rgba(255, 235, 238, 0.75);
     border-radius: 12px;
     border: 1px solid #f1c2c6;
+}
+
+.user-chip.icon-only {
+    padding: 8px;
+}
+
+.user-chip.icon-only .user-avatar {
+    width: 48px;
+    height: 48px;
+}
+
+.user-chip.icon-only .user-meta {
+    display: none;
+}
+
+.user-chip.muted {
+    background: rgba(255,255,255,0.65);
+    border-color: rgba(0,0,0,0.08);
+    color: var(--muted);
 }
 
 .user-avatar {
@@ -579,8 +618,8 @@ form {
 }
 
 .btn.ghost {
-    background: #ffffff;
-    color: #000;
+    background: transparent;
+    color: var(--primary-strong);
     border: 1px solid var(--primary);
     box-shadow: none;
 }
@@ -658,7 +697,7 @@ form {
     width: 80px;
     height: 80px;
     border-radius: 16px;
-    background: var(--card);
+    background: var(--card-bg);
     display: grid;
     place-items: center;
     overflow: hidden;
@@ -728,7 +767,7 @@ form {
 }
 
 .wizard-steps li {
-    background: var(--card);
+    background: var(--card-bg);
     border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 12px;
     padding: 12px;
@@ -741,7 +780,7 @@ form {
 .wizard-steps li.active {
     border-color: var(--primary);
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
-    color: var(--text);
+    color: var(--text-color);
 }
 
 .wizard-steps .step-number {
