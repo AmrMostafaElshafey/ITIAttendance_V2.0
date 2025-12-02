@@ -8,10 +8,12 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
+<header th:replace="~{fragments/page-header :: pageHeader(title='إدارة الأقسام', subtitle='تنظيم الأقسام وربطها بالفروع والموظفين')}"></header>
+
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-<header><h2>إدارة الأقسام</h2></header>
+        
 <div class="container">
     <nav>
         <a class="btn" href="/admin/departments/new">إضافة قسم</a>

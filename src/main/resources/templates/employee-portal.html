@@ -8,13 +8,12 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
+<header th:replace="~{fragments/page-header :: pageHeader(title=${'مرحباً، ' + employee.name}, subtitle=${'نسبة حضورك الحالية: ' + #numbers.formatDecimal(attendancePercent, 1, 'COMMA', 2, 'POINT') + '%'})}"></header>
+
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-<header>
-    <h2 th:text="'مرحباً، ' + ${employee.name}">بوابة الموظف</h2>
-    <p th:text="'نسبة حضورك الحالية: ' + ${#numbers.formatDecimal(attendancePercent, 1, 'COMMA', 2, 'POINT')} + '%'" class="pill"></p>
-</header>
+        
 <div class="container section-grid">
     <div class="card">
         <h3>سجلات الحضور</h3>

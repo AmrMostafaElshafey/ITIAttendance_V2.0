@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="steps(currentStep)">
+    <ol class="wizard-steps">
+        <li th:classappend="${currentStep == 1} ? 'active' : ''">
+            <span class="step-number">1</span>
+            <div class="step-text">
+                <strong>المؤسسة</strong>
+                <small>الاسم والشعار</small>
+            </div>
+        </li>
+        <li th:classappend="${currentStep == 2} ? 'active' : ''">
+            <span class="step-number">2</span>
+            <div class="step-text">
+                <strong>الفروع</strong>
+                <small>الموقع والإدارة</small>
+            </div>
+        </li>
+        <li th:classappend="${currentStep == 3} ? 'active' : ''">
+            <span class="step-number">3</span>
+            <div class="step-text">
+                <strong>الأقسام</strong>
+                <small>توزيع الفرق</small>
+            </div>
+        </li>
+        <li th:classappend="${currentStep == 4} ? 'active' : ''">
+            <span class="step-number">4</span>
+            <div class="step-text">
+                <strong>المسميات الوظيفية</strong>
+                <small>التدرج الوظيفي</small>
+            </div>
+        </li>
+        <li th:classappend="${currentStep == 5} ? 'active' : ''">
+            <span class="step-number">5</span>
+            <div class="step-text">
+                <strong>سياسات الاعتماد والصلاحيات</strong>
+                <small>مستويات الاعتماد والوصول</small>
+            </div>
+        </li>
+        <li th:classappend="${currentStep == 6} ? 'active' : ''">
+            <span class="step-number">6</span>
+            <div class="step-text">
+                <strong>قواعد الحضور والطلبات</strong>
+                <small>الحضور والإجازات والمأموريات</small>
+            </div>
+        </li>
+        <li th:classappend="${currentStep == 7} ? 'active' : ''">
+            <span class="step-number">7</span>
+            <div class="step-text">
+                <strong>فريق الموارد البشرية</strong>
+                <small>تعيين المسؤولين</small>
+            </div>
+        </li>
+    </ol>
+</div>
+</body>
+</html>

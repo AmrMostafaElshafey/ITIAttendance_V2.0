@@ -36,8 +36,13 @@ public class AuthController {
         if (employee.getPassword() != null) {
             employee.setPassword(passwordEncoder.encode(employee.getPassword()));
         }
-        employeeService.save(employee);
-        model.addAttribute("message", "تم استلام التسجيل وسيتم مراجعته بواسطة الموارد البشرية");
+        try {
+            employeeService.save(employee);
+            model.addAttribute("message", "تم استلام التسجيل وسيتم مراجعته بواسطة الموارد البشرية");
+        } catch (IllegalArgumentException ex) {
+            model.addAttribute("error", ex.getMessage());
+        }
+        model.addAttribute("roles", Role.values());
         return "register";
     }
 

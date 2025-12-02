@@ -8,10 +8,11 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
+<header th:replace="~{fragments/page-header :: pageHeader(title='إدارة نوع الإجازة', subtitle='إنشاء أو تعديل الأنواع والقواعد المرتبطة')}"></header>
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-<div class="container">
+        <div class="container">
     <h1>إدارة نوع الإجازة</h1>
     <form th:action="@{/admin/leave-types}" th:object="${leaveType}" method="post" class="form-card">
         <input type="hidden" th:field="*{id}">
@@ -23,6 +24,14 @@
         </label>
         <label>الحد الأقصى للأيام في الطلب
             <input type="number" th:field="*{maxDaysPerRequest}" min="1" required>
+        </label>
+        <label>فترة السماح للتقديم (ساعات)
+            <input type="number" th:field="*{graceHours}" min="0" required>
+        </label>
+        <label>نوع الطلب
+            <select th:field="*{requestType}">
+                <option th:each="rt : ${requestTypes}" th:value="${rt}" th:text="${rt}"></option>
+            </select>
         </label>
         <label>يحتاج موافقة المدير؟
             <input type="checkbox" th:field="*{requiresManagerApproval}">

@@ -7,9 +7,8 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<header th:replace="~{fragments/page-header :: pageHeader(title='عذراً، حدث خطأ غير متوقع', subtitle='نعمل على إصلاح المشكلة. يرجى إعادة المحاولة لاحقاً أو التواصل مع الموارد البشرية إذا استمرت.')}"></header>
 <div class="page-content" style="padding:2rem; text-align:center;">
-    <h2>عذراً، حدث خطأ غير متوقع</h2>
-    <p>نعمل على إصلاح المشكلة. يرجى إعادة المحاولة لاحقاً أو التواصل مع الموارد البشرية إذا استمرت.</p>
     <p><small>رمز الحالة: <span th:text="${status}"></span></small></p>
     <a class="btn" href="/">العودة للصفحة الرئيسية</a>
 </div>

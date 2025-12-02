@@ -7,8 +7,8 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+<header th:replace="~{fragments/page-header :: pageHeader(title='تفاصيل الخطأ (وضع التطوير)', subtitle='اطلع على تفاصيل الطلب والرسالة للمساعدة في التشخيص')}"></header>
 <div class="page-content" style="padding:2rem;">
-    <h2>تفاصيل الخطأ (وضع التطوير)</h2>
     <p><strong>المسار:</strong> <span th:text="${path}"></span></p>
     <p><strong>الحالة:</strong> <span th:text="${status}"></span> - <span th:text="${error}"></span></p>
     <p><strong>الرسالة:</strong> <span th:text="${message}"></span></p>
