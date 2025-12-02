@@ -20,7 +20,7 @@
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-    <div th:replace="~{fragments/topbar :: topbar}"></div>
+<!--    <div th:replace="~{fragments/topbar :: topbar}"></div>-->
         <div class="container">
             <div class="hero card">
                 <div class="badge">منصة متجاوبة لجميع الأجهزة</div>
@@ -28,8 +28,26 @@
                 <p>إدارة الهيكل التنظيمي والحضور والإجازات والتوقيعات في فروع متعددة بواجهة عربية واضحة وودية.</p>
                 <nav class="toolbar">
                     <div class="flex">
-                        <button th:onclick="|window.location.href='${#authorization.expression('isAuthenticated()') ? '/admin/dashboard' : '/login'}'|">الدخول لمسار الإدارة</button>
-                        <button th:onclick="|window.location.href='${#authorization.expression('isAuthenticated()') ? '/employee/portal' : '/login'}'|">الدخول لمسار الموظف/المدير</button>
+                        <!-- Admin -->
+                        <button type="button"
+                                th:data-target-url="${#authorization.expression('isAuthenticated()') ? '/admin/dashboard' : '/login'}"
+                                onclick="window.location.href=this.dataset.targetUrl">
+                            الدخول لمسار الإدارة
+                        </button>
+
+                        <!-- Employee/Manager -->
+                        <button type="button"
+                                th:data-target-url="${#authorization.expression('isAuthenticated()') ? '/employee/portal' : '/login'}"
+                                onclick="window.location.href=this.dataset.targetUrl">
+                            الدخول لمسار الموظف/المدير
+                        </button>
+                        <!-- Admin -->
+                        <button type="button"
+                                th:data-target-url="${#authorization.expression('isAuthenticated()') ? '/login' : '/register'}"
+                                onclick="window.location.href=this.dataset.targetUrl">
+                            تسجيل موظف جديد
+                        </button>
+
                     </div>
                     <span class="badge">جرب تبديل الألوان من الزر العائم أسفل الواجهة 🎨</span>
                 </nav>

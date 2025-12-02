@@ -10,8 +10,10 @@
 <body>
 <header>
     <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
-    <h2>تسجيل دخول المستخدم</h2>
-    <p>أدخل بريدك وكلمة المرور للمتابعة لمسار الموظف أو المدير.</p>
+    <div class="header-copy">
+        <h2>تسجيل دخول المستخدم</h2>
+        <p>أدخل بريدك وكلمة المرور للمتابعة لمسار الموظف أو المدير.</p>
+    </div>
 </header>
 <div class="page-layout auth-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>

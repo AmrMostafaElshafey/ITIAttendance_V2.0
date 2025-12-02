@@ -64,26 +64,30 @@ img {
 
 header {
     background: linear-gradient(120deg, var(--primary), var(--primary-strong));
-    padding: 24px 12px;
+    padding: 0;
     text-align: right;
     color: #fff;
     z-index: 10;
 }
 
 .header-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    max-width: none;   /* allow full width */
+    width: 100%;       /* stretch across header */
+    margin: 0;         /* no centering margin */
+    padding: 24px 12px;/* move padding here so content breathes */
+
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*gap: 10px;*/
 }
 
 .header-copy {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    text-align: right;
+    align-items: stretch;
+    text-align: center;
     gap: 4px;
+    justify-content: space-between;
 }
 
 header h1 {
@@ -172,7 +176,7 @@ button:hover, .btn:hover {
 
 .container {
     width: min(1100px, 94%);
-    margin: 0 auto 40px;
+    margin: 0 40px 40px;
 }
 
 .hero {
@@ -493,16 +497,16 @@ form {
 .header-bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; /* brand-right, actions-left */
     flex-direction: row;
     gap: 16px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* <-- THIS IS THE IMPORTANT FIX */
+    width: 100%;
     margin-bottom: 14px;
 }
 
 .header-branding {
-    margin-inline-start: auto;
-}
+    margin-inline-start: 0 !important;}
 
 .brand-block {
     display: flex;
