@@ -14,9 +14,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     private final CustomAuthenticationSuccessHandler successHandler;
@@ -36,7 +38,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/js/**", "/images/**", "/register", "/", "/index", "/admin/login", "/login", "/error").permitAll()
+                        .requestMatchers("/css/**", "/js/**", "/images/**", "/uploads/**", "/register", "/", "/index", "/admin/login", "/login", "/error", "/setup/**").permitAll()
                         .requestMatchers("/admin/**").hasAnyRole("ADMIN", "HR_MANAGER", "HR_EMPLOYEE")
                         .requestMatchers("/manager/**").hasAnyRole("MANAGER", "BRANCH_MANAGER", "TRAINING_MANAGER")
                         .requestMatchers("/employee/**").hasAnyRole("EMPLOYEE", "MANAGER", "BRANCH_MANAGER", "TRAINING_MANAGER", "HR_MANAGER", "HR_EMPLOYEE", "ADMIN", "SECURITY")

@@ -8,10 +8,11 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
+<header th:replace="~{fragments/page-header :: pageHeader(title='قواعد الحضور والانصراف', subtitle='إدارة سياسات الحضور والتنبيهات المرتبطة')}"></header>
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-<div class="container">
+        <div class="container">
     <h1>قواعد الحضور والانصراف</h1>
     <div class="actions">
         <a class="btn" href="/admin/rules/new">إضافة قاعدة</a>
