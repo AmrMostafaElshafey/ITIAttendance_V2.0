@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>معالج الإعداد - الموارد البشرية</title>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <script src="/js/theme.js" defer></script>
+</head>
+<body>
+<header th:replace="~{fragments/page-header :: pageHeader(title='إعداد الموارد البشرية والقواعد', subtitle='أضف فريق الموارد البشرية المرتبط بالمراحل السابقة')}"></header>
+<div class="page-layout">
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
+    <main class="page-content">
+        <div class="container setup-body">
+            <div class="card setup-intro">
+                <div>
+                    <h2>فريق الموارد البشرية</h2>
+                    <p class="muted">اربط موظفي الموارد البشرية بالفروع والأقسام والمسميات.</p>
+                </div>
+                <a class="link" href="/setup/rules">عودة للقواعد</a>
+            </div>
+            <div th:replace="~{fragments/setup-steps :: steps(${currentStep})}"></div>
+            <section class="setup-card card">
+                <h3>إضافة فريق الموارد البشرية</h3>
+                <form th:action="@{/setup/hr/staff}" th:object="${hrEmployee}" method="post" class="form-grid two-columns">
+                    <label>الاسم
+                        <input type="text" th:field="*{name}" required placeholder="اسم الموظف">
+                    </label>
+                    <label>البريد الإلكتروني
+                        <input type="email" th:field="*{email}" required placeholder="example@mail.com">
+                    </label>
+                    <label>كلمة المرور
+                        <input type="password" th:field="*{password}" required>
+                    </label>
+                    <label>الهاتف
+                        <input type="text" th:field="*{phone}" placeholder="رقم التواصل">
+                    </label>
+                    <label>الدور
+                        <select th:field="*{role}">
+                            <option th:value="${T(com.iti.attendance.model.Role).HR_MANAGER}">مدير الموارد البشرية</option>
+                            <option th:value="${T(com.iti.attendance.model.Role).HR_EMPLOYEE}">موظف موارد بشرية</option>
+                        </select>
+                    </label>
+                    <label>المسمى الوظيفي
+                        <select name="jobTitleId">
+                            <option value="" selected>اختياري</option>
+                            <option th:each="title : ${jobTitles}" th:value="${title.id}" th:text="${title.name}"></option>
+                        </select>
+                    </label>
+                    <label>الفرع (اختياري)
+                        <select name="branchId">
+                            <option value="" selected>لا يوجد</option>
+                            <option th:each="branchItem : ${branches}" th:value="${branchItem.id}" th:text="${branchItem.name}"></option>
+                        </select>
+                    </label>
+                    <label>القسم (اختياري)
+                        <select name="departmentId">
+                            <option value="" selected>لا يوجد</option>
+                            <option th:each="dept : ${departments}" th:value="${dept.id}" th:text="${dept.name}"></option>
+                        </select>
+                    </label>
+                    <div class="form-actions full-row">
+                        <button type="submit" class="btn">حفظ الموظف</button>
+                    </div>
+                </form>
+                <form th:action="@{/setup/hr/import}" method="post" enctype="multipart/form-data" class="inline-upload">
+                    <label class="file-upload">استيراد موظفي الموارد البشرية (Excel)
+                        <input type="file" name="file" accept=".xlsx,.xls" required>
+                    </label>
+                    <button type="submit" class="btn secondary">رفع ملف</button>
+                </form>
+                <div class="muted" th:if="${hrStaff == null or hrStaff.isEmpty()}">لم تتم إضافة موظفين بعد.</div>
+                <div class="table-responsive" th:if="${hrStaff != null and !hrStaff.isEmpty()}">
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>الاسم</th>
+                            <th>الدور</th>
+                            <th>البريد</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="staff : ${hrStaff}">
+                            <td th:text="${staff.name}"></td>
+                            <td th:text="${staff.role}"></td>
+                            <td th:text="${staff.email}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+</div>
+</body>
+</html>

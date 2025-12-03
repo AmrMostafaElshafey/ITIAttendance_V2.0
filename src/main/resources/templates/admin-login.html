@@ -8,20 +8,24 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
-<div class="page-layout">
+<header th:replace="~{fragments/page-header :: pageHeader(title='تسجيل دخول الإدارة', subtitle='استخدم بيانات الحساب الإدارية للوصول إلى لوحات التحكم والتقارير')}"></header>
+<div class="page-layout auth-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-<header>
-    <h2>تسجيل دخول الإدارة</h2>
-</header>
-<div class="container card">
-    <div th:if="${error}" class="alert" th:text="${error}"></div>
-    <form th:action="@{/admin/login}" method="post">
-        <label>البريد الالكتروني<input type="email" name="email" required></label>
-        <label>كلمة المرور<input type="password" name="password" required></label>
-        <button type="submit">دخول</button>
-    </form>
-</div>
+        <div class="container">
+            <div class="hero card">
+                <div class="badge">مسار الإدارة</div>
+                <p>للمشرفين وموظفي الموارد البشرية للوصول إلى لوحات التحكم والتقارير.</p>
+            </div>
+            <div class="card form-grid">
+                <div th:if="${error}" class="alert" th:text="${error}"></div>
+                <form th:action="@{/login}" method="post" class="stack">
+                    <label>البريد الالكتروني<input type="email" name="email" required></label>
+                    <label>كلمة المرور<input type="password" name="password" required></label>
+                    <button type="submit">دخول</button>
+                </form>
+            </div>
+        </div>
     </main>
 </div>
 </body>

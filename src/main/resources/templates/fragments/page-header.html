@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="pageHeader(title, subtitle)">
+    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
+    <div class="header-copy">
+        <h2 th:text="${title}">عنوان الصفحة</h2>
+        <p th:text="${subtitle}">وصف مختصر للصفحة</p>
+    </div>
+</header>
+</body>
+</html>

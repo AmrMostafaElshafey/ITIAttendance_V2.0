@@ -2,6 +2,7 @@ package com.iti.attendance.controller;
 
 import com.iti.attendance.model.AttendanceLimit;
 import com.iti.attendance.service.AttendanceLimitService;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+@PreAuthorize("hasAnyRole('ADMIN','HR_MANAGER','HR_EMPLOYEE')")
 @Controller
 @RequestMapping("/admin/attendance-limit")
 public class AdminAttendanceLimitController {
