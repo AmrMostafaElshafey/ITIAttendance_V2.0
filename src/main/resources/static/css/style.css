@@ -63,26 +63,30 @@ img {
 
 header {
     background: linear-gradient(120deg, var(--primary), var(--primary-strong));
-    padding: 24px 12px;
+    padding: 0;
     text-align: right;
     color: #fff;
     z-index: 10;
 }
 
 .header-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    max-width: none;   /* allow full width */
+    width: 100%;       /* stretch across header */
+    margin: 0;         /* no centering margin */
+    padding: 24px 12px;/* move padding here so content breathes */
+
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    /*gap: 10px;*/
 }
 
 .header-copy {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    text-align: right;
+    align-items: normal;
+    text-align: center;
     gap: 4px;
+    justify-content: space-between;
 }
 
 header h1 {
@@ -171,7 +175,7 @@ button:hover, .btn:hover {
 
 .container {
     width: min(1100px, 94%);
-    margin: 0 auto 40px;
+    margin: 0 40px 40px;
 }
 
 .hero {
@@ -392,7 +396,7 @@ form {
 
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    /*grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));*/
     gap: 12px;
 }
 
@@ -427,13 +431,17 @@ form {
     box-shadow: var(--shadow);
 }
 
+
 .pill {
-    display: inline-block;
+    display: flex;
     padding: 6px 10px;
-    border-radius: 999px;
+    border-radius: 12px;
     background: var(--secondary);
     color: var(--primary-strong);
-    font-size: 13px;
+    font-size: 14px;
+    text-align: center;
+    width: 100%
+    /*display: block;*/
 }
 
 .theme-toggle {
@@ -472,15 +480,17 @@ form {
 .header-bar {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; /* brand-right, actions-left */
     flex-direction: row;
     gap: 16px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* <-- THIS IS THE IMPORTANT FIX */
+    width: 100%;
     margin-bottom: 14px;
 }
 
 .header-branding {
-    margin-inline-start: auto;
+    /*margin-inline-start: auto;*/
+    align-items: center
 }
 
 .brand-block {
@@ -489,6 +499,7 @@ form {
     gap: 12px;
     min-width: 0;
     text-align: right;
+
 }
 
 .brand-logo {
@@ -794,6 +805,7 @@ form {
 .form-grid {
     display: grid;
     gap: 12px;
+
 }
 
 .form-grid.two-columns {
