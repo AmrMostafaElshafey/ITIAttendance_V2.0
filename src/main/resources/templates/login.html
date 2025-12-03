@@ -8,13 +8,7 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
-<header>
-    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
-    <div class="header-copy">
-        <h2>تسجيل دخول المستخدم</h2>
-        <p>أدخل بريدك وكلمة المرور للمتابعة لمسار الموظف أو المدير.</p>
-    </div>
-</header>
+<header th:replace="~{fragments/page-header :: pageHeader(title='تسجيل دخول المستخدم', subtitle='أدخل بريدك وكلمة المرور للمتابعة لمسار الموظف أو المدير.')}"></header>
 <div class="page-layout auth-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
