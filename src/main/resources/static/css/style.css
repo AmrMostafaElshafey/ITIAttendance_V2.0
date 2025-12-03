@@ -80,8 +80,8 @@ header {
 .header-copy {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    text-align: right;
+    align-items: normal;
+    text-align: center;
     gap: 4px;
 }
 
@@ -377,7 +377,7 @@ form {
 
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    /*grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));*/
     gap: 12px;
 }
 
@@ -412,13 +412,17 @@ form {
     box-shadow: var(--shadow);
 }
 
+
 .pill {
-    display: inline-block;
+    display: flex;
     padding: 6px 10px;
-    border-radius: 999px;
+    border-radius: 12px;
     background: var(--secondary);
     color: var(--primary-strong);
-    font-size: 13px;
+    font-size: 14px;
+    text-align: center;
+    width: 100%
+    /*display: block;*/
 }
 
 .theme-toggle {
@@ -465,7 +469,8 @@ form {
 }
 
 .header-branding {
-    margin-inline-start: auto;
+    /*margin-inline-start: auto;*/
+    align-items: center
 }
 
 .brand-block {
@@ -474,6 +479,7 @@ form {
     gap: 12px;
     min-width: 0;
     text-align: right;
+
 }
 
 .brand-logo {
@@ -779,6 +785,7 @@ form {
 .form-grid {
     display: grid;
     gap: 12px;
+
 }
 
 .form-grid.two-columns {
