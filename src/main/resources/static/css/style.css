@@ -63,30 +63,26 @@ img {
 
 header {
     background: linear-gradient(120deg, var(--primary), var(--primary-strong));
-    padding: 0;
+    padding: 24px 12px;
     text-align: right;
     color: #fff;
     z-index: 10;
 }
 
 .header-inner {
-    max-width: none;   /* allow full width */
-    width: 100%;       /* stretch across header */
-    margin: 0;         /* no centering margin */
-    padding: 24px 12px;/* move padding here so content breathes */
-
-    /*display: flex;*/
-    /*flex-direction: column;*/
-    /*gap: 10px;*/
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .header-copy {
     display: flex;
     flex-direction: column;
-    align-items: normal;
-    text-align: center;
+    align-items: flex-start;
+    text-align: right;
     gap: 4px;
-    justify-content: space-between;
 }
 
 header h1 {
@@ -465,17 +461,15 @@ form {
 .header-bar {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* brand-right, actions-left */
+    justify-content: space-between;
     flex-direction: row;
     gap: 16px;
-    flex-wrap: nowrap; /* <-- THIS IS THE IMPORTANT FIX */
-    width: 100%;
+    flex-wrap: wrap;
     margin-bottom: 14px;
 }
 
 .header-branding {
-    /*margin-inline-start: auto;*/
-    align-items: center
+    margin-inline-start: auto;
 }
 
 .brand-block {
@@ -484,7 +478,6 @@ form {
     gap: 12px;
     min-width: 0;
     text-align: right;
-
 }
 
 .brand-logo {
@@ -790,7 +783,6 @@ form {
 .form-grid {
     display: grid;
     gap: 12px;
-
 }
 
 .form-grid.two-columns {

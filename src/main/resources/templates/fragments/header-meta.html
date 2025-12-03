@@ -2,16 +2,6 @@
 <html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <body>
 <div class="header-bar" th:fragment="headerMeta">
-    <div class="brand-block header-branding">
-        <div class="brand-logo">
-            <img th:if="${activeOrganization != null and activeOrganization.logoPath != null}" th:src="${activeOrganization.logoPath}" alt="شعار المؤسسة">
-            <div class="brand-placeholder" th:if="${activeOrganization == null or activeOrganization.logoPath == null}">شعار</div>
-        </div>
-        <div>
-            <div class="brand-name" th:text="${activeOrganization != null ? activeOrganization.name : 'المؤسسة'}">المؤسسة</div>
-<!--            <div th:text="${activeOrganization != null ? activeOrganization.description : 'وصف قصير للمؤسسة'}">الوصف</div>-->
-        </div>
-    </div>
     <div class="header-actions">
         <div class="user-chip" sec:authorize="isAuthenticated()" th:if="${currentEmployee != null}">
             <img th:src="${currentEmployee.personalPhotoPath != null ? currentEmployee.personalPhotoPath : '/img/default-avatar.svg'}" alt="الصورة الشخصية" class="user-avatar">
@@ -29,7 +19,16 @@
         </form>
         <a sec:authorize="isAnonymous()" class="btn ghost" href="/login">تسجيل الدخول</a>
     </div>
-
+    <div class="brand-block header-branding">
+        <div class="brand-logo">
+            <img th:if="${activeOrganization != null and activeOrganization.logoPath != null}" th:src="${activeOrganization.logoPath}" alt="شعار المؤسسة">
+            <div class="brand-placeholder" th:if="${activeOrganization == null or activeOrganization.logoPath == null}">شعار</div>
+        </div>
+        <div>
+            <div class="brand-name" th:text="${activeOrganization != null ? activeOrganization.name : 'المؤسسة'}">المؤسسة</div>
+            <div th:text="${activeOrganization != null ? activeOrganization.description : 'وصف قصير للمؤسسة'}">الوصف</div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

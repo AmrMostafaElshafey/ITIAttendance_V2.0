@@ -2,6 +2,7 @@ package com.iti.attendance.service;
 
 import com.iti.attendance.model.Organization;
 import com.iti.attendance.repository.OrganizationRepository;
+import com.iti.attendance.service.FileStorageService;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -19,9 +20,11 @@ import java.util.Optional;
 public class OrganizationService {
 
     private final OrganizationRepository organizationRepository;
+    private final FileStorageService fileStorageService;
 
-    public OrganizationService(OrganizationRepository organizationRepository) {
+    public OrganizationService(OrganizationRepository organizationRepository, FileStorageService fileStorageService) {
         this.organizationRepository = organizationRepository;
+        this.fileStorageService = fileStorageService;
     }
 
     public List<Organization> findAllActive() {
@@ -33,6 +36,30 @@ public class OrganizationService {
     }
 
     public Organization save(Organization organization) {
+        try {
+            return saveWithLogo(organization, null);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to save organization", e);
+        }
+    }
+
+    public Organization saveWithLogo(Organization organization, MultipartFile logoFile) throws IOException {
+        Organization existing = null;
+        if (organization.getId() != null) {
+            existing = organizationRepository.findById(organization.getId()).orElse(null);
+        }
+
+        String storedLogoPath = fileStorageService.storeFile(logoFile);
+        if (storedLogoPath != null) {
+            organization.setLogoPath(storedLogoPath);
+        } else if (existing != null && organization.getLogoPath() == null) {
+            organization.setLogoPath(existing.getLogoPath());
+        }
+
+        if (existing != null) {
+            organization.setDeleted(existing.isDeleted());
+        }
+
         return organizationRepository.save(organization);
     }
 

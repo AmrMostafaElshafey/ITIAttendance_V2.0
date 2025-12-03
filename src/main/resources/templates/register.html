@@ -10,10 +10,7 @@
 <body>
 <header th:replace="~{fragments/page-header :: pageHeader(title='تسجيل موظف جديد', subtitle='سيتم تفعيل الحساب بعد موافقة الموارد البشرية')}"></header>
 <div class="page-layout auth-layout">
-    <div>
-        <button type="button" class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
-        <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
-    </div>
+    <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
         <div class="container">
             <div class="hero card">
