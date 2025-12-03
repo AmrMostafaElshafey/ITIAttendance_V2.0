@@ -8,18 +8,27 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
+<header th:replace="~{fragments/page-header :: pageHeader(title='تفاصيل المؤسسة', subtitle='إضافة أو تعديل بيانات المؤسسة وشعارها')}"></header>
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-<div class="container">
+        <div class="container">
     <h1>تفاصيل المؤسسة</h1>
-    <form th:action="@{/admin/organizations}" th:object="${organization}" method="post" class="form-card">
+    <form th:action="@{/admin/organizations}" th:object="${organization}" method="post" class="form-card" enctype="multipart/form-data">
         <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{logoPath}">
         <label>الاسم
             <input type="text" th:field="*{name}" required>
         </label>
         <label>الوصف
             <textarea th:field="*{description}" rows="3"></textarea>
+        </label>
+        <label>شعار المؤسسة
+            <input type="file" name="logo" accept="image/*" id="logoInput">
+            <div class="image-preview large" id="logoPreview">
+                <img th:if="${organization.logoPath}" th:src="${organization.logoPath}" alt="شعار المؤسسة">
+                <div class="placeholder" th:if="${organization.logoPath == null}">لم يتم اختيار شعار بعد</div>
+            </div>
         </label>
         <button type="submit" class="btn">حفظ</button>
         <a href="/admin/organizations" class="link">عودة</a>
@@ -27,5 +36,35 @@
 </div>
     </main>
 </div>
+<script>
+    const logoInput = document.getElementById('logoInput');
+    const logoPreview = document.getElementById('logoPreview');
+    if (logoInput && logoPreview) {
+        logoInput.addEventListener('change', () => {
+            const file = logoInput.files && logoInput.files[0];
+            const existingImg = logoPreview.querySelector('img');
+            const placeholder = logoPreview.querySelector('.placeholder');
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    if (placeholder) placeholder.style.display = 'none';
+                    if (existingImg) {
+                        existingImg.src = e.target.result;
+                        existingImg.style.display = 'block';
+                    } else {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.alt = 'شعار المؤسسة';
+                        logoPreview.appendChild(img);
+                    }
+                };
+                reader.readAsDataURL(file);
+            } else if (placeholder) {
+                placeholder.style.display = 'grid';
+                if (existingImg) existingImg.style.display = 'none';
+            }
+        });
+    }
+</script>
 </body>
 </html>

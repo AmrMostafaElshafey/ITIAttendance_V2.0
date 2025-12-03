@@ -1,6 +1,7 @@
 package com.iti.attendance.service;
 
 import com.iti.attendance.model.LeaveRequest;
+import com.iti.attendance.model.LeaveType;
 import com.iti.attendance.model.RequestType;
 import com.iti.attendance.repository.LeaveRequestRepository;
 import org.apache.poi.ss.usermodel.Row;
@@ -13,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -50,6 +53,19 @@ public class LeaveRequestService {
 
     public LeaveRequest save(LeaveRequest request) {
         return leaveRequestRepository.save(request);
+    }
+
+    public boolean isWithinGracePeriod(LeaveRequest request) {
+        LocalDate startDate = request.getStartDate();
+        LeaveType leaveType = request.getLeaveType();
+        if (startDate == null || leaveType == null) {
+            return true;
+        }
+        if (!startDate.isBefore(LocalDate.now())) {
+            return true;
+        }
+        long hoursDiff = ChronoUnit.HOURS.between(startDate.atStartOfDay(), LocalDateTime.now());
+        return hoursDiff <= leaveType.getGraceHours();
     }
 
     public void softDelete(Long id) {

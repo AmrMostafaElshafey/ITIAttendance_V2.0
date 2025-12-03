@@ -8,10 +8,11 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
+<header th:replace="~{fragments/page-header :: pageHeader(title='أنواع الإجازات والقواعد', subtitle='إدارة أنواع الإجازات والمأموريات والأذونات')}"></header>
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
-<div class="container">
+        <div class="container">
     <h1>أنواع الإجازات والقواعد</h1>
     <div class="actions">
         <a class="btn" href="/admin/leave-types/new">إضافة نوع</a>
@@ -28,6 +29,8 @@
             <th>الاسم</th>
             <th>الوصف</th>
             <th>الحد الأقصى للأيام</th>
+            <th>ساعات السماح للتقديم</th>
+            <th>نوع الطلب</th>
             <th>اعتماد مدير؟</th>
             <th>اعتماد الموارد البشرية؟</th>
             <th>إجراءات</th>
@@ -38,6 +41,8 @@
             <td th:text="${type.name}"></td>
             <td th:text="${type.description}"></td>
             <td th:text="${type.maxDaysPerRequest}"></td>
+            <td th:text="${type.graceHours}"></td>
+            <td th:text="${type.requestType}"></td>
             <td th:text="${type.requiresManagerApproval} ? 'نعم' : 'لا'"></td>
             <td th:text="${type.requiresHrApproval} ? 'نعم' : 'لا'"></td>
             <td>

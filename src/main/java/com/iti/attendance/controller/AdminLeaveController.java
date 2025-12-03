@@ -4,6 +4,7 @@ import com.iti.attendance.model.LeaveRequest;
 import com.iti.attendance.model.RequestType;
 import com.iti.attendance.service.EmployeeService;
 import com.iti.attendance.service.LeaveRequestService;
+import com.iti.attendance.service.LeaveTypeService;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -29,17 +30,20 @@ public class AdminLeaveController {
 
     private final LeaveRequestService leaveRequestService;
     private final EmployeeService employeeService;
+    private final LeaveTypeService leaveTypeService;
 
-    public AdminLeaveController(LeaveRequestService leaveRequestService, EmployeeService employeeService) {
+    public AdminLeaveController(LeaveRequestService leaveRequestService, EmployeeService employeeService, LeaveTypeService leaveTypeService) {
         this.leaveRequestService = leaveRequestService;
         this.employeeService = employeeService;
+        this.leaveTypeService = leaveTypeService;
     }
 
     @GetMapping
     public String list(Model model) {
-        model.addAttribute("leaves", leaveRequestService.findAllActive());
+        model.addAttribute("leaves", leaveRequestService.findAllActiveByType(RequestType.LEAVE));
         model.addAttribute("employees", employeeService.findAllActive());
         model.addAttribute("requestTypes", RequestType.values());
+        model.addAttribute("leaveTypes", leaveTypeService.findActiveByType(RequestType.LEAVE));
         model.addAttribute("basePath", resolveBasePath());
         return "admin-leaves";
     }
@@ -49,14 +53,25 @@ public class AdminLeaveController {
         model.addAttribute("leaveRequest", new LeaveRequest());
         model.addAttribute("employees", employeeService.findAllActive());
         model.addAttribute("requestTypes", RequestType.values());
+        model.addAttribute("leaveTypes", leaveTypeService.findActiveByType(RequestType.LEAVE));
         model.addAttribute("basePath", resolveBasePath());
         return "admin-leave-form";
     }
 
     @PostMapping
-    public String save(@ModelAttribute LeaveRequest leaveRequest, @RequestParam("start") String start, @RequestParam("end") String end) {
+    public String save(@ModelAttribute LeaveRequest leaveRequest,
+                       @RequestParam("start") String start,
+                       @RequestParam("end") String end,
+                       @RequestParam("leaveTypeId") Long leaveTypeId) {
         leaveRequest.setStartDate(LocalDate.parse(start));
         leaveRequest.setEndDate(LocalDate.parse(end));
+        leaveTypeService.findById(leaveTypeId).ifPresent(lt -> {
+            leaveRequest.setLeaveType(lt);
+            leaveRequest.setType(lt.getRequestType());
+        });
+        if (!leaveRequestService.isWithinGracePeriod(leaveRequest)) {
+            return "redirect:" + resolveBasePath() + "?graceError=true";
+        }
         leaveRequestService.save(leaveRequest);
         return "redirect:" + resolveBasePath();
     }
@@ -66,6 +81,7 @@ public class AdminLeaveController {
         leaveRequestService.findById(id).ifPresent(lr -> model.addAttribute("leaveRequest", lr));
         model.addAttribute("employees", employeeService.findAllActive());
         model.addAttribute("requestTypes", RequestType.values());
+        model.addAttribute("leaveTypes", leaveTypeService.findActiveByType(RequestType.LEAVE));
         model.addAttribute("basePath", resolveBasePath());
         return "admin-leave-form";
     }

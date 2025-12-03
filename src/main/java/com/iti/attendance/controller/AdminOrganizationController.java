@@ -40,8 +40,9 @@ public class AdminOrganizationController {
     }
 
     @PostMapping
-    public String save(@ModelAttribute Organization organization) {
-        organizationService.save(organization);
+    public String save(@ModelAttribute Organization organization,
+                       @RequestParam(value = "logo", required = false) MultipartFile logo) throws IOException {
+        organizationService.saveWithLogo(organization, logo);
         return "redirect:/admin/organizations";
     }
 
