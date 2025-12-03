@@ -171,7 +171,7 @@ button:hover, .btn:hover {
 
 .container {
     width: min(1100px, 94%);
-    margin: 0 auto 40px;
+    margin: 0 40px 40px;
 }
 
 .hero {
@@ -392,7 +392,7 @@ form {
 
 .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    /*grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));*/
     gap: 12px;
 }
 
@@ -427,13 +427,17 @@ form {
     box-shadow: var(--shadow);
 }
 
+
 .pill {
-    display: inline-block;
+    display: flex;
     padding: 6px 10px;
-    border-radius: 999px;
+    border-radius: 12px;
     background: var(--secondary);
     color: var(--primary-strong);
-    font-size: 13px;
+    font-size: 14px;
+    text-align: center;
+    width: 100%
+    /*display: block;*/
 }
 
 .theme-toggle {

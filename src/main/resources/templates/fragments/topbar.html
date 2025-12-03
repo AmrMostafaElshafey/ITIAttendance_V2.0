@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<div class="topbar" th:fragment="topbar">
+    <div class="topbar-brand" th:if="${activeOrganization != null}">
+        <div class="brand-mark large">
+            <img th:if="${activeOrganization.logoPath != null}" th:src="${activeOrganization.logoPath}" alt="شعار المؤسسة">
+            <div class="placeholder" th:if="${activeOrganization.logoPath == null}">شعار</div>
+        </div>
+        <div class="brand-info">
+            <div class="brand-name" th:text="${activeOrganization.name}">المؤسسة</div>
+        </div>
+    </div>
+    <div class="topbar-actions">
+        <div class="user-chip" sec:authorize="isAuthenticated()" th:if="${currentEmployee != null}">
+            <img th:src="${currentEmployee.personalPhotoPath != null ? currentEmployee.personalPhotoPath : '/img/default-avatar.svg'}" alt="الصورة الشخصية" class="user-avatar">
+            <div>
+                <div class="user-name" th:text="${currentEmployee.name}">الموظف</div>
+                <div class="user-role" th:text="${currentEmployee.role}">الدور</div>
+            </div>
+        </div>
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post" class="logout-form">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+            <button type="submit" class="btn">تسجيل الخروج</button>
+        </form>
+        <a sec:authorize="isAnonymous()" class="btn ghost" href="/login">تسجيل الدخول</a>
+    </div>
+</div>
+</body>
+</html>
