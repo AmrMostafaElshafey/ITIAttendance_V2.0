@@ -8,11 +8,7 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
-<header>
-    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
-    <h1>قواعد الحضور والطلبات</h1>
-    <p>ضبط قواعد الحضور، الإجازات، المأموريات، والأذونات.</p>
-</header>
+<header th:replace="~{fragments/page-header :: pageHeader(title='قواعد الحضور والطلبات', subtitle='ضبط قواعد الحضور، الإجازات، المأموريات، والأذونات')}"></header>
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">

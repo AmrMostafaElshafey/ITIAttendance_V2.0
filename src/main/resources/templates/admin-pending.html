@@ -8,10 +8,7 @@
     <script src="/js/theme.js" defer></script>
 </head>
 <body>
-<header>
-    <div th:replace="~{fragments/header-meta :: headerMeta}"></div>
-    <h2>بياناتك قيد المراجعة</h2>
-</header>
+<header th:replace="~{fragments/page-header :: pageHeader(title='بياناتك قيد المراجعة', subtitle='سيتم إخطارك عند تفعيل الحساب من الموارد البشرية')}"></header>
 
 <div class="page-layout">
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
