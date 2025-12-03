@@ -13,18 +13,18 @@
     <aside th:replace="~{fragments/sidebar :: navigation}"></aside>
     <main class="page-content">
         <div class="container">
-            <div class="hero card">
-                <div class="badge">منصة متجاوبة لجميع الأجهزة</div>
-                <h2>كل خدمات الموارد البشرية في منصة واحدة</h2>
-                <p>إدارة الهيكل التنظيمي والحضور والإجازات والتوقيعات في فروع متعددة بواجهة عربية واضحة وودية.</p>
-                <nav class="toolbar">
-                    <div class="flex">
-                        <button th:onclick="|window.location.href='${#authorization.expression('isAuthenticated()') ? '/admin/dashboard' : '/login'}'|">الدخول لمسار الإدارة</button>
-                        <button th:onclick="|window.location.href='${#authorization.expression('isAuthenticated()') ? '/employee/portal' : '/login'}'|">الدخول لمسار الموظف/المدير</button>
-                    </div>
-                    <span class="badge">جرب تبديل الألوان من الزر العائم أسفل الواجهة 🎨</span>
-                </nav>
-            </div>
+                <div class="hero card">
+                    <div class="badge">منصة متجاوبة لجميع الأجهزة</div>
+                    <h2>كل خدمات الموارد البشرية في منصة واحدة</h2>
+                    <p>إدارة الهيكل التنظيمي والحضور والإجازات والتوقيعات في فروع متعددة بواجهة عربية واضحة وودية.</p>
+                    <nav class="toolbar">
+                        <div class="flex">
+                            <a class="btn" th:href="${#authorization.expression('isAuthenticated()') ? '/admin/dashboard' : '/login'}">الدخول لمسار الإدارة</a>
+                            <a class="btn" th:href="${#authorization.expression('isAuthenticated()') ? '/employee/portal' : '/login'}">الدخول لمسار الموظف/المدير</a>
+                        </div>
+                        <span class="badge">جرب تبديل الألوان من الزر العائم أسفل الواجهة 🎨</span>
+                    </nav>
+                </div>
 
             <div class="services-grid" style="margin-top: 20px;">
                 <div class="card service-card">
